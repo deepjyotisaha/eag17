@@ -1,0 +1,103 @@
+.timeline-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+        }
+
+        /* Timeline container */
+.timeline {
+  background: #222;
+  margin: 20px auto;
+  position: relative;
+}
+
+/* Timeline line */
+.timeline::after {
+  position: absolute;
+  width: 2px;
+  background-color: #222;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+  content: '';
+}
+
+/* Timeline items */
+.timeline-item {
+  padding: 1em 0;
+  position: relative;
+}
+
+/* Timeline item circle marker */
+.timeline-item::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #fff;
+  left: 50%;
+  margin-left: -6px;
+  content: '';
+}
+
+/* Right timeline */
+.timeline-item.right {
+  text-align: left;
+}
+
+/* Right content */
+.timeline-item.right .timeline-content {
+  margin-left: 50px;
+}
+
+/* Left timeline */
+.timeline-item.left {
+  text-align: right;
+}
+
+/* Left content */
+.timeline-item.left .timeline-content {
+  margin-right: 50px;
+}
+
+/* Timeline content box */
+.timeline-content {
+  position: relative;
+  padding: 1.5em;
+  background-color: #fff;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Media queries - Responsive timeline */
+@media screen and (max-width: 768px) {
+  .timeline::after {
+    left: 90px;
+  }
+
+  .timeline-item {
+    margin-bottom: 50px;
+  }
+
+  .timeline-item.right {
+    text-align: left;
+  }
+
+  .timeline-item.right .timeline-content {
+    margin-left: 120px;
+    margin-right: 0px;
+  }
+
+  .timeline-item.left {
+    text-align: left;
+  }
+
+  .timeline-item.left .timeline-content {
+    margin-left: 120px;
+    margin-right: 0px;
+  }
+}

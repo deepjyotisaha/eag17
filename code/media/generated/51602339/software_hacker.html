@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- META_PLACEHOLDER -->
+    <title>Portfolio Website</title>
+
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Flowbite CSS CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- Splide.js CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
+    <style>
+        /* Dark Theme Styles */
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Add custom styles here */
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Header -->
+    <header>
+        
+<header class="sticky top-0 z-50 bg-gray-800 text-white shadow-md">
+    <nav class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+            <a href="#" class="font-bold text-xl text-orange-300">Software Hacker</a>
+            <div class="space-x-6">
+                <a href="#hero" class="hover:text-orange-400 transition-colors">Hero</a>
+                <a href="#counters" class="hover:text-orange-400 transition-colors">Counters</a>
+                <a href="#cards" class="hover:text-orange-400 transition-colors">Category Cards</a>
+                <a href="#timeline" class="hover:text-orange-400 transition-colors">Timeline</a>
+                <a href="#gallery" class="hover:text-orange-400 transition-colors">Gallery</a>
+                <a href="#testimonials" class="hover:text-orange-400 transition-colors">Testimonials</a>
+                <a href="#contact" class="hover:text-orange-400 transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="py-24">
+        <section id="hero" class="relative bg-gray-800 overflow-hidden">
+    <div class="absolute inset-0">
+        <img src="https://picsum.photos/1600/900?blur=1" alt="Hero Image" class="w-full h-full object-cover animate__animated animate__fadeIn">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+    </div>
+    <div class="relative py-32 px-4 sm:py-32 sm:px-6 lg:py-40 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-3xl font-extrabold text-white sm:text-3xl lg:text-5xl animate__animated animate__fadeInUp animate__delay-1s">
+                <span class="block">Software Hacker Portfolio</span>
+            </h2>
+            <p class="mt-4 text-xl text-gray-300 sm:mt-6 animate__animated animate__fadeInUp animate__delay-2s">
+                Crafting innovative solutions with code.
+            </p>
+            <div class="mt-8 animate__animated animate__fadeInUp animate__delay-3s">
+                <div class="inline-flex rounded-md shadow">
+                    <a href="#about" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-200">
+                        Learn more
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </section>
+
+    <!-- Counters Section -->
+    <section id="counters" class="py-16">
+        <section id="counters" class="py-12 bg-gray-700">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="animate__animated animate__fadeInUp">
+                <h3 class="text-3xl font-bold text-orange-300 counter" data-target="150">0</h3>
+                <p class="text-gray-300">Happy Clients</p>
+            </div>
+            <div class="animate__animated animate__fadeInUp">
+                <h3 class="text-3xl font-bold text-orange-300 counter" data-target="200">0</h3>
+                <p class="text-gray-300">Projects Completed</p>
+            </div>
+            <div class="animate__animated animate__fadeInUp">
+                <h3 class="text-3xl font-bold text-orange-300 counter" data-target="5">0</h3>
+                <p class="text-gray-300">Years Experience</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => {
+    counter.innerText = '0';
+    const updateCounter = () => {
+      const target = +counter.getAttribute('data-target');
+      let count = +counter.innerText;
+      const increment = target / 200;
+      if (count < target) {
+        counter.innerText = `${Math.ceil(count + increment)}`;
+        setTimeout(updateCounter, 1);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCounter();
+  });
+</script>
+    </section>
+
+    <!-- Category Cards Section -->
+    <section id="cards" class="py-16">
+        <section id="categories" class="py-12 bg-gray-800">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-orange-300 mb-8 text-center">Categories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate__animated animate__fadeInUp">
+                <img src="https://picsum.photos/400/600?grayscale/random=1" alt="Category 1" class="w-full h-64 object-cover">
+                <div class="p-4 bg-gray-700">
+                    <h3 class="text-xl font-semibold text-gray-300 mb-2">Software Development</h3>
+                    <p class="text-gray-400">Custom software solutions tailored to your needs.</p>
+                    <a href="#" class="inline-block mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Learn More</a>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate__animated animate__fadeInUp">
+                <img src="https://picsum.photos/400/600?grayscale/random=2" alt="Category 2" class="w-full h-64 object-cover">
+                <div class="p-4 bg-gray-700">
+                    <h3 class="text-xl font-semibold text-gray-300 mb-2">Web Development</h3>
+                    <p class="text-gray-400">Dynamic and responsive websites for your online presence.</p>
+                    <a href="#" class="inline-block mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Learn More</a>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate__animated animate__fadeInUp">
+                <img src="https://picsum.photos/400/600?grayscale/random=3" alt="Category 3" class="w-full h-64 object-cover">
+                <div class="p-4 bg-gray-700">
+                    <h3 class="text-xl font-semibold text-gray-300 mb-2">Data Science</h3>
+                    <p class="text-gray-400">Unlock the power of your data with insightful analysis.</p>
+                    <a href="#" class="inline-block mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-16">
+        
+<section id="about" class="py-12 bg-gray-800 text-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-orange-300 mb-6 text-center">About Software Hacker</h2>
+        <p class="text-gray-300 mb-8">
+            Our mission is to empower individuals and businesses through innovative software solutions. We are dedicated to crafting high-quality, efficient, and user-friendly applications that solve real-world problems.
+        </p>
+
+        <h3 class="text-2xl font-bold text-orange-300 mb-4 text-center">Timeline of Accomplishments</h3>
+
+        <div class="relative">
+            <div class="absolute left-1/2 h-full border border-gray-700 hidden md:block"></div>
+            <div class="mt-6 md:mt-0">
+                <div class="flex flex-col md:flex-row items-stretch md:items-center">
+                    <div class="md:w-1/2">
+                        <div class="text-right md:pr-4">
+                            <h4 class="text-xl font-semibold mb-2">2018: Founding</h4>
+                            <p class="text-gray-300 mb-4">Software Hacker was founded with a vision to revolutionize the software industry.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="relative ml-4 md:ml-0">
+                            <div class="w-3 h-3 bg-orange-300 rounded-full absolute left-[-6px] top-1/2 transform -translate-y-1/2 hidden md:block"></div>
+                        </div>
+                        <div class="text-left md:pl-4">
+                            <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                                <p class="text-gray-300">Established initial team and secured seed funding.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-stretch md:items-center mt-6">
+                    <div class="md:w-1/2 order-2">
+                        <div class="text-left md:pl-4">
+                            <h4 class="text-xl font-semibold mb-2">2020: First Major Project</h4>
+                            <p class="text-gray-300 mb-4">Successfully delivered our first major software project for a leading tech company.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 order-1">
+                        <div class="relative mr-4 md:mr-0">
+                            <div class="w-3 h-3 bg-orange-300 rounded-full absolute right-[-6px] top-1/2 transform -translate-y-1/2 hidden md:block"></div>
+                        </div>
+                        <div class="text-right md:pr-4">
+                            <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                                <p class="text-gray-300">Expanded our service offerings to include cloud solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-stretch md:items-center mt-6">
+                    <div class="md:w-1/2">
+                        <div class="text-right md:pr-4">
+                            <h4 class="text-xl font-semibold mb-2">2022: Global Expansion</h4>
+                            <p class="text-gray-300 mb-4">Expanded our operations globally, serving clients across multiple continents.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="relative ml-4 md:ml-0">
+                            <div class="w-3 h-3 bg-orange-300 rounded-full absolute left-[-6px] top-1/2 transform -translate-y-1/2 hidden md:block"></div>
+                        </div>
+                        <div class="text-left md:pl-4">
+                            <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                                <p class="text-gray-300">Launched a successful AI-powered product line.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16">
+        <section id="gallery" class="py-12 bg-gray-800">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-white text-center mb-8 animate__animated animate__fadeIn">Projects</h2>
+        <div class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=1" alt="Project 1" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 1 Description</p>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=2" alt="Project 2" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 2 Description</p>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=3" alt="Project 3" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 3 Description</p>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=4" alt="Project 4" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 4 Description</p>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=5" alt="Project 5" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 5 Description</p>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=6" alt="Project 6" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 6 Description</p>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=7" alt="Project 7" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 7 Description</p>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="https://picsum.photos/600/400?random=8" alt="Project 8" class="rounded-lg shadow-md">
+                        <p class="text-gray-300 mt-2 text-center">Project 8 Description</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener( 'DOMContentLoaded', function() {
+        new Splide( '.splide', {
+            type   : 'loop',
+            perPage: 3,
+            gap    : '2rem',
+            autoplay: true,
+            breakpoints: {
+                640: {
+                    perPage: 1,
+                },
+                991: {
+                    perPage: 2,
+                },
+            }
+        } ).mount();
+    } );
+</script>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16">
+        
+<section id="testimonials" class="py-12 bg-gray-900 text-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Client Testimonials</h2>
+        <div class="testimonials-splide" style="max-width: 800px; margin: 0 auto;">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide">
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <p class="text-lg italic mb-4">"Incredible service! They truly understood our needs and delivered a solution that exceeded our expectations."</p>
+                            <div class="flex items-center">
+                                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Client 1" class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <p class="font-bold">John Doe</p>
+                                    <p class="text-sm text-gray-400">CEO, Company XYZ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <p class="text-lg italic mb-4">"The team was professional, efficient, and a pleasure to work with. Highly recommend their services!"</p>
+                            <div class="flex items-center">
+                                <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Client 2" class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <p class="font-bold">Jane Smith</p>
+                                    <p class="text-sm text-gray-400">Marketing Manager, ABC Corp</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <p class="text-lg italic mb-4">"Exceptional expertise and dedication. They went above and beyond to ensure our project was a success."</p>
+                            <div class="flex items-center">
+                                <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Client 3" class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <p class="font-bold">Mike Johnson</p>
+                                    <p class="text-sm text-gray-400">Project Lead, 123 Industries</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        
+<section id="contact" class="py-12 bg-gray-800">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Contact Me</h2>
+        <form id="contactForm" class="max-w-lg mx-auto">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name</label>
+                <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600" placeholder="Your Name">
+                <p id="nameError" class="text-red-500 text-xs italic hidden">Please enter your name.</p>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email</label>
+                <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600" placeholder="Your Email">
+                <p id="emailError" class="text-red-500 text-xs italic hidden">Please enter a valid email address.</p>
+            </div>
+            <div class="mb-6">
+                <label for="message" class="block text-gray-300 text-sm font-bold mb-2">Message</label>
+                <textarea id="message" name="message" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600" placeholder="Your Message"></textarea>
+                <p id="messageError" class="text-red-500 text-xs italic hidden">Please enter your message.</p>
+            </div>
+            <div class="flex items-center justify-between">
+                <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200" type="button" onclick="validateForm()">
+                    Send Message
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+function validateForm() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+    let nameError = document.getElementById("nameError");
+    let emailError = document.getElementById("emailError");
+    let messageError = document.getElementById("messageError");
+    let isValid = true;
+
+    if (name === "") {
+        nameError.classList.remove("hidden");
+        isValid = false;
+    } else {
+        nameError.classList.add("hidden");
+    }
+
+    if (email === "") {
+        emailError.classList.remove("hidden");
+        emailError.textContent = "Please enter your email address.";
+        isValid = false;
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        emailError.classList.remove("hidden");
+        emailError.textContent = "Please enter a valid email address.";
+        isValid = false;
+    } else {
+        emailError.classList.add("hidden");
+    }
+
+    if (message === "") {
+        messageError.classList.remove("hidden");
+        isValid = false;
+    } else {
+        messageError.classList.add("hidden");
+    }
+
+    if (isValid) {
+        alert("Message sent!");
+        document.getElementById("contactForm").reset();
+    }
+}
+</script>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center">
+        <footer class="bg-gray-900 text-white py-8">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="text-sm">
+                &copy; 2024 Software Hacker. All rights reserved.
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-orange-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-orange-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-orange-400 transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="hover:text-orange-400 transition-colors"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </footer>
+
+    <!-- Flowbite JavaScript CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
+    <!-- Splide.js JavaScript CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
+    <script>
+        // JavaScript for Splide.js (if needed)
+        document.addEventListener( 'DOMContentLoaded', function() {
+            // Example Splide initialization (customize as needed)
+            // var splide = new Splide( '.splide' ).mount();
+        } );
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new Splide('.testimonials-splide', {
+            type: 'loop',
+            perPage: 1,
+            perMove: 1,
+            autoplay: true,
+            interval: 5000,
+            arrows: true,
+            pagination: true,
+            gap: '1rem'
+        }).mount();
+    });
+    </script>
+</body>
+</html>

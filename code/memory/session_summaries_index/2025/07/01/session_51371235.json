@@ -1,0 +1,360 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51371235",
+    "original_query": "I need a 7-day Japan itinerary for April 15-23 from Seattle, with a $2500-5000 budget for my fiancée and me. We love historical sites, hidden gems, and Japanese culture (kendo, tea ceremonies, Zen meditation). We want to see Nara's deer and explore cities on foot. I plan to propose during this trip and need a special location recommendation. Please provide a detailed itinerary and an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips we can reference throughout our journey.",
+    "file_manifest": [],
+    "created_at": "2025-07-01T12:00:35.386054",
+    "status": "running",
+    "globals_schema": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T012"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {}
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research flight options from Seattle to Japan (round trip) for April 15-23 for two people, within the $2500-5000 budget.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research round trip flight options from Seattle (SEA) to major airports in Japan (e.g., NRT, KIX) for two adults, departing on April 15th and returning on April 23rd. Consider airlines known for good service and reasonable prices. Prioritize options that fall within the $2500-$5000 budget. Document flight numbers, layover times, and total travel time.",
+      "reads": [],
+      "writes": [
+        "flight_options_T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T12:00:35.415106",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Research accommodation options in Tokyo, Kyoto, and Nara for the specified dates and budget.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research accommodation options in Tokyo, Kyoto, and Nara for two people from April 15th to April 23rd, considering the $2500-$5000 total trip budget. Include a mix of hotels and traditional Ryokans. Prioritize options near historical sites, train stations, and with good reviews. List room types, amenities, and pricing for each option.",
+      "reads": [],
+      "writes": [
+        "accommodation_options_T002"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T12:00:35.419054",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Research historical sites in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research historical sites in Tokyo, Kyoto, and Nara, including temples, shrines, gardens, and castles. Gather information about opening hours, entrance fees, and historical significance for each site.",
+      "reads": [],
+      "writes": [
+        "historical_sites_T003"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T12:00:35.422107",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Research hidden gems and unique cultural experiences in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research hidden gems and unique cultural experiences in Tokyo, Kyoto, and Nara. Include recommendations for local markets, traditional crafts workshops, smaller less known temples/shrines, tea houses, and opportunities for kendo, tea ceremonies, and Zen meditation. Also identify opportunities to see Nara's deer.",
+      "reads": [],
+      "writes": [
+        "hidden_gems_T004"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T12:00:35.426056",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Research transportation options within Japan (trains, buses) and between cities (Shinkansen).",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research transportation options within Japan, including local trains, subways, buses, and the Shinkansen bullet train. Gather information on Japan Rail Pass options, ticket prices, and travel times between Tokyo, Kyoto, and Nara.",
+      "reads": [],
+      "writes": [
+        "transportation_options_T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Research restaurants and food experiences in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research restaurant and food experiences in Tokyo, Kyoto, and Nara, focusing on local cuisine and affordable options. Include recommendations for ramen shops, sushi restaurants, traditional Japanese meals, and street food. Note price ranges and must-try dishes.",
+      "reads": [],
+      "writes": [
+        "food_experiences_T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Identify a special location in Japan suitable for a proposal.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on research about Japan's romantic places, historical sites, and beautiful scenery, identify a special location suitable for a marriage proposal. The location should be picturesque, memorable, and preferably not overly crowded. Consider locations in Tokyo, Kyoto, or Nara, or a scenic spot reachable by train from these cities. Explain why the location is suitable for a proposal.",
+      "reads": [
+        "historical_sites_T003",
+        "hidden_gems_T004"
+      ],
+      "writes": [
+        "proposal_location_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Synthesize a detailed 7-day Japan itinerary incorporating the research findings, including travel times and estimated costs.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Synthesize a detailed 7-day Japan itinerary for April 15-23, incorporating the research findings on flights, accommodations, historical sites, hidden gems, transportation, food experiences, and the identified proposal location. The itinerary should include day-by-day activities, travel times between locations, estimated costs for each day, and considerations for cultural experiences like kendo, tea ceremonies, or Zen meditation. Optimize the itinerary for exploring cities on foot and seeing Nara's deer.",
+      "reads": [
+        "flight_options_T001",
+        "accommodation_options_T002",
+        "historical_sites_T003",
+        "hidden_gems_T004",
+        "transportation_options_T005",
+        "food_experiences_T006",
+        "proposal_location_T007"
+      ],
+      "writes": [
+        "detailed_itinerary_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Create a list of essential Japanese phrases for travelers.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Compile a list of essential Japanese phrases for travelers, including greetings, basic requests (e.g., asking for directions, ordering food), and polite expressions. Provide both the Japanese phrase and its English translation. Focus on phrases that would be helpful for navigating daily situations and interacting with locals.",
+      "reads": [],
+      "writes": [
+        "japanese_phrases_T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T010",
+      "description": "Create an HTML travel handbook containing the itinerary, maps, attraction descriptions, Japanese phrases, and travel tips.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Create a comprehensive HTML travel handbook for a 7-day trip to Japan from April 15-23. Include the detailed itinerary from `detailed_itinerary_T008`, maps of Tokyo, Kyoto, and Nara showing key attractions from `historical_sites_T003` and `hidden_gems_T004`, descriptions of the attractions, a list of essential Japanese phrases from `japanese_phrases_T009`, and general travel tips for Japan. Structure the handbook with clear headings, subheadings, and a visually appealing layout. Add a section with details for the proposal location from `proposal_location_T007`. Use CSS for styling to create a professional look. The handbook should be exhaustive and easy to reference on a mobile device. Create necessary folders and files to store all code.",
+      "reads": [
+        "detailed_itinerary_T008",
+        "historical_sites_T003",
+        "hidden_gems_T004",
+        "japanese_phrases_T009",
+        "proposal_location_T007"
+      ],
+      "writes": [
+        "code_step_T010",
+        "execution_result_T010"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T011",
+      "description": "Summarize the travel handbook created by CoderAgent to make sure all the information is complete and accessible.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Summarize the HTML travel handbook `execution_result_T010` created for the 7-day trip to Japan. Check the accessibility, completeness and logical structure. Also check that all of the attractions and details of the trip are present and clearly formatted.",
+      "reads": [
+        "execution_result_T010"
+      ],
+      "writes": [
+        "handbook_summary_T011"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T012",
+      "description": "Format the travel handbook summary into a well structured Markdown output. ",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the summary from `handbook_summary_T011` into a well-structured and easily readable Markdown format, highlighting key aspects of the Japan travel handbook and proposal location for a quick overview.",
+      "reads": [
+        "handbook_summary_T011"
+      ],
+      "writes": [
+        "formatted_handbook_summary_T012"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "ROOT",
+      "target": "T005"
+    },
+    {
+      "source": "ROOT",
+      "target": "T006"
+    },
+    {
+      "source": "ROOT",
+      "target": "T009"
+    },
+    {
+      "source": "T001",
+      "target": "T008"
+    },
+    {
+      "source": "T002",
+      "target": "T008"
+    },
+    {
+      "source": "T003",
+      "target": "T007"
+    },
+    {
+      "source": "T003",
+      "target": "T008"
+    },
+    {
+      "source": "T003",
+      "target": "T010"
+    },
+    {
+      "source": "T004",
+      "target": "T007"
+    },
+    {
+      "source": "T004",
+      "target": "T008"
+    },
+    {
+      "source": "T004",
+      "target": "T010"
+    },
+    {
+      "source": "T005",
+      "target": "T008"
+    },
+    {
+      "source": "T006",
+      "target": "T008"
+    },
+    {
+      "source": "T007",
+      "target": "T008"
+    },
+    {
+      "source": "T007",
+      "target": "T010"
+    },
+    {
+      "source": "T008",
+      "target": "T010"
+    },
+    {
+      "source": "T009",
+      "target": "T010"
+    },
+    {
+      "source": "T010",
+      "target": "T011"
+    },
+    {
+      "source": "T011",
+      "target": "T012"
+    }
+  ]
+}

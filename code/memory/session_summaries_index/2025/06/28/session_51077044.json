@@ -1,0 +1,326 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51077044",
+    "original_query": "Find the top startups in the space of Nuclear Fusion Reactors around the world.",
+    "file_manifest": [],
+    "created_at": "2025-06-28T02:17:24.743558",
+    "status": "running",
+    "globals_schema": {},
+    "file_profiles": {}
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Identify reputable sources for nuclear fusion startups.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Identify reputable sources for information on nuclear fusion startups, including industry news sites, venture capital databases, and research publications.",
+      "reads": [],
+      "writes": [
+        "startup_sources_T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-06-28T02:17:24.762506",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Retrieve a list of Nuclear Fusion Startups from identified sources.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve a comprehensive list of nuclear fusion startups from the sources identified in `startup_sources_T001`, including company names, locations, and founding years if available.",
+      "reads": [
+        "startup_sources_T001"
+      ],
+      "writes": [
+        "startup_list_raw_T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Clean and filter the startup list to remove duplicates.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Clean and filter the raw startup list (`startup_list_raw_T002`) to remove any duplicates or irrelevant entries, creating a unique list of nuclear fusion startups.",
+      "reads": [
+        "startup_list_raw_T002"
+      ],
+      "writes": [
+        "startup_list_cleaned_T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Research Startup A: General Company Info (Location, Description).",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research the company details of the first startup from `startup_list_cleaned_T003`. Focus on the company's location, a short description of their activities, and total funding raised.",
+      "reads": [
+        "startup_list_cleaned_T003"
+      ],
+      "writes": [
+        "startup_A_info_T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Research Startup A: Technology and Approach.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research the technology and specific fusion approach employed by the first startup from `startup_list_cleaned_T003`, based on `startup_A_info_T004`. Include details on reactor design and key milestones.",
+      "reads": [
+        "startup_list_cleaned_T003",
+        "startup_A_info_T004"
+      ],
+      "writes": [
+        "startup_A_tech_T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Research Startup B: General Company Info (Location, Description).",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research the company details of the second startup from `startup_list_cleaned_T003`. Focus on the company's location, a short description of their activities, and total funding raised.",
+      "reads": [
+        "startup_list_cleaned_T003"
+      ],
+      "writes": [
+        "startup_B_info_T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Research Startup B: Technology and Approach.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research the technology and specific fusion approach employed by the second startup from `startup_list_cleaned_T003`, based on `startup_B_info_T006`. Include details on reactor design and key milestones.",
+      "reads": [
+        "startup_list_cleaned_T003",
+        "startup_B_info_T006"
+      ],
+      "writes": [
+        "startup_B_tech_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Research Startup C: General Company Info (Location, Description).",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research the company details of the third startup from `startup_list_cleaned_T003`. Focus on the company's location, a short description of their activities, and total funding raised.",
+      "reads": [
+        "startup_list_cleaned_T003"
+      ],
+      "writes": [
+        "startup_C_info_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Research Startup C: Technology and Approach.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research the technology and specific fusion approach employed by the third startup from `startup_list_cleaned_T003`, based on `startup_C_info_T008`. Include details on reactor design and key milestones.",
+      "reads": [
+        "startup_list_cleaned_T003",
+        "startup_C_info_T008"
+      ],
+      "writes": [
+        "startup_C_tech_T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T010",
+      "description": "Synthesize comparison of Startup A, B, and C based on tech, funding and location.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Synthesize a comparison of the three startups (A, B, and C) from `startup_A_info_T004`, `startup_A_tech_T005`, `startup_B_info_T006`, `startup_B_tech_T007`, `startup_C_info_T008`, and `startup_C_tech_T009`. Focus on comparing their core technology, funding amounts, and geographical location, noting any key differences or advantages.",
+      "reads": [
+        "startup_A_info_T004",
+        "startup_A_tech_T005",
+        "startup_B_info_T006",
+        "startup_B_tech_T007",
+        "startup_C_info_T008",
+        "startup_C_tech_T009"
+      ],
+      "writes": [
+        "startup_comparison_T010"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T011",
+      "description": "Rank the startups based on the synthesis of their potential.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Rank the three startups based on the synthesis provided in `startup_comparison_T010`, considering factors like technological innovation, funding secured, and overall market potential. Provide a clear rationale for the ranking.",
+      "reads": [
+        "startup_comparison_T010"
+      ],
+      "writes": [
+        "startup_ranking_T011"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T012",
+      "description": "Format the top startups findings as a Markdown report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the research findings, startup comparison and ranking from `startup_A_info_T004`, `startup_A_tech_T005`, `startup_B_info_T006`, `startup_B_tech_T007`, `startup_C_info_T008`, `startup_C_tech_T009`, `startup_comparison_T010`, and `startup_ranking_T011` into a well-structured Markdown report that highlights the top startups in the nuclear fusion reactor space. Include sections for each startup's profile, a comparison table, and a final ranking with justifications.",
+      "reads": [
+        "startup_A_info_T004",
+        "startup_A_tech_T005",
+        "startup_B_info_T006",
+        "startup_B_tech_T007",
+        "startup_C_info_T008",
+        "startup_C_tech_T009",
+        "startup_comparison_T010",
+        "startup_ranking_T011"
+      ],
+      "writes": [
+        "top_startups_report_T012"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T008"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    },
+    {
+      "source": "T005",
+      "target": "T010"
+    },
+    {
+      "source": "T006",
+      "target": "T007"
+    },
+    {
+      "source": "T007",
+      "target": "T010"
+    },
+    {
+      "source": "T008",
+      "target": "T009"
+    },
+    {
+      "source": "T009",
+      "target": "T010"
+    },
+    {
+      "source": "T010",
+      "target": "T011"
+    },
+    {
+      "source": "T011",
+      "target": "T012"
+    }
+  ]
+}

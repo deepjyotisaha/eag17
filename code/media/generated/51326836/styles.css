@@ -1,0 +1,155 @@
+
+/* Light Theme */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+header {
+    background-color: #fff;
+    color: #333;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjusted height to account for header */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #f0f0f0;
+    border-right: 1px solid #ddd;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    color: #555;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+.sidebar a:hover {
+    color: #007bff;
+}
+
+/* Collapsible Sidebar */
+.sidebar.collapsed {
+    transform: translateX(-250px);
+}
+
+/* Chat Window Styles */
+.chat-window {
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 1rem;
+}
+
+/* Message Styles */
+.message {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.user-message {
+    background-color: #e2f0ff;
+    align-self: flex-start;
+}
+
+.llm-message {
+    background-color: #f0f8ff;
+    align-self: flex-end;
+}
+
+.message-text {
+    word-wrap: break-word;
+}
+
+/* Input Styles */
+#messageInput {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+    flex-grow: 1;
+}
+
+/* Button Styles */
+button {
+    padding: 0.75rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

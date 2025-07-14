@@ -1,0 +1,655 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51367883",
+    "original_query": "I need a 7-day Japan itinerary for April 15-23 from Seattle, with a $2500-5000 budget for my fiancée and me. We love historical sites, hidden gems, and Japanese culture (kendo, tea ceremonies, Zen meditation). We want to see Nara's deer and explore cities on foot. I plan to propose during this trip and need a special location recommendation. Please provide a detailed itinerary and an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips we can reference throughout our journey.",
+    "file_manifest": [],
+    "created_at": "2025-07-01T11:04:43.331511",
+    "status": "running",
+    "globals_schema": {
+      "flight_options_T001": [],
+      "total_tokens": 3018.0,
+      "accommodation_options_T002": [],
+      "cultural_sites_activities_T003": [],
+      "next_instruction": "Extract detailed information, including locations, schedules, costs, and booking procedures, for historical sites and cultural activities from the URLs. Prioritize less touristy spots.",
+      "iteration_context": {
+        "current_step": "extract_details",
+        "next_step": "none",
+        "cities": [
+          "Tokyo",
+          "Kyoto",
+          "Nara"
+        ]
+      },
+      "nara_deer_park_info_T004": [],
+      "proposal_locations_T005": [],
+      "japanese_phrases_tips_T007": [],
+      "city_maps_T008": []
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T010"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {}
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research flight options from Seattle to Japan (round trip) for April 15-23 for two people.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research round-trip flight options from Seattle (SEA) to major airports in Japan (e.g., NRT, KIX) for April 15-23 for two adults. Focus on flights within the $1000-2000 range per person. Consider airlines known for good service and reasonable prices. Return flight options including earliest and latest departure times.",
+      "reads": [],
+      "writes": [
+        "flight_options_T001"
+      ],
+      "status": "completed",
+      "output": {
+        "flight_options_T001": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('round trip flights Seattle to Japan April 15-23 two adults $1000-$2000 per person', 8)\nreturn {'flight_options_T001': results}",
+          "CODE_1B": "data = search_web_with_text_content('flights SEA to NRT KIX April 15-23 price range $1000-$2000', 6)\nreturn {'flight_options_T001': data}"
+        },
+        "cost": 0.00047497499999999993,
+        "input_tokens": 2890.5,
+        "output_tokens": 69.0,
+        "total_tokens": 2959.5,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.00047497499999999993,
+      "start_time": "2025-07-01T11:04:43.360125",
+      "end_time": "2025-07-01T11:04:51.938466",
+      "execution_time": 8.578341,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367883",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0008698999881744385,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "input_tokens": 2890.5,
+      "output_tokens": 69.0,
+      "total_tokens": 2959.5
+    },
+    {
+      "id": "T002",
+      "description": "Research accommodation options in Tokyo, Kyoto, and Nara fitting the budget and preferences (historical sites, hidden gems).",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research accommodation options in Tokyo, Kyoto, and Nara for April 15-23, suitable for two adults. Prioritize options with positive reviews that are close to historical sites, offer a unique cultural experience, or are considered hidden gems. Consider hotels, ryokans, and Airbnb options within the $100-300 per night range. Research about the proximity of the accommodations to train stations for easy access.",
+      "reads": [],
+      "writes": [
+        "accommodation_options_T002"
+      ],
+      "status": "completed",
+      "output": {
+        "accommodation_options_T002": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('Tokyo Kyoto Nara accommodation April 15-23 two adults hotels ryokans Airbnb cultural experience hidden gems historical sites train stations $100-$300 per night positive reviews', 8)\nreturn {'accommodation_options_T002': results}",
+          "CODE_1B": "results = search_web_with_text_content('Tokyo Kyoto Nara ryokan hotel Airbnb near historical sites train station reviews $100 to $300', 6)\nreturn {'accommodation_options_T002': results}"
+        },
+        "cost": 0.0004923,
+        "input_tokens": 2910.0,
+        "output_tokens": 93.0,
+        "total_tokens": 3003.0,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.0004923,
+      "start_time": "2025-07-01T11:04:43.364130",
+      "end_time": "2025-07-01T11:04:51.952483",
+      "execution_time": 8.588353,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367883",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0008212000102503225,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "input_tokens": 2910.0,
+      "output_tokens": 93.0,
+      "total_tokens": 3003.0
+    },
+    {
+      "id": "T003",
+      "description": "Research notable historical sites and cultural activities (kendo, tea ceremonies, Zen meditation) in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research notable historical sites (temples, shrines, castles, gardens) and cultural activities (kendo dojos, tea ceremony venues, Zen meditation centers) in Tokyo, Kyoto, and Nara. Gather information about locations, schedules, costs, and booking procedures, to create the itinerary. Include spots where tourists are less likely to be found.",
+      "reads": [],
+      "writes": [
+        "cultural_sites_activities_T003"
+      ],
+      "status": "completed",
+      "output": {
+        "cultural_sites_activities_T003": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information, including locations, schedules, costs, and booking procedures, for historical sites and cultural activities from the URLs. Prioritize less touristy spots.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "none",
+          "cities": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ]
+        },
+        "code_variants": {
+          "CODE_1A": "results = []\nfor url in cultural_sites_activities_T003[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'cultural_sites_activities_T003': results}",
+          "CODE_1B": "details = []\nfor url in cultural_sites_activities_T003[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract location, schedule, cost, booking procedure, and tourist level')\n    details.append(info)\nreturn {'cultural_sites_activities_T003': details}"
+        },
+        "cost": 0.0005292,
+        "input_tokens": 3012.0,
+        "output_tokens": 129.0,
+        "total_tokens": 3141.0,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.0005292,
+      "start_time": "2025-07-01T11:04:43.367135",
+      "end_time": "2025-07-01T11:04:51.966481",
+      "execution_time": 8.599346,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367883",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0007076000038068742,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "cultural_sites_activities_T003": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information, including locations, schedules, costs, and booking procedures for the identified historical sites and cultural activities in Tokyo, Kyoto, and Nara. Prioritize sources that mention less touristy spots.",
+            "iteration_context": {
+              "current_step": "search_sites_activities",
+              "next_step": "extract_details",
+              "cities": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ]
+            },
+            "code_variants": {
+              "CODE_1A": "urls = fetch_search_urls('historical sites temples shrines castles gardens Tokyo Kyoto Nara less touristy', 10)\nreturn {'cultural_sites_activities_T003': urls}",
+              "CODE_1B": "results = search_web_with_text_content('cultural activities kendo dojos tea ceremony Zen meditation Tokyo Kyoto Nara hidden gems', 8)\nreturn {'cultural_sites_activities_T003': results}"
+            },
+            "cost": 0.00051525,
+            "input_tokens": 2889.0,
+            "output_tokens": 136.5,
+            "total_tokens": 3025.5
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "cultural_sites_activities_T003": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information, including locations, schedules, costs, and booking procedures, for historical sites and cultural activities from the URLs. Prioritize less touristy spots.",
+            "iteration_context": {
+              "current_step": "extract_details",
+              "next_step": "none",
+              "cities": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ]
+            },
+            "code_variants": {
+              "CODE_1A": "results = []\nfor url in cultural_sites_activities_T003[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'cultural_sites_activities_T003': results}",
+              "CODE_1B": "details = []\nfor url in cultural_sites_activities_T003[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract location, schedule, cost, booking procedure, and tourist level')\n    details.append(info)\nreturn {'cultural_sites_activities_T003': details}"
+            },
+            "cost": 0.0005292,
+            "input_tokens": 3012.0,
+            "output_tokens": 129.0,
+            "total_tokens": 3141.0
+          }
+        }
+      ],
+      "call_self_used": true,
+      "final_iteration_output": {
+        "cultural_sites_activities_T003": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information, including locations, schedules, costs, and booking procedures, for historical sites and cultural activities from the URLs. Prioritize less touristy spots.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "none",
+          "cities": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ]
+        },
+        "code_variants": {
+          "CODE_1A": "results = []\nfor url in cultural_sites_activities_T003[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'cultural_sites_activities_T003': results}",
+          "CODE_1B": "details = []\nfor url in cultural_sites_activities_T003[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract location, schedule, cost, booking procedure, and tourist level')\n    details.append(info)\nreturn {'cultural_sites_activities_T003': details}"
+        },
+        "cost": 0.0005292,
+        "input_tokens": 3012.0,
+        "output_tokens": 129.0,
+        "total_tokens": 3141.0
+      },
+      "input_tokens": 3012.0,
+      "output_tokens": 129.0,
+      "total_tokens": 3141.0
+    },
+    {
+      "id": "T004",
+      "description": "Research specific information about Nara's deer park, including feeding etiquette, popular spots, and any associated events.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research specific information about Nara Deer Park, focusing on safe interaction guidelines, feeding etiquette, popular spots for viewing deer, and any special events or festivals occurring during April 15-23. Include alternative times to visit to avoid crowds, if any. Gather additional data about costs, opening timings and rules regarding deer interaction.",
+      "reads": [],
+      "writes": [
+        "nara_deer_park_info_T004"
+      ],
+      "status": "completed",
+      "output": {
+        "nara_deer_park_info_T004": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('Nara Deer Park interaction guidelines feeding etiquette popular spots events April 15-23', 8)\nreturn {'nara_deer_park_info_T004': results}",
+          "CODE_1B": "data = search_web_with_text_content('Nara Deer Park costs opening timings rules deer interaction alternative visit times', 6)\nreturn {'nara_deer_park_info_T004': data}"
+        },
+        "cost": 0.00047654999999999996,
+        "input_tokens": 2895.0,
+        "output_tokens": 70.5,
+        "total_tokens": 2965.5,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.00047654999999999996,
+      "start_time": "2025-07-01T11:04:43.370124",
+      "end_time": "2025-07-01T11:04:51.986482",
+      "execution_time": 8.616358,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367883",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0008606999908806756,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "input_tokens": 2895.0,
+      "output_tokens": 70.5,
+      "total_tokens": 2965.5
+    },
+    {
+      "id": "T005",
+      "description": "Research potential romantic locations for a proposal in Japan, considering scenic views and cultural significance.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research potential romantic locations in Japan suitable for a marriage proposal. Consider locations with scenic views (gardens, temples, viewpoints), cultural significance, and a peaceful atmosphere. Locations should be easily accessible or involve a manageable amount of travel. Research locations near Tokyo, Kyoto, and Nara. Consider the season for flowers and blooms to recommend the best spot. Add to the description any costs and procedures for using the location.",
+      "reads": [],
+      "writes": [
+        "proposal_locations_T005"
+      ],
+      "status": "completed",
+      "output": {
+        "proposal_locations_T005": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('romantic proposal locations Japan scenic peaceful cultural significance near Tokyo Kyoto Nara', 8)\nreturn {'proposal_locations_T005': results}",
+          "CODE_1B": "data = search_web_with_text_content('best marriage proposal spots Japan gardens temples viewpoints accessible cost procedures', 6)\nreturn {'proposal_locations_T005': data}"
+        },
+        "cost": 0.00047947499999999993,
+        "input_tokens": 2920.5,
+        "output_tokens": 69.0,
+        "total_tokens": 2989.5,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.00047947499999999993,
+      "start_time": "2025-07-01T11:04:53.029069",
+      "end_time": "2025-07-01T11:04:59.556202",
+      "execution_time": 6.527133,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367883",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0008456999930785969,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "input_tokens": 2920.5,
+      "output_tokens": 69.0,
+      "total_tokens": 2989.5
+    },
+    {
+      "id": "T006",
+      "description": "Create a detailed 7-day itinerary for the Japan trip, incorporating flight, accommodation, activities, and proposal location.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Create a detailed 7-day itinerary for a Japan trip from April 15-23, based on the researched flight options (`flight_options_T001`), accommodation options (`accommodation_options_T002`), cultural sites and activities (`cultural_sites_activities_T003`), Nara Deer Park information (`nara_deer_park_info_T004`), and proposal locations (`proposal_locations_T005`). The itinerary should balance historical sites, cultural experiences, and free time for exploration. Include travel times between locations. Itinerary to consider a budget of $2500-5000. Consider a proposal at one of the locations listed.",
+      "reads": [
+        "flight_options_T001",
+        "accommodation_options_T002",
+        "cultural_sites_activities_T003",
+        "nara_deer_park_info_T004",
+        "proposal_locations_T005"
+      ],
+      "writes": [
+        "detailed_itinerary_T006"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T11:04:59.614205",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Extract essential Japanese phrases, travel tips, and cultural etiquette information for the travel handbook.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Extract essential Japanese phrases (greetings, basic requests, directions), travel tips (transportation, currency, communication), and cultural etiquette information (bowing, dining customs, onsen etiquette) for inclusion in a travel handbook. Gather the most important items a tourist needs to have in their travel handbook. Translate Japanese to English.",
+      "reads": [],
+      "writes": [
+        "japanese_phrases_tips_T007"
+      ],
+      "status": "completed",
+      "output": {
+        "japanese_phrases_tips_T007": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('essential Japanese phrases for tourists travel tips etiquette', 8)\nreturn {'japanese_phrases_tips_T007': results}",
+          "CODE_1B": "data = search_web_with_text_content('Japanese travel handbook phrases greetings transportation etiquette', 6)\nreturn {'japanese_phrases_tips_T007': data}"
+        },
+        "cost": 0.000467325,
+        "input_tokens": 2887.5,
+        "output_tokens": 57.0,
+        "total_tokens": 2944.5,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000467325,
+      "start_time": "2025-07-01T11:04:53.034066",
+      "end_time": "2025-07-01T11:04:59.571195",
+      "execution_time": 6.537129,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367883",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0007753000099910423,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "input_tokens": 2887.5,
+      "output_tokens": 57.0,
+      "total_tokens": 2944.5
+    },
+    {
+      "id": "T008",
+      "description": "Find or create maps of Tokyo, Kyoto, and Nara, highlighting key attractions and transportation hubs.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find or create maps of Tokyo, Kyoto, and Nara, highlighting key attractions mentioned in the itinerary and major transportation hubs (train stations, bus terminals). Include information about subway lines. Find open source maps and download it for inclusion in the HTML travel handbook.",
+      "reads": [],
+      "writes": [
+        "city_maps_T008"
+      ],
+      "status": "completed",
+      "output": {
+        "city_maps_T008": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('downloadable open source maps Tokyo Kyoto Nara attractions transportation hubs', 8)\nreturn {'city_maps_T008': results}",
+          "CODE_1B": "urls = fetch_search_urls('open source maps Tokyo Kyoto Nara tourist attractions transportation hubs', 10)\nreturn {'city_maps_T008': urls}"
+        },
+        "cost": 0.000481725,
+        "input_tokens": 2953.5,
+        "output_tokens": 64.5,
+        "total_tokens": 3018.0,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000481725,
+      "start_time": "2025-07-01T11:04:53.039114",
+      "end_time": "2025-07-01T11:04:59.586202",
+      "execution_time": 6.547088,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367883",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0007217999955173582,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "city_maps_T008": [],
+            "call_self": true,
+            "next_instruction": "Download open source maps of Tokyo, Kyoto, and Nara with key attractions and transportation hubs highlighted.",
+            "iteration_context": {
+              "current_step": "search_maps",
+              "next_step": "download_maps"
+            },
+            "code_variants": {
+              "CODE_1A": "urls = fetch_search_urls('open source maps Tokyo Kyoto Nara attractions transportation hubs subway', 10)\nreturn {'city_maps_T008': urls}",
+              "CODE_1B": "results = search_web_with_text_content('free maps Tokyo Kyoto Nara tourist attractions train stations subway lines', 8)\nreturn {'city_maps_T008': results}"
+            },
+            "cost": 0.00049365,
+            "input_tokens": 2883.0,
+            "output_tokens": 102.0,
+            "total_tokens": 2985.0
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "city_maps_T008": [],
+            "call_self": false,
+            "code_variants": {
+              "CODE_1A": "results = search_web_with_text_content('downloadable open source maps Tokyo Kyoto Nara attractions transportation hubs', 8)\nreturn {'city_maps_T008': results}",
+              "CODE_1B": "urls = fetch_search_urls('open source maps Tokyo Kyoto Nara tourist attractions transportation hubs', 10)\nreturn {'city_maps_T008': urls}"
+            },
+            "cost": 0.000481725,
+            "input_tokens": 2953.5,
+            "output_tokens": 64.5,
+            "total_tokens": 3018.0
+          }
+        }
+      ],
+      "call_self_used": true,
+      "final_iteration_output": {
+        "city_maps_T008": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('downloadable open source maps Tokyo Kyoto Nara attractions transportation hubs', 8)\nreturn {'city_maps_T008': results}",
+          "CODE_1B": "urls = fetch_search_urls('open source maps Tokyo Kyoto Nara tourist attractions transportation hubs', 10)\nreturn {'city_maps_T008': urls}"
+        },
+        "cost": 0.000481725,
+        "input_tokens": 2953.5,
+        "output_tokens": 64.5,
+        "total_tokens": 3018.0
+      },
+      "input_tokens": 2953.5,
+      "output_tokens": 64.5,
+      "total_tokens": 3018.0
+    },
+    {
+      "id": "T009",
+      "description": "Create a comprehensive HTML travel handbook with detailed itinerary, maps, attraction descriptions, phrases, and travel tips.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Create a comprehensive HTML travel handbook incorporating the detailed 7-day itinerary (`detailed_itinerary_T006`), city maps (`city_maps_T008`), attraction descriptions extracted from `cultural_sites_activities_T003` and `nara_deer_park_info_T004`, essential Japanese phrases and travel tips (`japanese_phrases_tips_T007`). The handbook should be well-formatted, easy to navigate, and mobile-responsive. Include a section for the proposal location, highlighting its romantic appeal. Write exhaustive HTML, CSS and Javascript code. Make sure the handbook has a link to each of the Maps from `city_maps_T008`.",
+      "reads": [
+        "detailed_itinerary_T006",
+        "city_maps_T008",
+        "cultural_sites_activities_T003",
+        "nara_deer_park_info_T004",
+        "japanese_phrases_tips_T007"
+      ],
+      "writes": [
+        "travel_handbook_html_T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T010",
+      "description": "Summarize the itinerary and the HTML Travel handbook created for the user.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Summarize the 7-day Japan itinerary and the HTML travel handbook (`travel_handbook_html_T009`) including key attractions, cultural experiences, proposed locations and budget. Ensure that the travel handbook is easy to follow and the proposal location recommendations are specific and helpful to the user. Use a bullet point format. Mention some key phrases for the fiancee to use.",
+      "reads": [
+        "travel_handbook_html_T009"
+      ],
+      "writes": [
+        "summary_travel_details_T010"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "ROOT",
+      "target": "T005"
+    },
+    {
+      "source": "ROOT",
+      "target": "T007"
+    },
+    {
+      "source": "ROOT",
+      "target": "T008"
+    },
+    {
+      "source": "T001",
+      "target": "T006"
+    },
+    {
+      "source": "T002",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T009"
+    },
+    {
+      "source": "T004",
+      "target": "T006"
+    },
+    {
+      "source": "T004",
+      "target": "T009"
+    },
+    {
+      "source": "T005",
+      "target": "T006"
+    },
+    {
+      "source": "T006",
+      "target": "T009"
+    },
+    {
+      "source": "T007",
+      "target": "T009"
+    },
+    {
+      "source": "T008",
+      "target": "T009"
+    },
+    {
+      "source": "T009",
+      "target": "T010"
+    }
+  ]
+}

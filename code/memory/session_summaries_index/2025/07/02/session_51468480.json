@@ -1,0 +1,196 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51468480",
+    "original_query": "I am running a real test for which you need to write a plan. First call coderAgent, and ask it to call 'fetch_search_urls' for 'Ola Electric' and save them to globals. Then call coderAgent again ask ask it to create a very simple HTML file to demo H1, H2, H3 and button samples and save it. Then you need to call RetreiverAgent and ask it to call `search_web_with_text_content` for 'Ola Electric' and save the result. Then just stop.",
+    "file_manifest": [],
+    "created_at": "2025-07-02T15:01:20.295051",
+    "status": "running",
+    "output_chain": {
+      "T002": {
+        "output": {},
+        "call_self": false,
+        "files": {
+          "demo.html": "<!DOCTYPE html><html><head><title>Demo Page</title></head><body><h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><button>Click Me</button></body></html>"
+        },
+        "cost": 0.00027449999999999995,
+        "input_tokens": 1716.0,
+        "output_tokens": 28.5,
+        "total_tokens": 1744.5,
+        "execution_result": {
+          "status": "success",
+          "session_id": "51468480",
+          "operations": [
+            "direct_files"
+          ],
+          "created_files": [
+            "media\\generated\\51468480\\demo.html"
+          ],
+          "file_results": {
+            "created_files": [
+              "media\\generated\\51468480\\demo.html"
+            ],
+            "file_count": 1,
+            "total_size": 157,
+            "status": "success",
+            "errors": [],
+            "execution_time": 0.005346400001144502
+          },
+          "code_results": {},
+          "total_time": 0.006378099998983089,
+          "error": null
+        }
+      },
+      "T003": {}
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T001",
+        "T002",
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch search URLs for Ola Electric and save them to globals.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Write a python script to fetch search URLs for 'Ola Electric' using the 'fetch_search_urls' function. Save the fetched URLs to a global variable named 'ola_electric_urls'.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: Code execution failed: All code variants failed. Errors: CODE_1: ImportError: __import__ not found",
+      "cost": 0.0,
+      "start_time": "2025-07-02T15:01:20.312472",
+      "end_time": "2025-07-02T15:01:50.550693",
+      "execution_time": 30.238221
+    },
+    {
+      "id": "T002",
+      "description": "Create a simple HTML file demonstrating H1, H2, H3, and button samples.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Write a python script to create a very simple HTML file named 'demo.html' which includes samples of H1, H2, and H3 headings, as well as a sample button. Save the file to the current directory.",
+      "reads": [],
+      "writes": [
+        "T002"
+      ],
+      "status": "completed",
+      "output": {
+        "output": {},
+        "call_self": false,
+        "files": {
+          "demo.html": "<!DOCTYPE html><html><head><title>Demo Page</title></head><body><h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><button>Click Me</button></body></html>"
+        },
+        "cost": 0.00027449999999999995,
+        "input_tokens": 1716.0,
+        "output_tokens": 28.5,
+        "total_tokens": 1744.5,
+        "execution_result": {
+          "status": "success",
+          "session_id": "51468480",
+          "operations": [
+            "direct_files"
+          ],
+          "created_files": [
+            "media\\generated\\51468480\\demo.html"
+          ],
+          "file_results": {
+            "created_files": [
+              "media\\generated\\51468480\\demo.html"
+            ],
+            "file_count": 1,
+            "total_size": 157,
+            "status": "success",
+            "errors": [],
+            "execution_time": 0.005346400001144502
+          },
+          "code_results": {},
+          "total_time": 0.006378099998983089,
+          "error": null
+        }
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-02T15:01:20.315057",
+      "end_time": "2025-07-02T15:01:50.564687",
+      "execution_time": 30.24963,
+      "execution_result": {
+        "status": "success",
+        "session_id": "51468480",
+        "operations": [
+          "direct_files"
+        ],
+        "created_files": [
+          "media\\generated\\51468480\\demo.html"
+        ],
+        "file_results": {
+          "created_files": [
+            "media\\generated\\51468480\\demo.html"
+          ],
+          "file_count": 1,
+          "total_size": 157,
+          "status": "success",
+          "errors": [],
+          "execution_time": 0.005346400001144502
+        },
+        "code_results": {},
+        "total_time": 0.006378099998983089,
+        "error": null
+      },
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "id": "T003",
+      "description": "Search the web for 'Ola Electric' and save the result.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Use the `search_web_with_text_content` function to search the web for 'Ola Electric' and save the result to the 'ola_electric_search_results' variable.",
+      "reads": [],
+      "writes": [
+        "T003"
+      ],
+      "status": "completed",
+      "output": {},
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-02T15:01:20.317586",
+      "end_time": "2025-07-02T15:01:50.569692",
+      "execution_time": 30.252106,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52433375",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, I want to know feature details, digital features, safety features, price etc. Fetch information from multiple URLs.",
+    "file_manifest": [],
+    "created_at": "2025-07-13T19:02:55.532571",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "initial_thoughts": "The user wants me to get the URLs of Mahindra XUV 3XO's features and pricing information. Since the user is asking me to fetch information from multiple URLs, I should ask for those URLs first before proceeding.",
+        "clarification_request": {
+          "message": "Please provide the URLs that contain the details about Mahindra XUV 3XO's features (general, digital, and safety) and pricing information.",
+          "options": [],
+          "input_type": "text"
+        },
+        "call_self": false,
+        "cost": 0.000242775,
+        "input_tokens": 1186.5,
+        "output_tokens": 108.0,
+        "total_tokens": 1294.5
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Clarify which URLs contain the details about Mahindra XUV 3XO's feature details, digital features, safety features, and price. Ask the user to provide these URLs.",
+      "agent": "ClarificationAgent",
+      "agent_prompt": "Please provide the URLs that contain the details about Mahindra XUV 3XO's features (general, digital, and safety) and pricing information.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "initial_thoughts": "The user wants me to get the URLs of Mahindra XUV 3XO's features and pricing information. Since the user is asking me to fetch information from multiple URLs, I should ask for those URLs first before proceeding.",
+        "clarification_request": {
+          "message": "Please provide the URLs that contain the details about Mahindra XUV 3XO's features (general, digital, and safety) and pricing information.",
+          "options": [],
+          "input_type": "text"
+        },
+        "call_self": false,
+        "cost": 0.000242775,
+        "input_tokens": 1186.5,
+        "output_tokens": 108.0,
+        "total_tokens": 1294.5
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-13T19:02:55.544575",
+      "end_time": "2025-07-13T19:02:58.184139",
+      "execution_time": 2.639564,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T002",
+      "description": "Fetch the content from the URLs provided by the user.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch the content from the URLs provided in the previous step.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: Code execution failed: All code variants failed. Errors: CODE_1: NameError: name 'visit_url_for_results' is not defined",
+      "cost": 0.0,
+      "start_time": "2025-07-13T19:02:58.193323",
+      "end_time": "2025-07-13T19:03:02.366541",
+      "execution_time": 4.173218
+    },
+    {
+      "id": "T003",
+      "description": "Consolidate the information retrieved from the URLs. Identify the features details, digital features, safety features and price of Mahindra XUV 3XO.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Consolidate the information retrieved from the URLs. Identify and extract the feature details, digital features, safety features and price of the Mahindra XUV 3XO from the data. Summarize all findings in a cohesive manner.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Format the consolidated information into a report with clear sections for feature details, digital features, safety features, and price.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the consolidated information into a well-structured HTML report with clear sections for feature details, digital features, safety features, and price. Ensure the report is easy to read and understand and includes key details about the Mahindra XUV 3XO.",
+      "reads": [
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}

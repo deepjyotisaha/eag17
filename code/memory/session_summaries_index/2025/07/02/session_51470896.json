@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51470896",
+    "original_query": "I am running a real test for which you need to write a plan. First call retreiverAgent, and ask it to call 'search_web_with_text_content' for 'Ola Electric' and save the data. Then you need to call FormatterAgent and ask it create 1 page report (ask it to not call self), and then stop.",
+    "file_manifest": [],
+    "created_at": "2025-07-02T15:41:36.855188",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve web content related to Ola Electric using the 'search_web_with_text_content' tool.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Execute the 'search_web_with_text_content' tool to gather comprehensive information about Ola Electric. Ensure the data collected is detailed and covers various aspects of the company, including its products, market presence, technology, and recent developments. Save the retrieved data for subsequent analysis and report generation.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: ",
+      "cost": 0.0,
+      "start_time": "2025-07-02T15:41:36.873189",
+      "end_time": "2025-07-02T15:45:37.896006",
+      "execution_time": 241.022817
+    },
+    {
+      "id": "T002",
+      "description": "Create a one-page report summarizing the information retrieved about Ola Electric.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Synthesize the data obtained from the RetrieverAgent (T001) into a concise and informative one-page report about Ola Electric. The report should cover key aspects of the company, such as its mission, products, market position, and future strategies. Ensure the report is well-structured, visually appealing, and easy to understand. Do not call self.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

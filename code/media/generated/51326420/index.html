@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat UI</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1e1e1e;
+            padding: 1rem;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+        }
+
+        .main-chat-window {
+            flex: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: scroll;
+            padding-bottom: 1rem;
+        }
+
+        .message {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #333;
+            text-align: right;
+        }
+
+        .llm-message {
+            background-color: #444;
+            text-align: left;
+        }
+
+        .input-bar {
+            padding: 1rem;
+            background-color: #1e1e1e;
+            border-top: 1px solid #333;
+            display: flex;
+        }
+
+        .input-bar input[type="text"] {
+            flex: 1;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .input-bar button {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Collapsible Sidebar Styles */
+        .sidebar h2 {
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: block;
+        }
+
+        .sidebar li {
+            padding: 0.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #333;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LLM Chat Interface</h1>
+        <select>
+            <option>GPT-4</option>
+            <option>Other Model</option>
+        </select>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Chat History</h2>
+            <input type="text" placeholder="Search chats...">
+            <ul>
+                <li>Chat 1</li>
+                <li>Chat 2</li>
+            </ul>
+        </aside>
+        <main class="main-chat-window">
+            <div id="messages">
+                <div class="message user-message">
+                    <div class="message-text">Hello!</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Hi there! How can I help you today?</div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">I have a question about marketing.</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Sure, I can help with that. What's your question?</div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">What are some good strategies for Q4?</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Focus on holiday promotions, email marketing, and social media campaigns.</div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">Can you elaborate on email marketing?</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Segment your audience, personalize your messages, and track your results.</div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">Do you have an example chart showing conversion rates?</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w+r8r38GBoYGDAYYEgJABltg9ERoy6AAAAAASUVORK5CYII=" alt="Conversion Chart"></div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">Thanks!</div>
+                </div>
+            </div>
+            <div class="input-bar">
+                <input type="text" placeholder="Type your message...">
+                <button>Send</button>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Collapsible Sidebar Functionality
+        const sidebarHeader = document.querySelector('.sidebar h2');
+        const sidebarList = document.querySelector('.sidebar ul');
+
+        sidebarHeader.addEventListener('click', () => {
+            sidebarList.style.display = sidebarList.style.display === 'none' ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

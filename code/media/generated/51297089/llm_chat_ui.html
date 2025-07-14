@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #252526;
+            padding: 1em;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar:hover {
+            width: 250px; /* Keep width on hover */
+        }
+
+        .sidebar h2 {
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5em;
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 0.5em 0;
+            border-bottom: 1px solid #444;
+        }
+
+        .sidebar ul li a {
+            color: #d4d4d4;
+            text-decoration: none;
+            display: block;
+        }
+
+        .chat-window {
+            flex: 1;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 1em;
+        }
+
+        #messageInput {
+            width: 100%;
+            padding: 0.75em;
+            margin-bottom: 0.5em;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #d4d4d4;
+        }
+
+        button {
+            padding: 0.75em 1.5em;
+            background-color: #3a8bcd;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2969a6;
+        }
+    </style>
+
+<style>
+.sidebar {
+    width: 250px;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar.collapsed {
+    width: 0;
+}
+
+.sidebar:hover {
+    width: 250px; /* Keep width on hover */
+}
+
+.sidebar h2 {
+    color: #ffffff;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.5em;
+    margin-top: 0;
+}
+</style></head>
+<body>
+    <header>
+        <h1>LLM Chat Interface</h1>
+    
+<div style="position: absolute; top: 10px; right: 10px;">
+    <label for="llm-model" style="color: #d4d4d4; margin-right: 5px;">LLM Model:</label>
+    <select id="llm-model" style="background-color: #333; color: #d4d4d4; border: 1px solid #444; padding: 5px;">
+        <option value="gpt-4">GPT-4</option>
+        <option value="llama-2">Llama-2</option>
+        <option value="gemini-pro">Gemini Pro</option>
+    </select>
+</div>
+</header>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Chat History</h2>
+            <ul id="chat-list">
+                <li><a href="#">Chat 1</a></li>
+                <li><a href="#">Chat 2</a></li>
+                <li><a href="#">Chat 3</a></li>
+            </ul>
+        </aside>
+        <main class="chat-window">
+            <div id="messages">
+                <!-- Messages will be added here -->
+            </div>
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </main>
+    </div>
+    <script>
+        function sendMessage() {
+            var input = document.getElementById('messageInput');
+            console.log('Sending: ' + input.value);
+            input.value = ''; // Clear the input after sending
+        }
+    </script>
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('collapsed');
+}
+
+// You can add a button to the header to trigger the toggle
+var header = document.querySelector('header');
+var toggleButton = document.createElement('button');
+toggleButton.textContent = 'Toggle Sidebar';
+toggleButton.onclick = toggleSidebar;
+header.appendChild(toggleButton);
+
+</script>
+<script>
+    document.getElementById('llm-model').addEventListener('change', function() {
+        var selectedModel = this.value;
+        console.log('Selected LLM Model: ' + selectedModel);
+        // You can add code here to handle the model selection
+    });
+</script>
+</body>
+</html>

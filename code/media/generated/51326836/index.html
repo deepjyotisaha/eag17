@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .model-selector {
+            display: flex;
+            align-items: center;
+        }
+
+        .model-selector label {
+            color: white;
+            margin-right: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #ddd;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .main-chat-window {
+            flex: 1;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: scroll;
+            padding: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+        }
+
+        .llm-message {
+            background-color: #ECE5DD;
+            align-self: flex-start;
+        }
+
+        .input-bar {
+            padding: 10px;
+            background-color: #eee;
+            display: flex;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                overflow-y: scroll;
+                max-height: 150px; /* Limit sidebar height on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LLM Chat Application</h1>
+        <div class="model-selector">
+            <label for="modelSelect">Select Model:</label>
+            <select id="modelSelect">
+                <option value="gpt-3.5">GPT-3.5</option>
+                <option value="gpt-4">GPT-4</option>
+                <option value="llama-2">LLaMA 2</option>
+            </select>
+        </div>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Chat History</h2>
+            <input type="text" placeholder="Search chats...">
+            <ul>
+                <li>Chat 1: Q4 Marketing</li>
+                <li>Chat 2: Project Alpha</li>
+                <li>Chat 3: Daily Standup</li>
+            </ul>
+        </aside>
+        <main class="main-chat-window">
+            <div id="messages">
+                <div class="message user-message">
+                    <div class="message-text">Hello, can you help me?</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Of course! How can I assist you today?</div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">I need some ideas for our next marketing campaign.</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Let's brainstorm some ideas. What are your target demographics?</div>
+                </div>
+                                <div class="message user-message">
+                    <div class="message-text">Millennials and Gen Z, mainly.</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Okay, how about focusing on social media campaigns with engaging video content?</div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">That sounds promising. Can you suggest a sample chart?</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Here's a sample chart showing engagement rates by platform:<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w+bAQCABEQTQAwQAAElEQVR4AWJgcDwgGAUjKYoDAwAADjkCXKgJowAAAAASUVORK5CYII=" alt="Sample Chart"></div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-text">Great! What about influencer marketing?</div>
+                </div>
+                <div class="message llm-message">
+                    <div class="message-text">Influencer marketing can be very effective. We should identify influencers who align with our brand values.</div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div class="input-bar">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script>
+        function sendMessage() {
+            var input = document.getElementById('messageInput');
+            console.log('Sending: ' + input.value);
+            input.value = ''; // Clear the input
+        }
+    </script>
+</body>
+</html>

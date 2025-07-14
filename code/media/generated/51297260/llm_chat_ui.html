@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat UI</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrollbars on the body */
+        }
+
+        header {
+            background-color: #252526;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        .container {
+            display: flex;
+            height: 90vh; /* Adjust container height to fit viewport */
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #2d2d2d;
+            padding: 1em;
+            color: #fff;
+            transition: width 0.3s ease;
+            overflow-x: hidden; /* Hide horizontal overflow */
+        }
+
+        .sidebar:hover {
+            width: 250px; /* Expand on hover */
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 0.5em 0;
+            border-bottom: 1px solid #444;
+        }
+
+        .sidebar ul li:last-child {
+            border-bottom: none;
+        }
+
+        .chat-window {
+            flex-grow: 1;
+            background-color: #333;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        #messages {
+            flex-grow: 1;
+            margin-bottom: 1em;
+        }
+
+        .message {
+            padding: 0.5em;
+            margin-bottom: 0.5em;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #444;
+            color: #fff;
+            text-align: right;
+        }
+
+        .llm-message {
+            background-color: #555;
+            color: #fff;
+            text-align: left;
+        }
+
+        input[type='text'] {
+            width: 95%;
+            padding: 0.5em;
+            margin-bottom: 0.5em;
+            border: 1px solid #555;
+            background-color: #444;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 0.5em 1em;
+            background-color: #5cb85c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Chat Interface</h1>
+<select id="llm-model-select" style="margin-left: 20px;">
+    <option value="gpt-4">GPT-4</option>
+    <option value="claude">Claude</option>
+    <option value="llama">Llama</option>
+    <option value="gemini">Gemini</option>
+    <option value="mistral">Mistral</option>
+</select>
+
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Chats</h2>
+            <ul>
+                <li>Marketing Chat with Sarah</li>
+                <li>Sales Strategy with John</li>
+                <li>Product Development with Emily</li>
+            </ul>
+        </aside>
+        <main class="chat-window">
+            <div id="messages">
+                <!-- Messages will be added here -->
+            </div>
+            <input type="text" id="messageInput" placeholder="Type message...">
+            <button onclick="sendMessage()">Send</button>
+        </main>
+    </div>
+    <script>
+        function sendMessage() {
+            var input = document.getElementById('messageInput');
+            console.log('Sending: ' + input.value);
+            input.value = ''; // Clear the input after sending
+        }
+    </script>
+
+<script>
+    const sidebar = document.querySelector('.sidebar');
+    let isExpanded = false;
+
+    sidebar.addEventListener('click', () => {
+        if (isExpanded) {
+            sidebar.style.width = '200px';
+        } else {
+            sidebar.style.width = '250px';
+        }
+        isExpanded = !isExpanded;
+    });
+
+    // Optional: Prevent click propagation to child elements
+    sidebar.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+</script>
+</body>
+</html>

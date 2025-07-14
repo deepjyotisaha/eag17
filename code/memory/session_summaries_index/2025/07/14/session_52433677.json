@@ -1,0 +1,127 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52433677",
+    "original_query": "",
+    "file_manifest": [],
+    "created_at": "2025-07-13T19:07:57.482161",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "initial_thoughts": "The user has categorized their planning task. Now I need to ask follow-up questions specific to their choice to gather more details. If they selected 'Other', I'll use a text input to get a description.",
+        "clarification_request": {
+          "message": "To help me understand the specifics of your planning task, could you please provide more detail about the area you selected?",
+          "options": [],
+          "input_type": "text"
+        },
+        "call_self": false,
+        "cost": 0.000261,
+        "input_tokens": 1314.0,
+        "output_tokens": 106.5,
+        "total_tokens": 1420.5
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T001"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Clarify the user's needs and objectives. Ask the user to provide more details about what type of planning they want.",
+      "agent": "ClarificationAgent",
+      "agent_prompt": "Please specify the planning task or objective you would like me to address. For example, are you looking for a business strategy, a technical implementation plan, or something else entirely? Please provide as much detail as possible about your goals, the context, and any relevant resources or constraints.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "initial_thoughts": "The user has categorized their planning task. Now I need to ask follow-up questions specific to their choice to gather more details. If they selected 'Other', I'll use a text input to get a description.",
+        "clarification_request": {
+          "message": "To help me understand the specifics of your planning task, could you please provide more detail about the area you selected?",
+          "options": [],
+          "input_type": "text"
+        },
+        "call_self": false,
+        "cost": 0.000261,
+        "input_tokens": 1314.0,
+        "output_tokens": 106.5,
+        "total_tokens": 1420.5
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-13T19:07:57.495169",
+      "end_time": "2025-07-13T19:08:03.980693",
+      "execution_time": 6.485524,
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "initial_thoughts": "The user's query is very open-ended. I need to understand what kind of planning task they have in mind to tailor my approach appropriately. I'll ask them to categorize their request to guide them and me.",
+            "clarification_request": {
+              "message": "To best assist you, could you categorize the planning task you have in mind?",
+              "options": [
+                "Business strategy development",
+                "Technical implementation planning",
+                "Marketing campaign planning",
+                "Project management planning",
+                "Other (please specify)"
+              ],
+              "input_type": "choice"
+            },
+            "call_self": true,
+            "next_instruction": "Based on their choice, ask further clarifying questions specific to that category. If 'Other' is selected, use a text input to get more details.",
+            "cost": 0.000273825,
+            "input_tokens": 1189.5,
+            "output_tokens": 159.0,
+            "total_tokens": 1348.5
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "initial_thoughts": "The user has categorized their planning task. Now I need to ask follow-up questions specific to their choice to gather more details. If they selected 'Other', I'll use a text input to get a description.",
+            "clarification_request": {
+              "message": "To help me understand the specifics of your planning task, could you please provide more detail about the area you selected?",
+              "options": [],
+              "input_type": "text"
+            },
+            "call_self": false,
+            "cost": 0.000261,
+            "input_tokens": 1314.0,
+            "output_tokens": 106.5,
+            "total_tokens": 1420.5
+          }
+        }
+      ],
+      "call_self_used": true,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    }
+  ]
+}

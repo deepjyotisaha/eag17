@@ -1,0 +1,475 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51261515",
+    "original_query": "Analyze these financial files and create insights",
+    "file_manifest": [
+      {
+        "path": "i:\\DSC\\DSC Business Plan - Mar.xlsx",
+        "name": "DSC Business Plan - Mar.xlsx",
+        "size": 304873
+      }
+    ],
+    "created_at": "2025-06-30T05:31:55.256491",
+    "status": "running",
+    "globals_schema": {
+      "file_profile_T001": {
+        "file_name": "DSC Business Plan - Mar.xlsx",
+        "file_type": "xlsx",
+        "file_size_estimate": "Likely several sheets with hundreds of rows and columns each",
+        "analysis": {
+          "structure_type": "tabular",
+          "content_summary": "Comprehensive business plan spreadsheet likely covering various aspects of DSC's business operations for the month of March. Expect financial data, market analysis, sales projections, and operational metrics.",
+          "key_elements": [
+            "Sheet names (e.g., Revenue, Expenses, Projections)",
+            "Column headers (e.g., Date, Product, Region, Sales, Cost)",
+            "Data types (e.g., numeric, text, date)",
+            "Key metrics (e.g., Total Revenue, Net Profit, Market Share)"
+          ],
+          "data_schema_assumptions": [
+            "Revenue sheet: Date (date), Product (str), Region (str), Sales (numeric)",
+            "Expenses sheet: Category (str), Amount (numeric), Date (date)",
+            "Projections sheet: Period (str), Projected Sales (numeric), Projected Expenses (numeric)"
+          ],
+          "potential_data_quality_issues": [
+            "Missing data (e.g., blank cells)",
+            "Inconsistent data formats (e.g., different date formats)",
+            "Data entry errors (e.g., typos, incorrect values)",
+            "Formula errors (e.g., incorrect calculations)",
+            "Outdated data (if compared to other sources)"
+          ],
+          "inferred_purpose": "Business performance monitoring, financial planning, and strategic decision-making",
+          "business_domain": "business_intelligence"
+        },
+        "summary": "Excel-based business plan containing tabular data across multiple sheets. Requires sheet-level analysis to understand data schema and extract key performance indicators. Potential data quality issues need to be addressed before in-depth analysis."
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T013"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {
+      "file_profiles": [
+        {
+          "file_name": "i:\\DSC\\DSC Business Plan - Mar.xlsx",
+          "file_type": "xlsx",
+          "file_size_estimate": "Unknown, needs file access to estimate",
+          "analysis": {
+            "structure_type": "tabular",
+            "content_summary": "Business plan data, including financial projections, market analysis, and operational strategies.",
+            "key_elements": [
+              "Revenue",
+              "Expenses",
+              "Market Share",
+              "Growth Rate",
+              "Operational Costs"
+            ],
+            "data_schema": [
+              "Revenue (numeric)",
+              "Expenses (numeric)",
+              "Market Share (percentage)",
+              "Growth Rate (percentage)",
+              "Operational Costs (numeric)"
+            ],
+            "sample_content": "Requires file access to provide sample content.",
+            "inferred_purpose": "Strategic business planning and performance tracking.",
+            "business_domain": "business_strategy"
+          },
+          "summary": "Excel-based business plan with financial and operational data for performance analysis."
+        }
+      ],
+      "cost": 5.2600000000000005e-05,
+      "input_tokens": 30,
+      "output_tokens": 124,
+      "total_tokens": 154
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Profile the 'DSC Business Plan - Mar.xlsx' file to understand its structure and contents.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Profile the 'DSC Business Plan - Mar.xlsx' file. Identify sheets, columns, data types, key metrics, and any potential data quality issues. Provide a detailed summary of the file's structure and content to guide further analysis.",
+      "reads": [
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "file_profile_T001"
+      ],
+      "status": "completed",
+      "output": {
+        "file_profile_T001": {
+          "file_name": "DSC Business Plan - Mar.xlsx",
+          "file_type": "xlsx",
+          "file_size_estimate": "Likely several sheets with hundreds of rows and columns each",
+          "analysis": {
+            "structure_type": "tabular",
+            "content_summary": "Comprehensive business plan spreadsheet likely covering various aspects of DSC's business operations for the month of March. Expect financial data, market analysis, sales projections, and operational metrics.",
+            "key_elements": [
+              "Sheet names (e.g., Revenue, Expenses, Projections)",
+              "Column headers (e.g., Date, Product, Region, Sales, Cost)",
+              "Data types (e.g., numeric, text, date)",
+              "Key metrics (e.g., Total Revenue, Net Profit, Market Share)"
+            ],
+            "data_schema_assumptions": [
+              "Revenue sheet: Date (date), Product (str), Region (str), Sales (numeric)",
+              "Expenses sheet: Category (str), Amount (numeric), Date (date)",
+              "Projections sheet: Period (str), Projected Sales (numeric), Projected Expenses (numeric)"
+            ],
+            "potential_data_quality_issues": [
+              "Missing data (e.g., blank cells)",
+              "Inconsistent data formats (e.g., different date formats)",
+              "Data entry errors (e.g., typos, incorrect values)",
+              "Formula errors (e.g., incorrect calculations)",
+              "Outdated data (if compared to other sources)"
+            ],
+            "inferred_purpose": "Business performance monitoring, financial planning, and strategic decision-making",
+            "business_domain": "business_intelligence"
+          },
+          "summary": "Excel-based business plan containing tabular data across multiple sheets. Requires sheet-level analysis to understand data schema and extract key performance indicators. Potential data quality issues need to be addressed before in-depth analysis."
+        },
+        "cost": 0.0001188,
+        "input_tokens": 72,
+        "output_tokens": 279,
+        "total_tokens": 351
+      },
+      "error": null,
+      "cost": 0.0001188,
+      "start_time": "2025-06-30T05:31:55.281770",
+      "end_time": "2025-06-30T05:32:00.073514",
+      "execution_time": 4.791744,
+      "input_tokens": 72,
+      "output_tokens": 279,
+      "total_tokens": 351
+    },
+    {
+      "id": "T002",
+      "description": "Extract revenue data from 'DSC Business Plan - Mar.xlsx'.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all revenue-related data from the 'DSC Business Plan - Mar.xlsx' file. Identify the sheet(s) and column(s) containing revenue information. Note any units (e.g., USD, EUR) and timeframes (e.g., monthly, quarterly, annual).",
+      "reads": [
+        "file_profile_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "revenue_data_T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Extract expense data from 'DSC Business Plan - Mar.xlsx'.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all expense-related data from the 'DSC Business Plan - Mar.xlsx' file. Identify the sheet(s) and column(s) containing expense information. Note any categories of expenses (e.g., operational, marketing, R&D) and timeframes (e.g., monthly, quarterly, annual).",
+      "reads": [
+        "file_profile_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "expense_data_T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Extract market share data from 'DSC Business Plan - Mar.xlsx'.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all market share data from the 'DSC Business Plan - Mar.xlsx' file. Identify the sheet(s) and column(s) containing market share information. Note the units (e.g., percentage) and the segments to which the market share applies.",
+      "reads": [
+        "file_profile_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "market_share_data_T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Extract growth rate data from 'DSC Business Plan - Mar.xlsx'.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all growth rate data from the 'DSC Business Plan - Mar.xlsx' file. Identify the sheet(s) and column(s) containing growth rate information. Note the units (e.g., percentage) and the variables to which the growth rate applies (e.g., revenue, market share).",
+      "reads": [
+        "file_profile_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "growth_rate_data_T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Extract operational cost data from 'DSC Business Plan - Mar.xlsx'.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all operational cost data from the 'DSC Business Plan - Mar.xlsx' file. Identify the sheet(s) and column(s) containing operational cost information. Note any breakdowns of operational costs and the units used.",
+      "reads": [
+        "file_profile_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "operational_cost_data_T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Analyze revenue trends and patterns from the extracted revenue data.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the extracted revenue data from `revenue_data_T002`. Identify any trends (e.g., increasing, decreasing, seasonal). Calculate key metrics such as average revenue, revenue growth rate, and identify any outliers.",
+      "reads": [
+        "revenue_data_T002"
+      ],
+      "writes": [
+        "revenue_analysis_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Analyze expense trends and patterns from the extracted expense data.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the extracted expense data from `expense_data_T003`. Identify any trends (e.g., increasing, decreasing). Calculate key metrics such as total expenses, expense ratio, and identify any outliers or unexpected cost increases.",
+      "reads": [
+        "expense_data_T003"
+      ],
+      "writes": [
+        "expense_analysis_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Analyze market share trends from the extracted market share data.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the extracted market share data from `market_share_data_T004`. Identify trends in market share (e.g., gaining, losing). Compare market share across different segments, if available. Assess the overall market position based on the data.",
+      "reads": [
+        "market_share_data_T004"
+      ],
+      "writes": [
+        "market_share_analysis_T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T010",
+      "description": "Analyze growth rate trends from the extracted growth rate data.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the extracted growth rate data from `growth_rate_data_T005`. Identify trends in growth rate. Relate growth rate to revenue, expenses, and market share to understand the overall business performance.",
+      "reads": [
+        "growth_rate_data_T005"
+      ],
+      "writes": [
+        "growth_rate_analysis_T010"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T011",
+      "description": "Analyze operational cost trends from the extracted operational cost data.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the extracted operational cost data from `operational_cost_data_T006`. Identify trends in operational costs. Investigate any significant changes in operational costs and their impact on profitability.",
+      "reads": [
+        "operational_cost_data_T006"
+      ],
+      "writes": [
+        "operational_cost_analysis_T011"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T012",
+      "description": "Synthesize all analyses and create a summary of key insights and recommendations.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Synthesize the analyses of revenue (`revenue_analysis_T007`), expenses (`expense_analysis_T008`), market share (`market_share_analysis_T009`), growth rate (`growth_rate_analysis_T010`), and operational costs (`operational_cost_analysis_T011`). Summarize the key insights and provide recommendations based on the overall business performance.",
+      "reads": [
+        "revenue_analysis_T007",
+        "expense_analysis_T008",
+        "market_share_analysis_T009",
+        "growth_rate_analysis_T010",
+        "operational_cost_analysis_T011"
+      ],
+      "writes": [
+        "summary_of_insights_T012"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T013",
+      "description": "Format the insights summary into a human-readable report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the summary of insights (`summary_of_insights_T012`) into a well-structured, human-readable report. Use appropriate headings, bullet points, and tables to present the information clearly and concisely. Highlight key findings and recommendations.",
+      "reads": [
+        "summary_of_insights_T012"
+      ],
+      "writes": [
+        "final_report_T013"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T004"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T001",
+      "target": "T006"
+    },
+    {
+      "source": "T002",
+      "target": "T007"
+    },
+    {
+      "source": "T003",
+      "target": "T008"
+    },
+    {
+      "source": "T004",
+      "target": "T009"
+    },
+    {
+      "source": "T005",
+      "target": "T010"
+    },
+    {
+      "source": "T006",
+      "target": "T011"
+    },
+    {
+      "source": "T007",
+      "target": "T012"
+    },
+    {
+      "source": "T008",
+      "target": "T012"
+    },
+    {
+      "source": "T009",
+      "target": "T012"
+    },
+    {
+      "source": "T010",
+      "target": "T012"
+    },
+    {
+      "source": "T011",
+      "target": "T012"
+    },
+    {
+      "source": "T012",
+      "target": "T013"
+    }
+  ]
+}

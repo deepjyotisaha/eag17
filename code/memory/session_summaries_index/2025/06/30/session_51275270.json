@@ -1,0 +1,329 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51275270",
+    "original_query": "Analyze these CVs and tell me which candidate would be better for our HVAC Compressor and EV fluid pump simulations work?",
+    "file_manifest": [
+      {
+        "path": "i:\\DSM\\Development\\IPDef\\HR\\media\\CFD\\Sanketh.pdf",
+        "name": "Sanketh.pdf",
+        "size": 950172
+      },
+      {
+        "path": "i:\\DSM\\Development\\IPDef\\HR\\media\\CFD\\Tejnarian.pdf",
+        "name": "Tejnarian.pdf",
+        "size": 268346
+      }
+    ],
+    "created_at": "2025-06-30T09:21:10.152300",
+    "status": "running",
+    "globals_schema": {
+      "Sanketh.pdf": "i:\\DSM\\Development\\IPDef\\HR\\media\\CFD\\Sanketh.pdf",
+      "Tejnarian.pdf": "i:\\DSM\\Development\\IPDef\\HR\\media\\CFD\\Tejnarian.pdf"
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T008"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {
+      "file_profiles": [
+        {
+          "file_name": "Sanketh.pdf",
+          "file_type": "pdf",
+          "file_size_estimate": "4 pages",
+          "analysis": {
+            "structure_type": "resume",
+            "content_summary": "Resume of Sanketh Mogeraya K, a mechanical engineer with experience in product engineering and thermal management. Includes education, technical skills, work experience, academic projects, and certifications.",
+            "key_elements": [
+              "Education",
+              "Technical Skills",
+              "Work Experience",
+              "Projects",
+              "Certifications",
+              "Contact Information"
+            ],
+            "data_schema": [
+              "Degree (string)",
+              "Skills (list)",
+              "Company (string)",
+              "Project Title (string)",
+              "Certification (string)"
+            ],
+            "sample_content": "BE, Mechanical Engineering; KULI, Heat Transfer, MATLAB; Daimler India Commercial Vehicles, Product Engineering; CFD Analysis; Geometric Dimensioning and Tolerancing",
+            "inferred_purpose": "Job application",
+            "business_domain": "engineering"
+          },
+          "summary": "Resume of a mechanical engineer with experience in thermal management and product engineering."
+        },
+        {
+          "file_name": "Tejnarian.pdf",
+          "file_type": "pdf",
+          "file_size_estimate": "4 pages",
+          "analysis": {
+            "structure_type": "resume",
+            "content_summary": "Resume of Tejnaraian Mishra, a manager with experience in thermal engineering and cooling systems. Includes education, work experience, skills, and personal details.",
+            "key_elements": [
+              "Education",
+              "Work Experience",
+              "Skills",
+              "Personal Details",
+              "Contact Information"
+            ],
+            "data_schema": [
+              "Degree (string)",
+              "Company (string)",
+              "Skills (list)",
+              "Location (string)"
+            ],
+            "sample_content": "Master of Engineering, Automotive Engineering; Euler Motors, Thermal Engineer; Ansys Fluent, GT-SUITE, Solidworks; New Delhi",
+            "inferred_purpose": "Job application",
+            "business_domain": "engineering"
+          },
+          "summary": "Resume of a manager with experience in thermal engineering and cooling systems."
+        }
+      ],
+      "processing_status": {
+        "file_accessible": true,
+        "content_readable": true,
+        "extraction_method": "direct_text",
+        "content_completeness": "full"
+      },
+      "quality_assessment": {
+        "task_completion_score": 9,
+        "confidence_level": "high",
+        "data_reliability": "high",
+        "limitations": [],
+        "recommendations": []
+      },
+      "cost": 0.0001,
+      "input_tokens": 1643.2,
+      "output_tokens": 299.0,
+      "total_tokens": 1942.2
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Extract Sanketh's skills and experience related to HVAC Compressor simulations.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all skills and experiences from `Sanketh.pdf` that are relevant to HVAC Compressor simulations. Focus on CFD, thermal management, heat transfer, and related areas. Include specific software and projects mentioned.",
+      "reads": [
+        "Sanketh.pdf"
+      ],
+      "writes": [
+        "sanketh_hvac_skills_T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "name 'log_step' is not defined",
+      "cost": 0.0,
+      "start_time": "2025-06-30T09:21:10.185903",
+      "end_time": "2025-06-30T09:21:10.200905",
+      "execution_time": 0.015002
+    },
+    {
+      "id": "T002",
+      "description": "Extract Tejnarian's skills and experience related to HVAC Compressor simulations.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all skills and experiences from `Tejnarian.pdf` that are relevant to HVAC Compressor simulations. Focus on CFD, thermal management, heat transfer, and related areas. Include specific software and projects mentioned.",
+      "reads": [
+        "Tejnarian.pdf"
+      ],
+      "writes": [
+        "tejnarian_hvac_skills_T002"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "name 'log_step' is not defined",
+      "cost": 0.0,
+      "start_time": "2025-06-30T09:21:10.190905",
+      "end_time": "2025-06-30T09:21:56.851484",
+      "execution_time": 46.660579
+    },
+    {
+      "id": "T003",
+      "description": "Extract Sanketh's skills and experience related to EV fluid pump simulations.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all skills and experiences from `Sanketh.pdf` that are relevant to EV fluid pump simulations. Focus on CFD, fluid dynamics, pump design, and related areas. Include specific software and projects mentioned.",
+      "reads": [
+        "Sanketh.pdf"
+      ],
+      "writes": [
+        "sanketh_ev_pump_skills_T003"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "name 'log_step' is not defined",
+      "cost": 0.0,
+      "start_time": "2025-06-30T09:21:10.193977",
+      "end_time": "2025-06-30T09:21:58.439001",
+      "execution_time": 48.245024
+    },
+    {
+      "id": "T004",
+      "description": "Extract Tejnarian's skills and experience related to EV fluid pump simulations.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Extract all skills and experiences from `Tejnarian.pdf` that are relevant to EV fluid pump simulations. Focus on CFD, fluid dynamics, pump design, and related areas. Include specific software and projects mentioned.",
+      "reads": [
+        "Tejnarian.pdf"
+      ],
+      "writes": [
+        "tejnarian_ev_pump_skills_T004"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "name 'log_step' is not defined",
+      "cost": 0.0,
+      "start_time": "2025-06-30T09:21:10.196908",
+      "end_time": "2025-06-30T09:21:59.098888",
+      "execution_time": 48.90198
+    },
+    {
+      "id": "T005",
+      "description": "Compare Sanketh and Tejnarian's HVAC Compressor simulation skills.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Compare the skills and experience of Sanketh (from `sanketh_hvac_skills_T001`) and Tejnarian (from `tejnarian_hvac_skills_T002`) in the context of HVAC Compressor simulations. Identify strengths and weaknesses of each candidate.",
+      "reads": [
+        "sanketh_hvac_skills_T001",
+        "tejnarian_hvac_skills_T002"
+      ],
+      "writes": [
+        "hvac_simulation_comparison_T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Compare Sanketh and Tejnarian's EV fluid pump simulation skills.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Compare the skills and experience of Sanketh (from `sanketh_ev_pump_skills_T003`) and Tejnarian (from `tejnarian_ev_pump_skills_T004`) in the context of EV fluid pump simulations. Identify strengths and weaknesses of each candidate.",
+      "reads": [
+        "sanketh_ev_pump_skills_T003",
+        "tejnarian_ev_pump_skills_T004"
+      ],
+      "writes": [
+        "ev_pump_simulation_comparison_T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Synthesize the overall suitability of each candidate for the simulation work.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on the comparison of HVAC Compressor simulation skills (`hvac_simulation_comparison_T005`) and EV fluid pump simulation skills (`ev_pump_simulation_comparison_T006`), determine which candidate is better suited for the overall simulation work. Provide a justification for the selection.",
+      "reads": [
+        "hvac_simulation_comparison_T005",
+        "ev_pump_simulation_comparison_T006"
+      ],
+      "writes": [
+        "candidate_suitability_analysis_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Format the candidate suitability analysis into a concise report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a concise report summarizing the suitability of each candidate for the HVAC Compressor and EV fluid pump simulation work based on the analysis in `candidate_suitability_analysis_T007`. Include key skills, experience, and a final recommendation.",
+      "reads": [
+        "candidate_suitability_analysis_T007"
+      ],
+      "writes": [
+        "candidate_report_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T002",
+      "target": "T005"
+    },
+    {
+      "source": "T003",
+      "target": "T006"
+    },
+    {
+      "source": "T004",
+      "target": "T006"
+    },
+    {
+      "source": "T005",
+      "target": "T007"
+    },
+    {
+      "source": "T006",
+      "target": "T007"
+    },
+    {
+      "source": "T007",
+      "target": "T008"
+    }
+  ]
+}

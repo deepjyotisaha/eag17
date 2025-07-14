@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📊 India GDP Analysis Report</title>
+  <style>
+    /* Base styles */
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0a0a0a;
+      --text-light: #111111;
+      --text-dark: #f1f1f1;
+      --border-light: #000000;
+      --border-dark: #ffffff;
+      --font-sans: 'Inter', 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'EB Garamond', 'New York', 'Georgia', serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: 18px;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s, font-family 0.3s;
+    }
+    
+    html.dark, body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background-color: var(--bg-light);
+      transition: background-color 0.3s;
+    }
+    html.dark .container, body.dark .container {
+      background-color: var(--bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 2.5em;
+      margin-bottom: 0.8em;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      border-bottom: 0.5px solid var(--border-light);
+      padding-bottom: 0.2em;
+    }
+    html.dark h1, body.dark h1 {
+      border-color: var(--border-dark);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+      z-index: 999;
+    }
+
+    .controls button {
+      all: unset;
+      cursor: pointer;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-weight: 500;
+      color: inherit;
+      opacity: 0.6;
+      transition: opacity 0.3s, background-color 0.3s;
+    }
+    .controls button:hover {
+      opacity: 1;
+    }
+    html.dark .controls button, body.dark .controls button {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer {
+      font-size: 0.55rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #aaa;
+    }
+
+    @media print {
+      .controls { display: none; }
+    }
+
+    
+        /* Image Carousel Styles */
+        .image-carousel {
+            margin: 2rem 0;
+        }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+        
+        .carousel-slides {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .carousel-slide.active {
+            display: flex;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .carousel-caption {
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        
+        .carousel-caption p {
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+        
+        .carousel-caption small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        html.dark .carousel-caption small, body.dark .carousel-caption small {
+            color: #aaa;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-size: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.9);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-btn.prev {
+            left: 0;
+        }
+        
+        .carousel-btn.next {
+            right: 0;
+        }
+        
+        .carousel-dots {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .carousel-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active, .carousel-dot:hover {
+            background-color: #333;
+            transform: scale(1.2);
+        }
+        html.dark .carousel-dot {
+            background-color: #666;
+        }
+        html.dark .carousel-dot.active, body.dark .carousel-dot.active,
+        html.dark .carousel-dot:hover, body.dark .carousel-dot:hover {
+            background-color: #ccc;
+        }
+        
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="toggleDark()">Th</button>
+    <button onclick="toggleFont()">Aa</button>
+    <button onclick="toggleEmojis()">Em</button>
+  </div>
+  <div class="container" id="main-container">
+    <h1>📊 India GDP Analysis Report</h1>
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+        
+                    <div class="carousel-slide active">
+                        <img src="https://www.worldbank.org/content/dam/photos/780x439/2024/jul/Port-India.jpeg" alt="Port-India.jpeg" />
+                        <div class="carousel-caption">
+                            <p><strong>Port-India.jpeg</strong></p>
+                            <small><a href="//www.worldbank.org" target="_blank" rel="noopener noreferrer">Source: worldbank.org</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.worldbank.org/content/dam/photos/439x439/2025/feb/Women-Engineer.png" alt="Port-India.jpeg" />
+                        <div class="carousel-caption">
+                            <p><strong>Port-India.jpeg</strong></p>
+                            <small><a href="//www.worldbank.org" target="_blank" rel="noopener noreferrer">Source: worldbank.org</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                </div>
+                
+                <button class="carousel-btn prev" onclick="changeSlide(-1)">&lt;</button>
+                <button class="carousel-btn next" onclick="changeSlide(1)">&gt;</button>
+            
+            </div>
+        <div class="carousel-dots"><button class="carousel-dot active" onclick="currentSlide(1)"></button><button class="carousel-dot " onclick="currentSlide(2)"></button></div>
+        </div>
+        <div><h2 id="executive-summary">🎯 Executive Summary</h2><p>This report provides a generalized analysis of potential GDP trends in India due to the unavailability of specific GDP data. The analysis covers common trends, influencing factors, potential risks, and recommendations for monitoring GDP. Key areas include sectoral shifts, demographic dividend, and the impact of domestic and foreign demand. The report emphasizes the need for sector-specific analysis and monitoring of economic indicators to assess the overall health of the economy.</p></div><h2 id="market-landscape">🔍 Market Landscape Overview</h2><p>India's GDP trends are generally characterized by long-term growth, punctuated by periods of cyclical upswings and downturns. Over the past few decades, the Indian economy has transitioned from an agrarian base to a more diversified economy with significant contributions from the services and manufacturing sectors.</p><h3>Long-term Trends:</h3><ul><li><b>Overall Growth:</b> Historically, India has exhibited strong GDP growth, especially since the economic reforms of the early 1990s. This growth has been driven by factors such as increasing urbanization, a growing middle class, and expanding global trade.</li><li><b>Sectoral Shifts:</b> The share of agriculture in GDP has declined, while the share of services and, to a lesser extent, manufacturing has increased. The services sector, including IT, finance, and tourism, has become a major driver of economic growth.</li><li><b>Demographic Dividend:</b> India's large and young population represents a significant demographic dividend. A growing workforce, coupled with increasing education levels, has contributed to economic growth.</li></ul><h3>Short-term Trends:</h3><ul><li><b>Cyclical Fluctuations:</b> Like any economy, India's GDP is subject to cyclical fluctuations. Economic downturns, often triggered by global economic events or domestic policy changes, can lead to slower growth or even contraction.</li><li><b>Monsoon Dependence:</b> Despite diversification, agriculture remains an important sector, and the monsoon season can significantly impact agricultural output and, consequently, overall GDP.</li><li><b>Policy Impacts:</b> Government policies, such as fiscal stimulus packages, infrastructure investments, and regulatory reforms, can have a significant short-term impact on GDP growth.</li></ul><h2 id="contributing-factors">📈 Contributing Factors</h2><ul><li><b>Domestic Demand:</b> Consumption and investment are key drivers of GDP growth. Rising incomes, increasing consumer confidence, and government spending on infrastructure projects can boost domestic demand.</li><li><b>Foreign Trade:</b> Exports and imports play a crucial role in India's economy. Global economic conditions, exchange rates, and trade agreements can influence the performance of the external sector.</li><li><b>Investment Climate:</b> A favorable investment climate, characterized by stable policies, efficient infrastructure, and a skilled workforce, can attract both domestic and foreign investment, leading to higher GDP growth.</li><li><b>Financial Sector:</b> A well-functioning financial sector is essential for channeling savings into productive investments. The health of banks, capital markets, and other financial institutions can significantly impact economic growth.</li></ul><h2 id="potential-anomalies">⚠️ Potential Anomalies and Areas of Concern</h2><ul><li><b>Sectoral Imbalances:</b> An over-reliance on the services sector, without commensurate growth in manufacturing, can lead to structural imbalances in the economy.</li><li><b>Income Inequality:</b> Widening income inequality can dampen consumer demand and lead to social unrest, potentially affecting economic growth.</li><li><b>Infrastructure Gaps:</b> Inadequate infrastructure, such as roads, ports, and power supply, can hinder economic activity and limit growth potential.</li><li><b>Regulatory Bottlenecks:</b> Complex and burdensome regulations can discourage investment and stifle innovation.</li><li><b>Global Economic Shocks:</b> External shocks, such as financial crises, trade wars, or pandemics, can have a significant impact on India's GDP.</li></ul><h2 id="gdp-monitoring">🔍 Recommendations for Monitoring GDP</h2><ul><li><b>Sector-Specific Analysis:</b> Closely monitor the performance of key sectors, such as agriculture, manufacturing, and services, to identify emerging trends and potential challenges.</li><li><b>Demand-Side Indicators:</b> Track indicators of domestic demand, such as consumer spending, investment, and government expenditure, to assess the strength of the economy.</li><li><b>External Sector Performance:</b> Monitor export and import growth, exchange rates, and trade balances to gauge the impact of global economic conditions on India's GDP.</li><li><b>Investment Climate Indicators:</b> Assess the investment climate by tracking indicators such as foreign direct investment, ease of doing business rankings, and investor confidence.</li><li><b>Financial Sector Health:</b> Monitor the health of the financial sector by tracking indicators such as non-performing assets, credit growth, and capital adequacy ratios.</li></ul><h2 id="risks-warnings">❗ Risks and Warnings</h2><p>This analysis is based on general knowledge of India's economy and does not incorporate specific data. Any decisions based on this analysis should be made with caution and should be supported by further data-driven insights. It is critical to obtain the 'gdp_key_figures_T002' data for a proper analysis.</p><h2 id="missing-data">⚠️ Data Limitations</h2><p>The 'gdp_key_figures_T002' data was unavailable, which limits the depth and accuracy of this analysis. A comprehensive assessment requires specific GDP figures, sector-wise contributions, and quarter-on-quarter changes. Without this data, the analysis is based on general knowledge and may not reflect the most current situation.</p>
+    <div class="footer">
+      <p>Generated by Seraphine on 2025-07-02 13:41:49 · Session ID: 51439952</p>
+    </div>
+  </div>
+  <script>
+    let emojisHidden = true; // Start with emojis hidden
+    let originalContent = '';
+
+    function toggleDark() {
+      // Toggle dark class on BOTH html and body elements
+      document.documentElement.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+    }
+
+    function toggleFont() {
+      const current = getComputedStyle(document.body).fontFamily;
+      const isSerif = current.includes("Georgia");
+      document.body.style.fontFamily = isSerif ? 'var(--font-sans)' : 'var(--font-serif)';
+    }
+
+    function toggleEmojis() {
+      const container = document.getElementById('main-container');
+      
+      if (emojisHidden) {
+        // Restore original content (show emojis)
+        if (originalContent) {
+          container.innerHTML = originalContent;
+        }
+        emojisHidden = false;
+      } else {
+        // Store original content and remove emojis
+        if (!originalContent) {
+          originalContent = container.innerHTML;
+        }
+        const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu;
+        container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+        emojisHidden = true;
+      }
+    }
+
+    // Initialize with emojis hidden on page load
+    window.addEventListener('load', function() {
+      const container = document.getElementById('main-container');
+      // Store original content first
+      originalContent = container.innerHTML;
+      // Then remove emojis by default
+      const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu;
+      container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+    });
+
+    
+        // Image Carousel JavaScript
+        let currentSlideIndex = 0;
+        let slides = [];
+        let dots = [];
+        
+        function initializeCarousel() {
+            slides = document.querySelectorAll('.carousel-slide');
+            dots = document.querySelectorAll('.carousel-dot');
+            currentSlideIndex = 0;
+            
+            if (slides.length > 0) {
+                showSlide(0);
+            }
+        }
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show selected slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                if (dots[index]) {
+                    dots[index].classList.add('active');
+                }
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        function currentSlide(index) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCarousel();
+        });
+        
+        // Re-initialize if content changes (for emoji toggle)
+        window.addEventListener('load', function() {
+            setTimeout(initializeCarousel, 100);
+        });
+        
+  </script>
+</body>
+</html>

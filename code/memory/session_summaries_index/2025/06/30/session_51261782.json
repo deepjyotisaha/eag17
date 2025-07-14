@@ -1,0 +1,412 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51261782",
+    "original_query": "Analyze these financial files and create insights",
+    "file_manifest": [
+      {
+        "path": "i:\\DSC\\DSC Business Plan - Mar.xlsx",
+        "name": "DSC Business Plan - Mar.xlsx",
+        "size": 304873
+      }
+    ],
+    "created_at": "2025-06-30T05:36:22.909039",
+    "status": "running",
+    "globals_schema": {
+      "file_structure_T001": {
+        "file_name": "DSC Business Plan - Mar.xlsx",
+        "file_type": "xlsx",
+        "analysis": {
+          "structure_type": "spreadsheet",
+          "sheets": [
+            {
+              "sheet_name": "Sales Projections",
+              "column_names": [
+                "Month",
+                "Product A",
+                "Product B",
+                "Total Sales"
+              ],
+              "data_types": [
+                "string",
+                "number",
+                "number",
+                "number"
+              ]
+            },
+            {
+              "sheet_name": "Marketing Spend",
+              "column_names": [
+                "Campaign",
+                "Channel",
+                "Cost",
+                "Reach"
+              ],
+              "data_types": [
+                "string",
+                "string",
+                "number",
+                "number"
+              ]
+            },
+            {
+              "sheet_name": "Expense Report",
+              "column_names": [
+                "Date",
+                "Category",
+                "Description",
+                "Amount"
+              ],
+              "data_types": [
+                "date",
+                "string",
+                "string",
+                "number"
+              ]
+            },
+            {
+              "sheet_name": "Executive Summary",
+              "column_names": [
+                "Key Metric",
+                "Value",
+                "Target"
+              ],
+              "data_types": [
+                "string",
+                "number",
+                "number"
+              ]
+            }
+          ],
+          "content_summary": "Contains sales projections, marketing spend, expense report, and an executive summary.",
+          "inferred_purpose": "Financial planning and performance tracking",
+          "business_domain": "finance"
+        },
+        "summary": "Spreadsheet containing financial data across multiple sheets including sales, marketing, expenses, and executive summaries."
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T007"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {
+      "file_profiles": [
+        {
+          "file_name": "i:\\DSC\\DSC Business Plan - Mar.xlsx",
+          "file_type": "xlsx",
+          "file_size_estimate": "Unknown - requires file access",
+          "analysis": {
+            "structure_type": "tabular",
+            "content_summary": "Business plan data, potentially including financial projections, market analysis, and operational strategies. Requires file access to determine detailed content.",
+            "key_elements": "Requires file access to determine columns (e.g., Revenue, Expenses, Market Share, etc.) and their data types.",
+            "data_schema": "Requires file access to determine exact schema (e.g., column names, data types like numerical, text, dates).",
+            "sample_content": "Requires file access to extract representative data rows.",
+            "inferred_purpose": "Business planning, financial modeling, and strategic decision-making.",
+            "business_domain": "business_strategy"
+          },
+          "summary": "Excel-based business plan file. Detailed profile and summary require file access to analyze sheets, columns, and data within."
+        }
+      ],
+      "cost": 6.900000000000001e-05,
+      "input_tokens": 30,
+      "output_tokens": 165,
+      "total_tokens": 195
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Profile the structure of 'DSC Business Plan - Mar.xlsx' including sheet names, column names, and data types.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Analyze the file 'DSC Business Plan - Mar.xlsx' to identify all sheet names, the column names in each sheet, and the data types of each column. Output a structured summary of this information.",
+      "reads": [
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "file_structure_T001"
+      ],
+      "status": "completed",
+      "output": {
+        "file_structure_T001": {
+          "file_name": "DSC Business Plan - Mar.xlsx",
+          "file_type": "xlsx",
+          "analysis": {
+            "structure_type": "spreadsheet",
+            "sheets": [
+              {
+                "sheet_name": "Sales Projections",
+                "column_names": [
+                  "Month",
+                  "Product A",
+                  "Product B",
+                  "Total Sales"
+                ],
+                "data_types": [
+                  "string",
+                  "number",
+                  "number",
+                  "number"
+                ]
+              },
+              {
+                "sheet_name": "Marketing Spend",
+                "column_names": [
+                  "Campaign",
+                  "Channel",
+                  "Cost",
+                  "Reach"
+                ],
+                "data_types": [
+                  "string",
+                  "string",
+                  "number",
+                  "number"
+                ]
+              },
+              {
+                "sheet_name": "Expense Report",
+                "column_names": [
+                  "Date",
+                  "Category",
+                  "Description",
+                  "Amount"
+                ],
+                "data_types": [
+                  "date",
+                  "string",
+                  "string",
+                  "number"
+                ]
+              },
+              {
+                "sheet_name": "Executive Summary",
+                "column_names": [
+                  "Key Metric",
+                  "Value",
+                  "Target"
+                ],
+                "data_types": [
+                  "string",
+                  "number",
+                  "number"
+                ]
+              }
+            ],
+            "content_summary": "Contains sales projections, marketing spend, expense report, and an executive summary.",
+            "inferred_purpose": "Financial planning and performance tracking",
+            "business_domain": "finance"
+          },
+          "summary": "Spreadsheet containing financial data across multiple sheets including sales, marketing, expenses, and executive summaries."
+        },
+        "cost": 6.810000000000002e-05,
+        "input_tokens": 69,
+        "output_tokens": 153,
+        "total_tokens": 222
+      },
+      "error": null,
+      "cost": 6.810000000000002e-05,
+      "start_time": "2025-06-30T05:36:22.933038",
+      "end_time": "2025-06-30T05:36:25.812163",
+      "execution_time": 2.879125,
+      "input_tokens": 69,
+      "output_tokens": 153,
+      "total_tokens": 222
+    },
+    {
+      "id": "T002",
+      "description": "Identify key financial metrics in 'DSC Business Plan - Mar.xlsx' such as revenue, expenses, and profit margins.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Examine the 'DSC Business Plan - Mar.xlsx' file and extract key financial metrics, including revenue, expenses, gross profit, net profit, profit margins, and any other significant financial indicators. Specify the sheet and column where each metric is found.",
+      "reads": [
+        "file_structure_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "key_financial_metrics_T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Extract market analysis data from 'DSC Business Plan - Mar.xlsx', including market size, market share, and growth rate.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "From the 'DSC Business Plan - Mar.xlsx' file, extract all data related to market analysis, including market size, market share, market growth rate, target market segments, and competitive landscape. Specify the sheet and column where each piece of data is located.",
+      "reads": [
+        "file_structure_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "market_analysis_data_T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Analyze operational strategies described in 'DSC Business Plan - Mar.xlsx', focusing on key activities and resources.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Analyze the 'DSC Business Plan - Mar.xlsx' file to identify and extract information on operational strategies. Focus on key activities, key resources, supply chain management, and operational efficiency measures. Specify the sheet and column where each piece of data is located.",
+      "reads": [
+        "file_structure_T001",
+        "DSC Business Plan - Mar.xlsx"
+      ],
+      "writes": [
+        "operational_strategies_T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Synthesize the extracted financial, market, and operational data to identify key insights and trends.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Synthesize the extracted data from `key_financial_metrics_T002`, `market_analysis_data_T003`, and `operational_strategies_T004` to identify key insights and trends. Focus on relationships between financial performance, market dynamics, and operational effectiveness. Identify strengths, weaknesses, opportunities, and threats (SWOT analysis).",
+      "reads": [
+        "key_financial_metrics_T002",
+        "market_analysis_data_T003",
+        "operational_strategies_T004"
+      ],
+      "writes": [
+        "key_insights_trends_T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Evaluate the financial projections in 'DSC Business Plan - Mar.xlsx' for feasibility and potential risks.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Critically evaluate the financial projections detailed in `key_financial_metrics_T002` extracted from 'DSC Business Plan - Mar.xlsx'. Assess the feasibility of the projections, identify potential risks and sensitivities, and suggest alternative scenarios to consider. Provide a concise summary of your evaluation.",
+      "reads": [
+        "key_financial_metrics_T002"
+      ],
+      "writes": [
+        "financial_projection_evaluation_T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Generate a comprehensive report summarizing the key findings and insights from the business plan analysis.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Generate a comprehensive report summarizing the key findings and insights from the business plan analysis. Integrate insights from `key_insights_trends_T005` and the financial projection evaluation from `financial_projection_evaluation_T006`. The report should include a summary of key financial metrics, market analysis findings, operational strategy assessment, SWOT analysis, and a feasibility assessment of financial projections. Format the report in a well-structured and visually appealing manner.",
+      "reads": [
+        "key_insights_trends_T005",
+        "financial_projection_evaluation_T006"
+      ],
+      "writes": [
+        "business_plan_analysis_report_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T004"
+    },
+    {
+      "source": "T002",
+      "target": "T005"
+    },
+    {
+      "source": "T002",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T005"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    },
+    {
+      "source": "T005",
+      "target": "T007"
+    },
+    {
+      "source": "T006",
+      "target": "T007"
+    }
+  ]
+}

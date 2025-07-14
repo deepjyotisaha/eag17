@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #212121;
+            padding: 20px;
+            transition: width 0.3s ease;
+        }
+        .sidebar.collapsed {
+            width: 0;
+            overflow: hidden;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: scroll;
+        }
+        #messages {
+            margin-bottom: 20px;
+        }
+        #messageInput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #666;
+            background-color: #333;
+            color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .collapse-btn {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+    </style>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #212121;
+    padding: 20px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+#messages {
+    margin-bottom: 20px;
+}
+
+#messageInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #666;
+    background-color: #333;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #367c39;
+}
+
+.collapse-btn {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.collapse-btn:hover {
+    background-color: #444;
+}
+
+#chat-list li {
+    list-style: none;
+    padding: 8px;
+    border-bottom: 1px solid #444;
+    transition: background-color 0.3s ease;
+}
+
+#chat-list li:hover {
+    background-color: #333;
+}
+
+/* Optional: Style for messages */
+.message {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background-color: #333;
+    text-align: right;
+}
+
+.llm-message {
+    background-color: #444;
+    text-align: left;
+}
+</style><style>
+/* General styles */
+body {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Stack on smaller screens */
+    height: auto; /* Adjust height for content */
+}
+
+.sidebar {
+    width: 100%; /* Full width on smaller screens */
+    padding: 10px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.main-content {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#messages {
+    margin-bottom: 10px;
+}
+
+#messageInput {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* Desktop styles (min-width: 768px) */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        height: 100vh;
+    }
+
+    .sidebar {
+        width: 250px;
+    }
+
+    .main-content {
+        flex-grow: 1;
+        overflow-y: scroll;
+    }
+}
+
+/* Tablet styles (min-width: 600px and max-width: 767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+/* Mobile styles (max-width: 599px) */
+@media (max-width: 599px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/* Adjustments for chart */
+#trafficChart {
+    max-width: 100%; /* Make chart responsive */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+}
+</style>
+<style>
+.loading-spinner {
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 5px solid #4CAF50;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<style>
+.copy-button {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    color: white;
+    padding: 5px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.message:hover .copy-button {
+    opacity: 1;
+}
+</style>
+</head>
+<body>
+    <header style="position: relative;">
+<div style="position: absolute; top: 10px; right: 10px;">
+    <label for="llmSelect" style="color: white; margin-right: 10px;">Select LLM Model:</label>
+    <select id="llmSelect" style="background-color: #333; color: white; border: 1px solid #666; padding: 5px;">
+        <option value="gpt4">GPT-4</option>
+        <option value="geminiPro">Gemini Pro</option>
+        <option value="claude3Opus">Claude 3 Opus</option>
+    </select>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+
+        <h1>LLM Chat Interface</h1>
+    </header>
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <button class="collapse-btn" onclick="toggleSidebar();">Collapse</button>
+            <h2>Chat History</h2>
+            <ul id="chat-list">
+<li><a href="#">Client Meeting Notes</a></li>
+<li><a href="#">Code Debugging Session</a></li>
+<li><a href="#">Performance Review Summary</a></li>
+<li><a href="#">Project Status Update</a></li>
+<li><a href="#">Marketing Strategy Brainstorm</a></li>
+</ul>
+        </aside>
+        <main class="main-content">
+            <div id="messages"><div class="loading-spinner" id="loadingSpinner"><button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">Hi LLM, let's discuss the Project Phoenix proposal.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Okay, I've reviewed it. The risk assessment seems thorough. What are our next steps?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">Let's dive into marketing strategy. What's the best way to reach our target audience in Q3?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Based on current trends, influencer marketing and targeted social media campaigns show the most promise.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">Can we review Q3 financial performance? I need a summary for the board.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Sure, revenue increased by 15% compared to Q2, driven mainly by product X sales.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">What are the key performance indicators for our customer success team?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Key KPIs include customer satisfaction (CSAT), net promoter score (NPS), and customer retention rate.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">Let's brainstorm new product ideas. Anything innovative on the horizon?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] I have generated a few ideas, including a self-optimizing dashboard based on AI.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">How can we optimize our supply chain for better efficiency?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Implementing a real-time tracking system and diversifying suppliers would be beneficial.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">What is the best way to handle a PR crisis effectively?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Transparency, quick response, and genuine empathy are essential. Focus on addressing concerns immediately.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">Can you provide a chart comparing our website traffic sources over the past quarter?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Here's a representation:
+    <img src="https://via.placeholder.com/400x200?text=Traffic+Sources" alt="Traffic Sources Chart">
+    <button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">How can we improve employee engagement in a remote work environment?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Regular virtual team-building activities, flexible work hours, and clear communication channels are vital.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message user-message">
+    <div class="message-text">What are some emerging trends in cybersecurity that we should be aware of?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] AI-powered threats, increased ransomware attacks, and IoT vulnerabilities are key areas to watch.<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+
+                
+<div class="message user-message">
+    <div class="message-text">Can you provide a chart comparing our website traffic sources over the past quarter?<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+<div class="message llm-message">
+    <div class="message-text">[Artificial delay] Here's a representation:<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+    <div id="trafficChart" style="width:100%;max-width:400px;"><button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+    
+<script>
+function sendMessage() {
+    var input = document.getElementById('messageInput');
+    var message = input.value;
+    if (message.trim() !== '') {
+        document.getElementById('loadingSpinner').style.display = 'block';
+        // Simulate a delay for the LLM processing
+        setTimeout(function() {
+            // Here, you would normally send the message to the LLM and
+            // display the response in the 'messages' div.
+            // For this example, we just hide the loading spinner after a delay.
+            document.getElementById('loadingSpinner').style.display = 'none';
+            input.value = '';
+        }, 2000); // Simulate 2 seconds of processing
+    }
+}
+</script>
+
+        // Simulate chart data (replace with actual data if available)
+        var trafficData = {
+            "Direct": 30,
+            "Referral": 25,
+            "Organic": 35,
+            "Paid": 10
+        };
+
+        // Function to render the chart (replace with actual charting library)
+        function renderChart(data, elementId) {
+            var chartContainer = document.getElementById(elementId);
+            if (chartContainer) {
+                let chartHTML = '<table style="width:100%;">';
+                for (const source in data) {
+                    chartHTML += `<tr><td style="padding:5px;">${source}</td><td style="padding:5px;">${data[source]}%</td></tr>`;
+                }
+                chartHTML += '</table>';
+                chartContainer.innerHTML = chartHTML;
+            }
+        }
+
+        // Call the function to render the chart
+        renderChart(trafficData, "trafficChart");
+    </script>
+<button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+
+            <button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </main>
+    <button class="copy-button" onclick="copyMessage(this)">Copy</button></div>
+    
+<script>
+function sendMessage() {
+    var input = document.getElementById('messageInput');
+    var message = input.value;
+    if (message.trim() !== '') {
+        document.getElementById('loadingSpinner').style.display = 'block';
+        // Simulate a delay for the LLM processing
+        setTimeout(function() {
+            // Here, you would normally send the message to the LLM and
+            // display the response in the 'messages' div.
+            // For this example, we just hide the loading spinner after a delay.
+            document.getElementById('loadingSpinner').style.display = 'none';
+            input.value = '';
+        }, 2000); // Simulate 2 seconds of processing
+    }
+}
+</script>
+
+        function sendMessage() {
+            var input = document.getElementById('messageInput');
+            console.log('Sending: ' + input.value);
+            input.value = '';
+        }
+
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+    </script>
+
+
+<script>
+function sendMessage() {
+    var input = document.getElementById('messageInput');
+    var message = input.value;
+    if (message.trim() !== '') {
+        document.getElementById('loadingSpinner').style.display = 'block';
+        // Simulate a delay for the LLM processing
+        setTimeout(function() {
+            // Here, you would normally send the message to the LLM and
+            // display the response in the 'messages' div.
+            // For this example, we just hide the loading spinner after a delay.
+            document.getElementById('loadingSpinner').style.display = 'none';
+            input.value = '';
+        }, 2000); // Simulate 2 seconds of processing
+    }
+}
+</script>
+
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('collapsed');
+    // Store the state in localStorage
+    localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+}
+
+// On load, check localStorage for sidebar state
+window.onload = function() {
+    var sidebar = document.getElementById('sidebar');
+    var collapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    if (collapsed) {
+        sidebar.classList.add('collapsed');
+    }
+};
+</script>
+
+
+<script>
+function sendMessage() {
+    var input = document.getElementById('messageInput');
+    var message = input.value;
+    if (message.trim() !== '') {
+        document.getElementById('loadingSpinner').style.display = 'block';
+        // Simulate a delay for the LLM processing
+        setTimeout(function() {
+            // Here, you would normally send the message to the LLM and
+            // display the response in the 'messages' div.
+            // For this example, we just hide the loading spinner after a delay.
+            document.getElementById('loadingSpinner').style.display = 'none';
+            input.value = '';
+        }, 2000); // Simulate 2 seconds of processing
+    }
+}
+</script>
+
+    document.getElementById('llmSelect').addEventListener('change', function() {
+        var selectedModel = this.value;
+        console.log('Selected LLM Model: ' + selectedModel);
+        // You can add logic here to use the selected model in your chat application
+    });
+</script>
+
+
+<script>
+function sendMessage() {
+    var input = document.getElementById('messageInput');
+    var message = input.value;
+    if (message.trim() !== '') {
+        document.getElementById('loadingSpinner').style.display = 'block';
+        // Simulate a delay for the LLM processing
+        setTimeout(function() {
+            // Here, you would normally send the message to the LLM and
+            // display the response in the 'messages' div.
+            // For this example, we just hide the loading spinner after a delay.
+            document.getElementById('loadingSpinner').style.display = 'none';
+            input.value = '';
+        }, 2000); // Simulate 2 seconds of processing
+    }
+}
+</script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var chatLinks = document.querySelectorAll('#chat-list a');
+        chatLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                // In a real implementation, you would load the chat content here
+                console.log('Loading chat: ' + this.textContent);
+            });
+        });
+    });
+</script>
+
+<script>
+function copyMessage(button) {
+    var messageText = button.parentNode.querySelector('.message-text').innerText;
+    navigator.clipboard.writeText(messageText)  
+        .then(function() {
+            console.log('Message copied to clipboard');
+        })
+        .catch(function(err) {
+            console.error('Could not copy message: ', err);
+        });
+}
+</script>
+</body>
+</html>

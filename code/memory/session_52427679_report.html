@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahindra XUV 3XO Pricing Report</title>
+  <style>
+    /* Base styles */
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0a0a0a;
+      --text-light: #111111;
+      --text-dark: #f1f1f1;
+      --border-light: #000000;
+      --border-dark: #ffffff;
+      --font-sans: 'Inter', 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'EB Garamond', 'New York', 'Georgia', serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: 18px;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s, font-family 0.3s;
+    }
+    
+    html.dark, body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background-color: var(--bg-light);
+      transition: background-color 0.3s;
+    }
+    html.dark .container, body.dark .container {
+      background-color: var(--bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 2.5em;
+      margin-bottom: 0.8em;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      border-bottom: 0.5px solid var(--border-light);
+      padding-bottom: 0.2em;
+    }
+    html.dark h1, body.dark h1 {
+      border-color: var(--border-dark);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+      z-index: 999;
+    }
+
+    .controls button {
+      all: unset;
+      cursor: pointer;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-weight: 500;
+      color: inherit;
+      opacity: 0.6;
+      transition: opacity 0.3s, background-color 0.3s;
+    }
+    .controls button:hover {
+      opacity: 1;
+    }
+    html.dark .controls button, body.dark .controls button {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer {
+      font-size: 0.55rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #aaa;
+    }
+
+    @media print {
+      .controls { display: none; }
+    }
+
+    
+        /* Image Carousel Styles */
+        .image-carousel {
+            margin: 2rem 0;
+        }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+        
+        .carousel-slides {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .carousel-slide.active {
+            display: flex;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .carousel-caption {
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        
+        .carousel-caption p {
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+        
+        .carousel-caption small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        html.dark .carousel-caption small, body.dark .carousel-caption small {
+            color: #aaa;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-size: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.9);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-btn.prev {
+            left: 0;
+        }
+        
+        .carousel-btn.next {
+            right: 0;
+        }
+        
+        .carousel-dots {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .carousel-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active, .carousel-dot:hover {
+            background-color: #333;
+            transform: scale(1.2);
+        }
+        html.dark .carousel-dot {
+            background-color: #666;
+        }
+        html.dark .carousel-dot.active, body.dark .carousel-dot.active,
+        html.dark .carousel-dot:hover, body.dark .carousel-dot:hover {
+            background-color: #ccc;
+        }
+        
+        /* Content Images Styling */
+        .container img:not(.carousel-slide img) {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        html.dark .container img:not(.carousel-slide img), 
+        body.dark .container img:not(.carousel-slide img) {
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+        
+        /* Remove any remaining inline width/height styles */
+        .container img[style*="width"] {
+            width: auto !important;
+            max-width: 100% !important;
+        }
+        .container img[style*="height"] {
+            height: auto !important;
+        }
+        
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="toggleDark()">Th</button>
+    <button onclick="toggleFont()">Aa</button>
+    <button onclick="toggleEmojis()">Em</button>
+  </div>
+  <div class="container" id="main-container">
+    <h1 id='mahindra-xuv-3xo-pricing-report'>Mahindra XUV 3XO Pricing Report</h1>
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+        
+                    <div class="carousel-slide active">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw95797f68/images/SCRC/large/ScorpioClassic_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc6625064/images/NEOP/large/BoleroNeoPlus_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/on/demandware.static/Sites-amc-Site/-/default/dwbcb320f9/images/placeholder-image.png" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/156405/xuv-3xo-exterior-right-front-three-quarter-34.jpeg?isig=0&q=80" alt="Mahindra XUV 3XO Right Front Three Quarter" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO Right Front Three Quarter</strong></p>
+                            <small><a href="//imgd.aeplcdn.com" target="_blank" rel="noopener noreferrer">Source: imgd.aeplcdn.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/156405/xuv-3xo-exterior-right-front-three-quarter-32.jpeg?isig=0&q=80" alt="Mahindra XUV 3XO Right Front Three Quarter" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO Right Front Three Quarter</strong></p>
+                            <small><a href="//imgd.aeplcdn.com" target="_blank" rel="noopener noreferrer">Source: imgd.aeplcdn.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/156405/xuv-3xo-exterior-left-side-view.jpeg?isig=0&q=80" alt="Mahindra XUV 3XO Right Front Three Quarter" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO Right Front Three Quarter</strong></p>
+                            <small><a href="//imgd.aeplcdn.com" target="_blank" rel="noopener noreferrer">Source: imgd.aeplcdn.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/156405/xuv-3xo-exterior-front-view-39.jpeg?isig=0&q=80" alt="Mahindra XUV 3XO Left Side View" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO Left Side View</strong></p>
+                            <small><a href="//imgd.aeplcdn.com" target="_blank" rel="noopener noreferrer">Source: imgd.aeplcdn.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/156405/xuv-3xo-interior-instrument-cluster.jpeg?isig=0&q=80" alt="Mahindra XUV 3XO Front View" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO Front View</strong></p>
+                            <small><a href="//imgd.aeplcdn.com" target="_blank" rel="noopener noreferrer">Source: imgd.aeplcdn.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/XUV-3XO/10184/1751288551835/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/Thar-ROXX/8438/1751288658241/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/Scorpio-N/10818/1749626691069/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/XUV700/11736/1749631327264/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                </div>
+                
+                <button class="carousel-btn prev" onclick="changeSlide(-1)">&lt;</button>
+                <button class="carousel-btn next" onclick="changeSlide(1)">&gt;</button>
+            
+            </div>
+        <div class="carousel-dots"><button class="carousel-dot active" onclick="currentSlide(1)"></button><button class="carousel-dot " onclick="currentSlide(2)"></button><button class="carousel-dot " onclick="currentSlide(3)"></button><button class="carousel-dot " onclick="currentSlide(4)"></button><button class="carousel-dot " onclick="currentSlide(5)"></button><button class="carousel-dot " onclick="currentSlide(6)"></button><button class="carousel-dot " onclick="currentSlide(7)"></button><button class="carousel-dot " onclick="currentSlide(8)"></button><button class="carousel-dot " onclick="currentSlide(9)"></button><button class="carousel-dot " onclick="currentSlide(10)"></button><button class="carousel-dot " onclick="currentSlide(11)"></button><button class="carousel-dot " onclick="currentSlide(12)"></button></div>
+        </div>
+        <div><h2 id='executive-summary'>Executive Summary</h2><p>This report consolidates available pricing information for the Mahindra XUV 3XO from multiple sources. Feature details, digital features, and safety features could not be retrieved due to errors in previous steps.</p><p>The Mahindra XUV 3XO's price ranges from approximately Rs. 7.99 Lakh to Rs. 15.80 Lakh (Avg. ex-showroom price). This price range can vary based on the city, variant, and additional features. Below is a detailed breakdown of the pricing information from different sources.</p></div><div><h2 id='pricing-overview'>Pricing Overview</h2><p><b>Source 1: Mahindra Official Website (auto.mahindra.com)</b></p><p>The official Mahindra website lists the XUV 3XO price range as Rs. 7.99L - Rs. 15.79L. This is a general range and does not specify individual variant prices.</p><p><b>Source 2: CarWale (carwale.com)</b></p><p>CarWale provides a more detailed pricing breakdown for 29 variants of the XUV 3XO. Prices range from Rs. 7.99 Lakh for the base model (XUV 3XO MX1 1.2 Petrol) to Rs. 15.80 Lakh for the top model. Here's a summary of some key variants:</p><ul><li>XUV 3XO MX1 1.2 Petrol: Rs. 7.99 Lakh</li><li>XUV 3XO REVX M 1.2 Petrol: Rs. 8.94 Lakh</li><li>XUV 3XO MX2 Pro 1.2 Petrol: Rs. 9.54 Lakh</li><li>XUV 3XO MX3 1.2 Petrol: Rs. 9.74 Lakh</li><li>XUV 3XO MX2 1.5 Diesel: Rs. 9.99 Lakh</li><li>XUV 3XO AX5 1.2 Petrol: Rs. 11.19 Lakh</li><li>XUV 3XO AX5L 1.2 Petrol: Rs. 12.62 Lakh</li><li>XUV 3XO AX7 1.2 Petrol: Rs. 12.80 Lakh</li><li>XUV 3XO AX5 1.5 Diesel: Rs. 12.19 Lakh</li><li>XUV 3XO AX7 1.5 Diesel: Rs. 13.69 Lakh</li></ul><p><b>Source 3: CarDekho (cardekho.com)</b></p><p>CarDekho provides on-road prices in Bangalore, which include ex-showroom price, RTO, insurance, and other charges. The prices range from Rs. 9.68 Lakh for the base model (Mahindra XUV 3XO MX1) to Rs. 19.65 Lakh for the top model (Mahindra XUV 3XO AX7 L Turbo AT).</p><ul><li>Mahindra XUV 3XO MX1: Rs. 9.68 Lakh (On-Road Price in Bangalore)</li><li>Mahindra XUV 3XO REVX M: Rs. 10.02 Lakh (On-Road Price in Bangalore)</li><li>Mahindra XUV 3XO MX2 Pro: Rs. 11.53 Lakh (On-Road Price in Bangalore)</li><li>Mahindra XUV 3XO AX5: Rs. 13.97 Lakh (On-Road Price in Bangalore)</li><li>Mahindra XUV 3XO AX7 L Turbo AT: Rs. 19.65 Lakh (On-Road Price in Bangalore)</li></ul><p><b>Source 4: India Garage (india-garage.in)</b></p><p>India Garage lists the ex-showroom price in Bangalore, ranging from Rs. 7.99 Lakh for the base variant to Rs. 15.79 Lakh for the top-end variant.</p><ul><li>Base Variant (MX2 diesel): Rs. 9.99 Lakh</li><li>Top-end Variant (AX7 L Turbo AT): Rs. 15.79 Lakh</li></ul><p><b>Source 5: AckoDrive (ackodrive.com)</b></p><p>AckoDrive lists on-road prices in Delhi, with prices ranging from Rs. 9.49 Lakh to Rs. 18.52 Lakh.</p><ul><li>1.2 MX1 Petrol Manual: Rs. 9.49 L (On-road price in Delhi)</li><li>1.2 AX7L TGDi AT Petrol Automatic: Rs. 18.52 L (On-road price in Delhi)</li></ul><p><b>Key Observations</b></p><ul><li>The base model (MX1 1.2 Petrol) generally starts around Rs. 7.99 Lakh (ex-showroom).</li><li>The top-end models (AX7 L Turbo AT) can reach up to Rs. 15.80 Lakh (ex-showroom) or higher on-road.</li><li>On-road prices vary significantly based on the city due to differences in RTO charges, insurance costs, and other local taxes.</li></ul><table border='1'><thead><tr><th>Variant</th><th>Ex-Showroom Price (Approx.)</th><th>On-Road Price (Approx.)</th><th>Source</th></tr></thead><tbody><tr><td>MX1 1.2 Petrol</td><td>Rs. 7.99 Lakh</td><td>Rs. 9.68 Lakh (Bangalore), Rs. 9.49 Lakh (Delhi)</td><td>CarWale, CarDekho, AckoDrive</td></tr><tr><td>AX7 L Turbo AT</td><td>Rs. 15.80 Lakh</td><td>Rs. 19.65 Lakh (Bangalore), Rs. 18.52 Lakh (Delhi)</td><td>CarWale, CarDekho, AckoDrive</td></tr></tbody></table></div><div><h2 id='recommendations'>Recommendations</h2><ul><li>Verify pricing with local dealerships for accurate and up-to-date information.</li><li>Consult multiple sources to get a comprehensive understanding of the pricing variations across different cities and variants.</li><li>Consider on-road prices to account for additional costs like RTO, insurance, and taxes.</li></ul></div><div><h2 id='risks-and-warnings'>Risks and Warnings</h2><p><b>Disclaimer:</b> This report is based solely on the pricing information available from the provided URLs. Feature details, digital features, and safety features could not be included due to errors encountered during data retrieval in steps T001, T002, and T003. The pricing information should be verified with local dealerships for the most accurate and up-to-date details.</p><ul><li>The report is incomplete due to the lack of feature details, digital features, and safety features.</li><li>Pricing information may vary based on location, dealer, and time of purchase.</li><li>On-road prices are estimates and can vary based on insurance provider and local taxes.</li></ul></div>
+    <div class="footer">
+      <p>Generated by Seraphine on 2025-07-13 22:58:50 · Session ID: 52427679</p>
+    </div>
+  </div>
+  <script>
+    let emojisHidden = true; /* Start with emojis hidden */
+    let originalContent = '';
+
+    function toggleDark() {
+      /* Toggle dark class on BOTH html and body elements */
+      document.documentElement.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+    }
+
+    function toggleFont() {
+      const current = getComputedStyle(document.body).fontFamily;
+      const isSerif = current.includes("Georgia");
+      document.body.style.fontFamily = isSerif ? 'var(--font-sans)' : 'var(--font-serif)';
+    }
+
+    function toggleEmojis() {
+      const container = document.getElementById('main-container');
+      
+      if (emojisHidden) {
+        /* Restore original content (show emojis) */
+        if (originalContent) {
+          container.innerHTML = originalContent;
+        }
+        emojisHidden = false;
+      } else {
+        /* Store original content and remove emojis */
+        if (!originalContent) {
+          originalContent = container.innerHTML;
+        }
+        /* ✅ FIXED: Comprehensive emoji regex that includes ALL emoji ranges */
+        const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+        container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+        emojisHidden = true;
+      }
+    }
+
+    /* Initialize with emojis hidden on page load */
+    window.addEventListener('load', function() {
+      const container = document.getElementById('main-container');
+      /* Store original content first */
+      originalContent = container.innerHTML;
+      /* Then remove emojis by default */
+      /* ✅ FIXED: Same comprehensive emoji regex */
+      const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+      container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+    });
+
+    
+        // Image Carousel JavaScript
+        let currentSlideIndex = 0;
+        let slides = [];
+        let dots = [];
+        
+        function initializeCarousel() {
+            slides = document.querySelectorAll('.carousel-slide');
+            dots = document.querySelectorAll('.carousel-dot');
+            currentSlideIndex = 0;
+            
+            if (slides.length > 0) {
+                showSlide(0);
+            }
+        }
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show selected slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                if (dots[index]) {
+                    dots[index].classList.add('active');
+                }
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        function currentSlide(index) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCarousel();
+        });
+        
+        // Re-initialize if content changes (for emoji toggle)
+        window.addEventListener('load', function() {
+            setTimeout(initializeCarousel, 100);
+        });
+        
+  </script>
+</body>
+</html>

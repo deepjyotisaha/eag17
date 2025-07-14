@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+            <img src="logo.png" alt="Company Logo" class="h-8 mr-4">
+            <span class="font-bold text-xl">Your Company</span>
+        </div>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
+                <li><a href="about.html" class="hover:text-gray-300">About</a></li>
+                <li><a href="products.html" class="hover:text-gray-300">Products</a></li>
+                <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <div class="filter-section">
+        <label for="category">Category:</label>
+        <select id="category">
+            <option value="">All</option>
+            <option value="category1">Category 1</option>
+            <option value="category2">Category 2</option>
+            <option value="category3">Category 3</option>
+        </select>
+
+        <label for="priceRange">Price Range:</label>
+        <select id="priceRange">
+            <option value="">All</option>
+            <option value="0-25">$0 - $25</option>
+            <option value="25-50">$25 - $50</option>
+            <option value="50-100">$50 - $100</option>
+            <option value="100">$100+</option>
+        </select>
+
+        <button onclick="applyFilters()">Apply Filters</button>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card" data-category="category1" data-price="19.99">
+            <img src="https://via.placeholder.com/300x200" alt="Product Image">
+            <h3 class="product-title">Product 1</h3>
+            <p class="product-description">Short description of product 1.</p>
+            <p class="product-price">$19.99</p>
+            <button class="product-button">Add to Cart</button>
+        </div>
+        <div class="product-card" data-category="category2" data-price="29.99">
+            <img src="https://via.placeholder.com/300x200" alt="Product Image">
+            <h3 class="product-title">Product 2</h3>
+            <p class="product-description">Short description of product 2.</p>
+            <p class="product-price">$29.99</p>
+            <button class="product-button">Add to Cart</button>
+        </div>
+        <div class="product-card" data-category="category1" data-price="39.99">
+            <img src="https://via.placeholder.com/300x200" alt="Product Image">
+            <h3 class="product-title">Product 3</h3>
+            <p class="product-description">Short description of product 3.</p>
+            <p class="product-price">$39.99</p>
+            <button class="product-button">Add to Cart</button>
+        </div>
+        <div class="product-card" data-category="category3" data-price="49.99">
+            <img src="https://via.placeholder.com/300x200" alt="Product Image">
+            <h3 class="product-title">Product 4</h3>
+            <p class="product-description">Short description of product 4.</p>
+            <p class="product-price">$49.99</p>
+            <button class="product-button">Add to Cart</button>
+        </div>
+        <div class="product-card" data-category="category2" data-price="59.99">
+            <img src="https://via.placeholder.com/300x200" alt="Product Image">
+            <h3 class="product-title">Product 5</h3>
+            <p class="product-description">Short description of product 5.</p>
+            <p class="product-price">$59.99</p>
+            <button class="product-button">Add to Cart</button>
+        </div>
+        <div class="product-card" data-category="category3" data-price="69.99">
+            <img src="https://via.placeholder.com/300x200" alt="Product Image">
+            <h3 class="product-title">Product 6</h3>
+            <p class="product-description">Short description of product 6.</p>
+            <p class="product-price">$69.99</p>
+            <button class="product-button">Add to Cart</button>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-gray-300 py-8">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+        <div class="flex space-x-4">
+            <a href="#" class="hover:text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="mt-4 md:mt-0">
+            <p>&copy; 2024 All rights reserved.</p>
+        </div>
+        <div class="flex space-x-4">
+            <a href="/terms" class="hover:text-white">Terms of Service</a>
+            <a href="/privacy" class="hover:text-white">Privacy Policy</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script>
+        function applyFilters() {
+            const categoryFilter = document.getElementById("category").value;
+            const priceRangeFilter = document.getElementById("priceRange").value;
+            const productCards = document.querySelectorAll(".product-card");
+
+            productCards.forEach(card => {
+                const category = card.dataset.category;
+                const price = parseFloat(card.dataset.price);
+
+                let categoryMatch = categoryFilter === "" || category === categoryFilter;
+                let priceMatch = true;
+
+                if (priceRangeFilter !== "") {
+                    const [minPrice, maxPrice] = priceRangeFilter.split("-");
+                    if (maxPrice === undefined) {
+                        priceMatch = price >= parseFloat(minPrice);
+                    } else {
+                        priceMatch = price >= parseFloat(minPrice) && price <= parseFloat(maxPrice);
+                    }
+                }
+
+                if (categoryMatch && priceMatch) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

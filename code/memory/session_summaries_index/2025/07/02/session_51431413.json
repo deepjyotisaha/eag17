@@ -1,0 +1,664 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51431413",
+    "original_query": "I need a 7-day Japan itinerary for April 15-23 from Seattle, with a $2500-5000 budget for my fiancée and me. We love historical sites, hidden gems, and Japanese culture (kendo, tea ceremonies, Zen meditation). We want to see Nara's deer and explore cities on foot. I plan to propose during this trip and need a special location recommendation. Please provide a detailed itinerary and an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips we can reference throughout our journey.",
+    "file_manifest": [],
+    "created_at": "2025-07-02T04:43:33.756830",
+    "status": "running",
+    "globals_schema": {
+      "flight_options_T001": [],
+      "total_tokens": 3214.5,
+      "accommodation_options_T002": [],
+      "next_instruction": "Extract detailed information (pricing, amenities, guest reviews, proximity to historical sites/public transportation) from the found accommodation options.",
+      "iteration_context": {
+        "current_step": "extraction_phase",
+        "next_step": "none",
+        "locations": [
+          "Tokyo",
+          "Kyoto",
+          "Nara"
+        ],
+        "budget": "2500-5000 USD",
+        "duration": "7 days",
+        "travelers": 2
+      },
+      "historical_sites_T003": [],
+      "cultural_experiences_T003": []
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T012"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {}
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research flight options from Seattle to Japan (round trip) for April 15-23 for two people.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research round trip flight options from Seattle (SEA) to major airports in Japan (e.g., NRT, KIX) for two adults, departing on April 15 and returning on April 23. Consider different airlines and price ranges to identify affordable options within the $2500-5000 budget. Capture flight times, layovers, and estimated costs.",
+      "reads": [],
+      "writes": [
+        "flight_options_T001"
+      ],
+      "status": "completed",
+      "output": {
+        "flight_options_T001": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('round trip flights Seattle to Japan April 15-23 2 adults $2500-$5000', 8)\nreturn {'flight_options_T001': results}",
+          "CODE_1B": "data = search_web_with_text_content('SEA to NRT KIX flights April 15 return April 23 price range airlines', 6)\nreturn {'flight_options_T001': data}"
+        },
+        "cost": 0.0004833,
+        "input_tokens": 2940.0,
+        "output_tokens": 70.5,
+        "total_tokens": 3010.5,
+        "execution_result": null,
+        "execution_status": "success",
+        "execution_error": null,
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.0004833,
+      "start_time": "2025-07-02T04:43:33.789387",
+      "end_time": "2025-07-02T04:44:43.449784",
+      "execution_time": 69.660397,
+      "execution_result": {
+        "status": "success",
+        "session_id": "51431413",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "success",
+          "result": {
+            "flight_options_T001": [
+              {
+                "type": "text",
+                "text": "[{'url': 'https://duckduckgo.com/y.js?ad_domain=ixigo.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=752QAn7%2D1WrIHcYqNkuAmOv_DHD6TFIszuSFR0jaxUf9gyrkoTbjU9G3TPiybUzWFMKUEVJheZlCd5hLuuT51Hnf9GbUjNOsiAU8hGeoGs1z1rdkoJWHtyGxBahOmXMT.OGvmCf9iZnN3mU2mYMrFgw&rut=747d732fd2c2851dda06f73fdd660f819e835191537db85548b41664f36d08ae&u3=https%3A%2F%2Fwww.bing.com%2Faclick%3Fld%3De8M0hh%2DUmjQstw40nx92FkATVUCUyH88fMRdSYxd45W9eH36Mdh0dYS9n1IgKjSgmEOaDcbSo3bG1_fzBbOfzvOB4xoeswYbd2rmTJrgi8GKevG0zaj8WiZdB%2D3XGFvOG6XpajEJMtPDuHL06QzJpKThGP2hnv9wf6zS4fz%2D9eQAPGQVc7PAzdP%2DP0I%2DUri5dkz7DgjA%26u%3DaHR0cHMlM2ElMmYlMmZ3d3cuaXhpZ28uY29tJTJmZmxpZ2h0cyUzZnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZHBhaWRfc2VhcmNoX2JpbmclMjZ1dG1fY2FtcGFpZ24lM2RHZW5lcmljX1NlYXJjaF9TZXB0X2JpbmclMjZtc2Nsa2lkJTNkZjM5YWRlZjRhZGM3MTkwMjdjMmFiNjkwMTRlMmFiOGIlMjZ1dG1fdGVybSUzZHJvdW5kJTI1MjB0cmlwJTI1MjBmbGlnaHQlMjUyMHRpY2tldCUyNnV0bV9jb250ZW50JTNkQWlyJTI1MjB0aWNrZXRz%26rlid%3Df39adef4adc719027c2ab69014e2ab8b&vqd=4-79954938286976340287143767695027247237&iurl=%7B1%7DIG%3D438A3111DCED43BABE90FAE1EC3372A8%26CID%3D1F9F9717340B65913AA2810A356F640D%26ID%3DDevEx%2C5047.1', 'content': \"Flight Booking, Cheap Flights, Air Tickets at Lowest Fare | ixigo Offers Customer Service Flights Up to 50% Off Hotels Trains Buses Flight Booking One Way Round Trip 24x7 Customer Support Hassle-Free Bookings Best Flight Offers Hassle-Free Bookings 24x7 Customer Support From From To To Departure Thu, 03 Jul Return Travellers & Class 1 Traveller, Economy Search Special Fares (Optional) : Student Senior Citizen Armed Forces Add hotel and save up to 50% Do More With ixigo Pro Flight Tracker Free Credit Card Travel eSIM Book Visa Group Booking Airport Cabs Plan Fare Alerts Cheapest Fares From New Delhi Bathinda , Punjab Thu, 03 Jul 1,260 onwards Book Flight Hissar , Haryana Fri, 08 Aug 1,949 onwards Book Flight Gwalior , Madhya Pradesh Tue, 30 Sep 2,016 onwards Book Flight Jaipur , Rajasthan Mon, 07 Jul 2,050 onwards Book Flight Ajmer , Rajasthan Wed, 10 Sep 2,609 onwards Book Flight Dehradun , Uttarakhand Mon, 07 Jul 2,626 onwards Book Flight Shimla , Himachal Pradesh Thu, 03 Jul 2,730 onwards Book Flight Chandigarh , Chandigarh Sat, 12 Jul 2,745 onwards Book Flight Amritsar , Punjab Tue, 05 Aug 2,795 onwards Book Flight Bhopal , Madhya Pradesh Wed, 03 Sep 2,949 onwards Book Flight Ahmedabad , Gujarat Thu, 03 Jul 3,051 onwards Book Flight Prayagraj , Uttar Pradesh Mon, 01 Sep 3,066 onwards Book Flight Varanasi , Uttar Pradesh Tue, 22 Jul 3,155 onwards Book Flight Gorakhpur , Uttar Pradesh Sat, 05 Jul 3,171 onwards Book Flight Kanpur , Uttar Pradesh Fri, 18 Jul 3,330 onwards Book Flight Hyderabad , Telangana Tue, 16 Sep 3,425 onwards Book Flight Bikaner , Rajasthan Wed, 09 Jul 3,650 onwards Book Flight Udaipur , Rajasthan Mon, 21 Jul 3,655 onwards Book Flight Pantnagar , Uttarakhand Sun, 31 Aug 3,696 onwards Book Flight Vadodara , Gujarat Tue, 19 Aug 3,711 onwards Book Flight Ayodhya , Uttar Pradesh Sat, 27 Sep 3,874 onwards Book Flight Gondia , Maharashtra Thu, 31 Jul 3,953 onwards Book Flight Gaya , Bihar Thu, 07 Aug 3,958 onwards Book Flight Indore , Madhya Pradesh Fri, 11 Jul 3,964 onwards Book Flight Bilaspur , Chhattisgarh Sun, 27 Jul 4,090 onwards Book Flight Raipur , Chhattisgarh Sun, 10 Aug 4,114 onwards Book Flight Jabalpur , Madhya Pradesh Thu, 18 Sep 4,200 onwards Book Flight Jodhpur , Rajasthan Sat, 19 Jul 4,219 onwards Book Flight Jagdalpur , Chhattisgarh Thu, 07 Aug 4,249 onwards Book Flight Aurangabad , Maharashtra Mon, 21 Jul 4,272 onwards Book Flight Popular Flight Routes Mumbai Flights To: Goa Delhi Bangalore Ahmedabad Delhi Flights To: Mumbai Goa Bangalore Pune Kolkata Flights To: Mumbai Delhi Bangalore Bagdogra Chennai Flights To: Mumbai Delhi Madurai Coimbatore Hyderabad Flights To: Mumbai Goa Bangalore Delhi Ahmedabad Flights To: Mumbai Delhi Bangalore Goa Bangalore Flights To: Mumbai Delhi Goa Hyderabad Pune Flights To: Goa Delhi Bangalore Nagpur Goa Flights To: Mumbai Delhi Bangalore Hyderabad Popular Domestic Airlines IndiGo Air India Air India Express Akasa Air Alliance Air SpiceJet Frequently Asked Questions Why is flight ticket booking the cheapest on ixigo? ixigo directly searches multiple airline websites for the cheapest fares . Many airlines prefer to sell their cheapest flight tickets on ixigo. Additionally, with its exclusive offers and deals , including several bank and partner offers, ixigo serves as the best platform to book cheap flights . You also get additional discounts with special fares for students, armed forces and senior citizens. Some of the ongoing flight deals include: Up to Rs. 3000 Off on flights with ICICI Bank Credit Cards EMI. Up to 12% Off up to Rs.1200 with Kotak Credit Card + Interest Free EMI Up to 1500 Off with HDFC Credit Card + Interest Free EMI There are a number of other offers for you to choose from visit ixigo flight offers for the best flight deal. How do I book cheap flight tickets? Here's how you can book cheap flight tickets Book your flights from ixigo in advance to get the cheapest deals. New users also get Flat 12% off with code 'N\", 'images': [], 'rank': 1}, {'url': 'https://duckduckgo.com/y.js?ad_domain=easemytrip.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=TQdtpAlol07HPrDs_3eMkxHEIan5bAhEYnK9kPo_yfg2nw3XGOudmaECZSOobwuRmpl0uA%2DOJ_NTAcrpBQOLZd3jzDw_cInEBT7ioOlxFUlTUYh7nJm8bNOSWCa3WO9D.GycZMJaGYKXdIORnTfJ56A&rut=5aa33a152c4be4f27cc42f353a12a909caab13e7d3636de3a257ffe80de9a650&u3=https%3A%2F%2Fwww.bing.com%2Faclick%3Fld%3De8aqkOcswkMAHFv4wYsU_3yDVUCUx5bqTv59tN_UCEbAo9tyArbotXSMBEvlEVNyVTEa5558WNs5Du4BzYH76bpZDg2muOk5x9tFGISleGjfeQuAl7ei5cZXPMfs9UIVHgWrwpQtWnzKSGsnMcMbJnbrKxn8c52Y0IEBMbPFzLb6vdId5gkFxeCNcIuASNBPOse%2DwM8g%26u%3DaHR0cHMlM2ElMmYlMmZ3d3cuZWFzZW15dHJpcC5jb20lMmYlM2ZhZGdyb3VwaWQlM2QxMTU4ODg2MDU5NzMzOTcyJTI2ZGV2aWNlJTNkYyUyNm1zY2xraWQlM2Q2ODcyYmQ0NGFiMWYxN2M4ZjhjMGQ1MjAxMjNhM2Q1MiUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jYW1wYWlnbiUzZEJpbmdfU2VhcmNoX05vbkJyYW5kJTI1MjAoRmxpZ2h0cyUyNTIwQm9va2luZylfRGVza3RvcCUyNnV0bV90ZXJtJTNkZmxpZ2h0JTI1MjBkaXNjb3VudHMlMjZ1dG1fY29udGVudCUzZGtleXdvcmRfQ2hlYXA%26rlid%3D6872bd44ab1f17c8f8c0d520123a3d52&vqd=4-76142586253503055212143011911041537997&iurl=%7B1%7DIG%3D438A3111DCED43BABE90FAE1EC3372A8%26CID%3D1F9F9717340B65913AA2810A356F640D%26ID%3DDevEx%2C5053.1', 'content': 'EaseMyTrip.com - Book Flights, Hotels, Holidays, Bus & Train Tickets Looking for great discounts? Get 10% off upto 1000 using EaseMyTrip App. Use code: EMTAPP Install  Login or Signup and Grab Exclusive deals Hi, Edit Profile Sign Out Your Booking View and manage your bookings EMT Wallet Use your wallet for hassle-free bookings EMTMate Agent travel solution EMTDesk Corporate travel program EMTRoyale For Prime Members Only EMT PRO Join EMTPRO for premium services Help Center Contact our customer support Refer & Earn Refer a friend and invite them to Sign Up Country/Region India Currency INR (Rupee) Sign Out Welcome Are you sure you want to logout? Stay Logged In Log Out India Flights Hotels Trains Flight + Hotel Bus Holidays Cabs Activities Gift Card Visa Metro EasyDarshan EasyEloped Explore Bharat Charters EMT Cards Airport Services Forex Cash & Cards Airport Services Duty Free Earn Refer & Earn Coupons Hot Deals Visa Visa for UAE Notification Airline Notifications Special Offers View All Top Offers Bank Offers Flights Hotels Bus Cabs Flights New User Offer Register and Get Discount on First Bookings with EaseMyTrip Use code : EMTFIRST Valid till : 31st Jul, 2025 Hotels Hotel Deals Save up to 45% OFF* on Your Favorite Hotel Use code : EMTHOTELS Valid till : 31st Jul, 2025 Bus Bus Deal Book Bus Tickets for Your Preferred Route at 5% Discount Use code : EMTBUS Valid till : 31st Jul, 2025 Recently Search Best Holidays Packages View All Goa 3 Nights 8,999 per person Kerala 5 Nights 17,999 per person Himachal 6 Nights 21,999 per person Bali 5 Nights 49,099 per person Phuket & Krabi 4 Nights 17,990 per person Favourite places to stay View All Delhi Explore Mumbai Explore Bangalore Explore Jaipur Explore Chennai Explore Your Daily Travel Blogs View All Hotels Best 5 Star Hotels Near Bangalore Airport for Corporate Travellers By EaseMyTrip Read more Hotels Best 5 Star Hotels In Jaipur For The Ideal Royal Escape By EaseMyTrip Read more Holiday Destinations Experience Rural Madhya Pradesh with These Offbeat Village Homestays By EaseMyTrip Read more Why Book With Us? Trustpilot 24/7 Customer Support We are here to help whenever you need us Secure Booking Process Your personal information is secured using the latest industry standards Instant Refund Get instant refunds effortlessly on your travel bookings with us. Trusted by Members We\\'ve earned 4.8/5 star on App Store 25 Million Happy Members Millions of members worldwide rely on EaseMyTrip.com for their travel needs Trustpilot Search Flights, Hotels, Bus and Holiday Packages EaseMyTrip is one of the largest online travel platforms in India, and a trusted name in the Indian travel industry. We offer \"end to end\" travel solutions including air tickets, hotel booking, cab and bus booking, train tickets and holiday packages. Additionally, we offer ancillary value-added services. We understand that planning a trip can be overwhelming, so we have simplified the process to make it easy for you to find the perfect travel deals that suit your needs. Our website is user-friendly and provides a wide range of options to choose from. Whether you\\'re planning a family vacation, a solo adventure, or a business trip, we have you covered with our comprehensive travel packages. From flights to hotels, car rentals to holiday packages, we offer everything you need to make your trip a success. We believe in transparency and honesty in all our dealings. We do not charge any hidden fees, and our prices are always competitive. With EaseMyTrip, you can be assured of getting the best travel deals in the market. If you\\'re looking for a hassle-free and affordable way to plan your next trip, look no further than EaseMyTrip. We promise to make your travel experience a memorable one. Our Products Book Flights Refer & Earn Flight Status Hotel Booking Trains Check PNR Status Lowest Airfare Calendar Domestic Flights International Flights Holiday Packages Bus Cabs Franchise Mice EMT Info Privacy Policy Terms & C', 'images': [{'url': 'https://images.emtcontent.com/hotel-img/airline-sale-bnr-27jun-mob.webp', 'alt_text': 'Airlines Sale', 'confidence': 0.7}, {'url': 'https://images.emtcontent.com/holiday-img/phucket-hol.png', 'alt_text': 'Phuket & Krabi', 'confidence': 0.7}], 'rank': 2}, {'url': 'https://www.google.com/travel/flights/flights-from-seattle-to-tokyo.html', 'content': \"Find Cheap Flights from Seattle to Tokyo - Google Flights Skip to main content Accessibility feedback Change appearance Sign in Travel Explore Flights Hotels Vacation rentals Travel Explore Flights Hotels Vacation rentals Tracked flight prices Tracked hotel prices Change language Change currency Change location Feedback Help Flights Round trip Round trip One way Multi-city 1 Adults Remove adult 1 Add adult Children Aged 2-11 Aged 2 to 11 Remove child 0 Add child Infants In seat Remove infant in seat 0 Add infant in seat Infants On lap Remove infant on lap 0 Add infant on lap Done Cancel Economy Economy Premium economy Business First Seattle Seattle Remove Select multiple airports Done Tokyo Tokyo Remove Select multiple airports Done Departure Return Departure Return Round trip Round trip One way Reset Done Add flight Search Flights From Seattle To Tokyo Cheap flights from Seattle to Tokyo Good to know Close dialog Prices are for flights from Seattle to Tokyo for 1 adult in Economy. Flight times are based on nonstop flights or flights with the fewest stops available. Flight information for Seattle to Tokyo to help you plan your next trip. Cheapest round-trip flight 57,934 Air Canada 1 stop 13 hr Sep 7 Sep 23 The cheapest round-trip flight from Seattle to Tokyo is currently 57,934 Find flights Cheapest one-way flight 33,655 Air Canada 1 stop 32 hr Aug 20 The cheapest one-way flight from Seattle to Tokyo is currently 33,655 Find flights Fastest flight 10 hr The fastest nonstop flight from Seattle to Tokyo takes 10 hr Nonstop flights Every day There are direct flights on this route every day. When is the cheapest time to fly? Close dialog Typical prices for the least expensive round-trip flights from Seattle to Tokyo per month. Insights are based on fares observed in the last 12 months. Current prices may differ. The cheapest month to fly from Seattle to Tokyo is typically April. The most expensive one is typically June. January Prices in January are usually between 65,000 and 94,000. Popular airlines from Seattle to Tokyo Close dialog Popularity is based on the number of weekly nonstop and connecting flights the airline operates. Connecting flights do not include interline routes. Flight suggestions are based on an airline's cheapest round-trip fares from Seattle to Tokyo in the next 3 months. Prices include required taxes + fees for one adult. Optional charges and bag fees may apply. Typical prices are based on fares observed in the past year for one-week round trips with the same origin, destination, and airline. Hawaiian Nonstop from 64,785 Typical price: 95,000165,000 95,000 165,000 7 weekly nonstop flights SEA - NRT Every day S M T W T F S 19 weekly connecting flights SEA - HND Every day S M T W T F S Find flights from 64,785 Delta Nonstop from 64,802 Typical price: 95,000180,000 95,000 180,000 7 weekly nonstop flights SEA - HND Every day S M T W T F S 14 weekly connecting flights SEA - HND Every day S M T W T F S Find flights from 64,802 JAL Nonstop from 70,762 Typical price: 100,000190,000 100,000 190,000 7 weekly nonstop flights SEA - NRT Every day S M T W T F S Find flights from 70,762 ANA Nonstop from 66,035 Typical price: 89,000170,000 89,000 170,000 7 weekly nonstop flights SEA - HND Every day S M T W T F S Find flights from 66,035 United from 64,665 Typical price: 84,000155,000 84,000 155,000 46 weekly connecting flights SEA - HND, NRT Every day S M T W T F S Find flights from 64,665 Air Canada from 57,934 Typical price: 86,000185,000 86,000 185,000 21 weekly connecting flights SEA - NRT Every day S M T W T F S Find flights from 57,934 Popular airports near Seattle Close dialog Distance and driving time are relative to the city center. Airports are listed based on distance from Seattle center and popularity with travelers. SeattleTacoma International Airport (SEA) Seattle United States 19 min 17 km Portland International Airport (PDX) Portland United States 2 hr 43 min 225 km Paine Field (PAE) Everett United States\", 'images': [], 'rank': 3}, {'url': 'https://www.kayak.com/flight-routes/Seattle-Tacoma-Intl-SEA/Japan-JP0', 'content': '$352 CHEAP FLIGHTS from Seattle to Japan | KAYAK Skip to main content Flights Hotels Cars Packages Plan your trip Explore Flight Tracker KAYAK for Business NEW Trips English Search for a country or language Argentina Australia Belgique (Franais) Belgi (Nederlands) Bolivia Brasil Canada (English) Canada (Franais) Chile Colombia Costa Rica Danmark Deutschland (Deutsch) Germany (English) Ecuador El Salvador Espaa (Espaol) Espanya (Catal) France Guatemala Honduras Hong Kong (English) () India Indonesia (Bahasa Indonesia) Indonesia (English) Ireland Israel (English) () Italia Malaysia (English) Malaysia (Melayu) Mxico Nederland New Zealand Nicaragua Norge Panam Paraguay Per Philippines Polska Portugal Puerto Rico Repblica Dominicana Romnia Suisse (Franais) Schweiz (Deutsch) Singapore South Africa Suomi Sverige Trkiye United Arab Emirates United Kingdom United States (English) Estados Unidos (Espaol) Uruguay Venezuela Vietnam (English) Vit Nam (Vit) sterreich esk republika   () Saudi Arabia (English) () Thailand (English) $352 Find Cheap Flights from Seattle to Japan This is the cheapest one-way flight price found by a KAYAK user in the last 72 hours by searching for a flight from Seattle to Japan departing on 7/14. Fares are subject to change and may not be available on all flights or dates of travel. Click the price to replicate the search for this deal. Round-trip 1 adult Economy 0 bags Round-trip 1 adult, Economy Search Search KAYAK searches hundreds of travel sites at once for deals on flights to Japan ...and more Travelers love KAYAK 41,299,237 searches in the past 7 days on KAYAK Save 20% or more Compare multiple travel sites with one search. Track prices Not ready to book? Create a price alert for when prices drop. Bundle and save Save money when you bundle your flight + hotel. Filter your deals Choose cabin class, free Wi-Fi and more. Flights Deals Useful Info Flights Deals Best Japan Flight Deals from Seattle Cheapest round-trip prices found by our users on KAYAK in the last 72 hours One-way Round-trip Tokyo 1 stop $686 Osaka 1 stop $666 Okinawa 1 stop $675 Fukuoka 1 stop $720 Hiroshima 2 stops $792 Nagasaki 1 stop $774 Kumamoto 2 stops $905 Misawa 2 stops $1,117 Okayama 1 stop $824 Tokyo 1 stop $686 Osaka 1 stop $666 Okinawa 1 stop $675 Fukuoka 1 stop $720 Hiroshima 2 stops $792 Nagasaki 1 stop $774 Kumamoto 2 stops $905 Misawa 2 stops $1,117 Okayama 1 stop $824 Cheap Flights from Seattle to Japan Here are some of the best deals found on KAYAK recently from the most popular airlines for round-trip flights from Seattle to Japan that are departing in the next months. While these flights were available on KAYAK in the last 72 hours, prices and availability are subject to change and deals may expire. Discover the best prices for you by selecting your travel dates on KAYAK. Select dates Round-trip One-way Last minute Direct Recent round-trip flight deals from Seattle to Japan Wed, Sep 10 - Wed, Sep 24 2:15 pm - 9:05 pm SEA - KIX 14h 50m 1 stop 9:10 am - 12:30 pm KIX - SEA 19h 20m 1 stop $666 Asiana Airlines Find Deal Wed, Aug 27 - Thu, Sep 18 2:30 pm - 11:15 am SEA - OKA 28h 45m 1 stop 12:15 pm - 12:30 pm OKA - SEA 16h 15m 1 stop $675 Asiana Airlines Find Deal Thu, Sep 18 - Thu, Sep 25 2:15 pm - 11:20 am SEA - NRT 29h 05m 1 stop 9:00 am - 12:30 pm NRT - SEA 19h 30m 1 stop $686 Asiana Airlines Find Deal Mon, Sep 1 - Tue, Sep 16 5:30 am - 2:55 pm SEA - NRT 17h 25m 1 stop 5:25 pm - 10:16 pm NRT - SEA 20h 51m 1 stop $688 Air Canada Find Deal Tue, Nov 18 - Wed, Dec 3 3:40 pm - 8:50 am SEA - KIX 24h 10m 1 stop 5:35 pm - 1:20 pm KIX - SEA 12h 45m 1 stop $694 ANA Find Deal Wed, Nov 12 - Wed, Nov 19 8:00 pm - 4:20 pm SEA - NRT 27h 20m 1 stop 6:15 pm - 10:06 pm NRT - SEA 20h 51m 1 stop $700 Air Canada Find Deal Tue, Sep 9 - Wed, Sep 17 8:08 am - 4:30 pm SEA - NRT 16h 22m 1 stop 5:45 pm - 10:25 am NRT - SEA 8h 40m nonstop $706 Japan Airlines Find Deal Sun, Sep 14 - Wed, Sep 24 4:30 pm - 7:00 pm SEA - HND 10h 30m nonstop 9:15 pm', 'images': [], 'rank': 4}, {'url': 'https://www.expedia.com/lp/flights/sea/nrt/seattle-to-tokyo', 'content': '[error] Timeout while extracting content', 'rank': 5}, {'url': 'https://www.skyscanner.com/routes/seaa/jp/seattle-to-japan.html', 'content': '[not extracted] Content limit reached', 'rank': 6}, {'url': 'https://www.cheapflights.com/flights-to-japan/seattle/', 'content': '[not extracted] Content limit reached', 'rank': 7}, {'url': 'https://www.trip.com/flights/cheap-flights-to-japan-78/sea-to-jp/', 'content': '[not extracted] Content limit reached', 'rank': 8}]",
+                "annotations": null
+              }
+            ]
+          },
+          "created_files": [],
+          "execution_time": 31.49231379999992,
+          "error": null,
+          "successful_variant": "CODE_1A",
+          "total_variants_tried": 1,
+          "all_errors": []
+        },
+        "total_time": 31.49446769999986,
+        "error": null
+      },
+      "input_tokens": 2940.0,
+      "output_tokens": 70.5,
+      "total_tokens": 3010.5
+    },
+    {
+      "id": "T002",
+      "description": "Identify suitable accommodation options in Tokyo, Kyoto, and Nara within the given budget.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Identify a range of accommodation options (hotels, traditional Ryokans, Airbnb) in Tokyo, Kyoto and Nara, Japan suitable for two people with the budget of $2500-$5000 for 7 days including the price of flight tickets. Prioritize options that offer a blend of comfort, cultural immersion, and proximity to historical sites or public transportation. Gather information on pricing, amenities, and guest reviews.",
+      "reads": [],
+      "writes": [
+        "accommodation_options_T002"
+      ],
+      "status": "completed",
+      "output": {
+        "accommodation_options_T002": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information (pricing, amenities, guest reviews, proximity to historical sites/public transportation) from the found accommodation options.",
+        "iteration_context": {
+          "current_step": "extraction_phase",
+          "next_step": "none",
+          "locations": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ],
+          "budget": "2500-5000 USD",
+          "duration": "7 days",
+          "travelers": 2
+        },
+        "code_variants": {
+          "CODE_1A": "results = []\nfor url in previous_output['code_variants']['CODE_1A'].split('\\n')[0].split('=')[1].strip().replace('fetch_search_urls(', '').replace(')', '').split(',')[-1].strip()[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}",
+          "CODE_1B": "results = []\nurls = previous_output['code_variants']['CODE_1A'].split('\\n')[0].split('=')[1].strip().replace('fetch_search_urls(', '').replace(')', '').split(',')[-1].strip()\nfor url in urls[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}"
+        },
+        "cost": 0.000541575,
+        "input_tokens": 3082.5,
+        "output_tokens": 132.0,
+        "total_tokens": 3214.5,
+        "execution_result": null,
+        "execution_status": "partial_failure",
+        "execution_error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'previous_output' is not defined; CODE_1B: NameError: name 'previous_output' is not defined",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000541575,
+      "start_time": "2025-07-02T04:43:33.793386",
+      "end_time": "2025-07-02T04:44:43.472531",
+      "execution_time": 69.679145,
+      "execution_result": {
+        "status": "partial_failure",
+        "session_id": "51431413",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "failed",
+          "result": {},
+          "created_files": [],
+          "execution_time": 0.006543099999817059,
+          "error": "All code variants failed. Errors: CODE_1A: NameError: name 'previous_output' is not defined; CODE_1B: NameError: name 'previous_output' is not defined",
+          "failed_variants": 2,
+          "all_errors": [
+            "CODE_1A: NameError: name 'previous_output' is not defined",
+            "CODE_1B: NameError: name 'previous_output' is not defined"
+          ]
+        },
+        "total_time": 0.0071907999999893946,
+        "error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'previous_output' is not defined; CODE_1B: NameError: name 'previous_output' is not defined"
+      },
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "accommodation_options_T002": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information (pricing, amenities, guest reviews, proximity to historical sites/public transportation) from the found accommodation options. Include flight ticket pricing.",
+            "iteration_context": {
+              "current_step": "search_phase",
+              "next_step": "extraction_phase",
+              "locations": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ],
+              "budget": "2500-5000 USD",
+              "duration": "7 days",
+              "travelers": 2
+            },
+            "code_variants": {
+              "CODE_1A": "urls = fetch_search_urls('Tokyo Kyoto Nara accommodation options hotels ryokans Airbnb flight tickets price 7 days for two people budget $2500-$5000', 10)\nreturn {'accommodation_options_T002': urls}",
+              "CODE_1B": "results = search_web_with_text_content('Tokyo Kyoto Nara hotels ryokans Airbnb 7 days $2500 to $5000 for 2 people flights included comfort cultural immersion historical sites public transport', 8)\nreturn {'accommodation_options_T002': results}"
+            },
+            "cost": 0.000537975,
+            "input_tokens": 2956.5,
+            "output_tokens": 157.5,
+            "total_tokens": 3114.0
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "accommodation_options_T002": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information (pricing, amenities, guest reviews, proximity to historical sites/public transportation) from the found accommodation options.",
+            "iteration_context": {
+              "current_step": "extraction_phase",
+              "next_step": "none",
+              "locations": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ],
+              "budget": "2500-5000 USD",
+              "duration": "7 days",
+              "travelers": 2
+            },
+            "code_variants": {
+              "CODE_1A": "results = []\nfor url in previous_output['code_variants']['CODE_1A'].split('\\n')[0].split('=')[1].strip().replace('fetch_search_urls(', '').replace(')', '').split(',')[-1].strip()[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}",
+              "CODE_1B": "results = []\nurls = previous_output['code_variants']['CODE_1A'].split('\\n')[0].split('=')[1].strip().replace('fetch_search_urls(', '').replace(')', '').split(',')[-1].strip()\nfor url in urls[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}"
+            },
+            "cost": 0.000541575,
+            "input_tokens": 3082.5,
+            "output_tokens": 132.0,
+            "total_tokens": 3214.5
+          }
+        }
+      ],
+      "call_self_used": true,
+      "final_iteration_output": {
+        "accommodation_options_T002": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information (pricing, amenities, guest reviews, proximity to historical sites/public transportation) from the found accommodation options.",
+        "iteration_context": {
+          "current_step": "extraction_phase",
+          "next_step": "none",
+          "locations": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ],
+          "budget": "2500-5000 USD",
+          "duration": "7 days",
+          "travelers": 2
+        },
+        "code_variants": {
+          "CODE_1A": "results = []\nfor url in previous_output['code_variants']['CODE_1A'].split('\\n')[0].split('=')[1].strip().replace('fetch_search_urls(', '').replace(')', '').split(',')[-1].strip()[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}",
+          "CODE_1B": "results = []\nurls = previous_output['code_variants']['CODE_1A'].split('\\n')[0].split('=')[1].strip().replace('fetch_search_urls(', '').replace(')', '').split(',')[-1].strip()\nfor url in urls[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}"
+        },
+        "cost": 0.000541575,
+        "input_tokens": 3082.5,
+        "output_tokens": 132.0,
+        "total_tokens": 3214.5
+      },
+      "input_tokens": 3082.5,
+      "output_tokens": 132.0,
+      "total_tokens": 3214.5
+    },
+    {
+      "id": "T003",
+      "description": "Research historical sites and cultural experiences in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct exhaustive research on historical sites (temples, shrines, castles) and authentic cultural experiences (kendo, tea ceremonies, Zen meditation) available in Tokyo, Kyoto, and Nara. Gather details about opening hours, entrance fees, historical significance, and any associated etiquette. Also identify locations for Zen meditation.",
+      "reads": [],
+      "writes": [
+        "historical_sites_T003",
+        "cultural_experiences_T003"
+      ],
+      "status": "completed",
+      "output": {
+        "historical_sites_T003": [],
+        "cultural_experiences_T003": [],
+        "call_self": true,
+        "next_instruction": "Extract opening hours, entrance fees, historical significance, and etiquette from URLs in historical_sites_T003 and cultural_experiences_T003.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "complete"
+        },
+        "code_variants": {
+          "CODE_1A": "historical_site_details = []\nfor url in historical_sites_T003[:3]:\n    details = webpage_url_to_llm_summary(url, 'Extract opening hours, entrance fees, historical significance, and etiquette')\n    historical_site_details.append(details)\ncultural_experience_details = []\nfor url in cultural_experiences_T003[:3]:\n    details = webpage_url_to_llm_summary(url, 'Extract opening hours, participation fees, cultural significance, and etiquette')\n    cultural_experience_details.append(details)\nreturn {'historical_sites_T003': historical_site_details, 'cultural_experiences_T003': cultural_experience_details}",
+          "CODE_1B": "import json\nhistorical_site_details = []\nfor url in historical_sites_T003[:2]:\n    content = webpage_url_to_raw_text(url)\n    historical_site_details.append({'url': url, 'content': content})\ncultural_experience_details = []\nfor url in cultural_experiences_T003[:2]:\n    content = webpage_url_to_raw_text(url)\n    cultural_experience_details.append({'url': url, 'content': content})\nreturn {'historical_sites_T003': historical_site_details, 'cultural_experiences_T003': cultural_experience_details}"
+        },
+        "cost": 0.000558225,
+        "input_tokens": 3067.5,
+        "output_tokens": 163.5,
+        "total_tokens": 3231.0,
+        "execution_result": null,
+        "execution_status": "partial_failure",
+        "execution_error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'historical_sites_T003' is not defined; CODE_1B: ImportError: __import__ not found",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000558225,
+      "start_time": "2025-07-02T04:43:33.797387",
+      "end_time": "2025-07-02T04:44:43.501577",
+      "execution_time": 69.70419,
+      "execution_result": {
+        "status": "partial_failure",
+        "session_id": "51431413",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "failed",
+          "result": {},
+          "created_files": [],
+          "execution_time": 0.006098399999700632,
+          "error": "All code variants failed. Errors: CODE_1A: NameError: name 'historical_sites_T003' is not defined; CODE_1B: ImportError: __import__ not found",
+          "failed_variants": 2,
+          "all_errors": [
+            "CODE_1A: NameError: name 'historical_sites_T003' is not defined",
+            "CODE_1B: ImportError: __import__ not found"
+          ]
+        },
+        "total_time": 0.006723299999976007,
+        "error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'historical_sites_T003' is not defined; CODE_1B: ImportError: __import__ not found"
+      },
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "historical_sites_T003": [],
+            "cultural_experiences_T003": [],
+            "call_self": true,
+            "next_instruction": "Extract specific details (opening hours, entrance fees, historical significance, etiquette) for each historical site and cultural experience identified.",
+            "iteration_context": {
+              "current_step": "search_and_identify",
+              "next_step": "extract_details"
+            },
+            "code_variants": {
+              "CODE_1A": "historical_site_urls = fetch_search_urls('historical sites temples shrines castles Tokyo Kyoto Nara', 5)\ncultural_experience_urls = fetch_search_urls('authentic cultural experiences kendo tea ceremonies Zen meditation Tokyo Kyoto Nara', 5)\nreturn {'historical_sites_T003': historical_site_urls, 'cultural_experiences_T003': cultural_experience_urls}",
+              "CODE_1B": "historical_sites_kyoto = fetch_search_urls('Kyoto historical temples shrines castles', 3)\nhistorical_sites_tokyo = fetch_search_urls('Tokyo historical temples shrines castles', 3)\nhistorical_sites_nara = fetch_search_urls('Nara historical temples shrines castles', 3)\ncultural_experiences = fetch_search_urls('Tokyo Kyoto Nara kendo tea ceremony zen meditation', 4)\nreturn {'historical_sites_T003': historical_sites_kyoto + historical_sites_tokyo + historical_sites_nara, 'cultural_experiences_T003': cultural_experiences}"
+            },
+            "cost": 0.000537975,
+            "input_tokens": 2932.5,
+            "output_tokens": 163.5,
+            "total_tokens": 3096.0
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "historical_sites_T003": [],
+            "cultural_experiences_T003": [],
+            "call_self": true,
+            "next_instruction": "Extract opening hours, entrance fees, historical significance, and etiquette from URLs in historical_sites_T003 and cultural_experiences_T003.",
+            "iteration_context": {
+              "current_step": "extract_details",
+              "next_step": "complete"
+            },
+            "code_variants": {
+              "CODE_1A": "historical_site_details = []\nfor url in historical_sites_T003[:3]:\n    details = webpage_url_to_llm_summary(url, 'Extract opening hours, entrance fees, historical significance, and etiquette')\n    historical_site_details.append(details)\ncultural_experience_details = []\nfor url in cultural_experiences_T003[:3]:\n    details = webpage_url_to_llm_summary(url, 'Extract opening hours, participation fees, cultural significance, and etiquette')\n    cultural_experience_details.append(details)\nreturn {'historical_sites_T003': historical_site_details, 'cultural_experiences_T003': cultural_experience_details}",
+              "CODE_1B": "import json\nhistorical_site_details = []\nfor url in historical_sites_T003[:2]:\n    content = webpage_url_to_raw_text(url)\n    historical_site_details.append({'url': url, 'content': content})\ncultural_experience_details = []\nfor url in cultural_experiences_T003[:2]:\n    content = webpage_url_to_raw_text(url)\n    cultural_experience_details.append({'url': url, 'content': content})\nreturn {'historical_sites_T003': historical_site_details, 'cultural_experiences_T003': cultural_experience_details}"
+            },
+            "cost": 0.000558225,
+            "input_tokens": 3067.5,
+            "output_tokens": 163.5,
+            "total_tokens": 3231.0
+          }
+        }
+      ],
+      "call_self_used": true,
+      "final_iteration_output": {
+        "historical_sites_T003": [],
+        "cultural_experiences_T003": [],
+        "call_self": true,
+        "next_instruction": "Extract opening hours, entrance fees, historical significance, and etiquette from URLs in historical_sites_T003 and cultural_experiences_T003.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "complete"
+        },
+        "code_variants": {
+          "CODE_1A": "historical_site_details = []\nfor url in historical_sites_T003[:3]:\n    details = webpage_url_to_llm_summary(url, 'Extract opening hours, entrance fees, historical significance, and etiquette')\n    historical_site_details.append(details)\ncultural_experience_details = []\nfor url in cultural_experiences_T003[:3]:\n    details = webpage_url_to_llm_summary(url, 'Extract opening hours, participation fees, cultural significance, and etiquette')\n    cultural_experience_details.append(details)\nreturn {'historical_sites_T003': historical_site_details, 'cultural_experiences_T003': cultural_experience_details}",
+          "CODE_1B": "import json\nhistorical_site_details = []\nfor url in historical_sites_T003[:2]:\n    content = webpage_url_to_raw_text(url)\n    historical_site_details.append({'url': url, 'content': content})\ncultural_experience_details = []\nfor url in cultural_experiences_T003[:2]:\n    content = webpage_url_to_raw_text(url)\n    cultural_experience_details.append({'url': url, 'content': content})\nreturn {'historical_sites_T003': historical_site_details, 'cultural_experiences_T003': cultural_experience_details}"
+        },
+        "cost": 0.000558225,
+        "input_tokens": 3067.5,
+        "output_tokens": 163.5,
+        "total_tokens": 3231.0
+      },
+      "input_tokens": 3067.5,
+      "output_tokens": 163.5,
+      "total_tokens": 3231.0
+    },
+    {
+      "id": "T004",
+      "description": "Find hidden gems and unique experiences in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Explore hidden gems and unique experiences in Tokyo, Kyoto, and Nara. Research off-the-beaten-path locations, local markets, traditional craft workshops, unique cafes, and other authentic experiences. Collect information about accessibility, costs, and local customs to enhance the itinerary.",
+      "reads": [],
+      "writes": [
+        "hidden_gems_T004"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-02T04:43:33.800386",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Gather information on Nara's deer park and etiquette for interacting with the deer.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research Nara Deer Park including its location, history, visitor guidelines and proper etiquette for interacting with the deer. Determine the best times to visit the park and any associated costs. Get important details about safety precautions and respect for the animals.",
+      "reads": [],
+      "writes": [
+        "nara_deer_park_info_T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Identify a romantic location for a proposal in Japan.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research and identify unique and romantic locations in Japan suitable for a marriage proposal. Consider scenic spots with cultural significance, stunning views, or secluded ambiance. Evaluate factors like privacy, accessibility, and emotional impact when selecting a spot for such a special occasion. Research locations in Tokyo, Kyoto, Nara, and also consider other locations for an extraordinary experience.",
+      "reads": [],
+      "writes": [
+        "proposal_locations_T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Create a detailed 7-day Japan itinerary, factoring in travel time, site visits, and cultural experiences.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Create a detailed 7-day Japan itinerary for April 15-23, incorporating flight options from `flight_options_T001`, accommodation options from `accommodation_options_T002`, historical sites from `historical_sites_T003`, cultural experiences from `cultural_experiences_T003`, hidden gems from `hidden_gems_T004`, Nara deer park info from `nara_deer_park_info_T005`, and proposal locations from `proposal_locations_T006`. Allocate time for travel between cities, site visits, cultural immersion, and downtime. Make sure to see Nara's Deer Park. The itinerary must include activities for each day and a possible proposal location.",
+      "reads": [
+        "flight_options_T001",
+        "accommodation_options_T002",
+        "historical_sites_T003",
+        "cultural_experiences_T003",
+        "hidden_gems_T004",
+        "nara_deer_park_info_T005",
+        "proposal_locations_T006"
+      ],
+      "writes": [
+        "detailed_itinerary_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Compile essential Japanese phrases for travelers.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research and compile a list of essential Japanese phrases for travelers, including greetings, basic conversation starters, directions, and useful phrases for ordering food, shopping, and navigating transportation. Provide both Japanese script and romanized pronunciation.",
+      "reads": [],
+      "writes": [
+        "japanese_phrases_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Gather general travel tips for visiting Japan.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Gather general travel tips for visiting Japan, including information on transportation, currency exchange, etiquette, local customs, internet access, and emergency contacts. Include practical advice to help first-time visitors navigate the country comfortably.",
+      "reads": [],
+      "writes": [
+        "travel_tips_T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T010",
+      "description": "Create detailed attraction descriptions for the identified historical sites and hidden gems.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Create detailed and engaging descriptions for each of the historical sites and hidden gems identified in the detailed itinerary (`detailed_itinerary_T007`). Use the information from `historical_sites_T003` and `hidden_gems_T004` to create compelling descriptions that highlight their history, cultural significance, and unique features.",
+      "reads": [
+        "detailed_itinerary_T007",
+        "historical_sites_T003",
+        "hidden_gems_T004"
+      ],
+      "writes": [
+        "attraction_descriptions_T010"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T011",
+      "description": "Find maps for the planned locations in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find and gather relevant maps for the locations included in the planned itinerary (`detailed_itinerary_T007`) for Tokyo, Kyoto, and Nara, including street maps, transportation maps, and maps of key attractions. Ensure the maps are of high quality and suitable for inclusion in a travel handbook.",
+      "reads": [
+        "detailed_itinerary_T007"
+      ],
+      "writes": [
+        "japan_maps_T011"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T012",
+      "description": "Create an exhaustive HTML travel handbook with maps, attraction descriptions, Japanese phrases, and travel tips.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a comprehensive and well-structured HTML travel handbook for a 7-day trip to Japan. Incorporate the detailed itinerary (`detailed_itinerary_T007`), attraction descriptions (`attraction_descriptions_T010`), maps (`japan_maps_T011`), essential Japanese phrases (`japanese_phrases_T008`), and general travel tips (`travel_tips_T009`). Structure the handbook with clear headings, subheadings, and visual elements to make it easy to navigate. The handbook should be optimized for viewing on mobile devices and suitable for reference throughout the journey. Also mention the proposal location within the itinerary.",
+      "reads": [
+        "detailed_itinerary_T007",
+        "attraction_descriptions_T010",
+        "japan_maps_T011",
+        "japanese_phrases_T008",
+        "travel_tips_T009"
+      ],
+      "writes": [
+        "travel_handbook_html_T012"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "ROOT",
+      "target": "T005"
+    },
+    {
+      "source": "ROOT",
+      "target": "T006"
+    },
+    {
+      "source": "ROOT",
+      "target": "T008"
+    },
+    {
+      "source": "ROOT",
+      "target": "T009"
+    },
+    {
+      "source": "T001",
+      "target": "T007"
+    },
+    {
+      "source": "T002",
+      "target": "T007"
+    },
+    {
+      "source": "T003",
+      "target": "T007"
+    },
+    {
+      "source": "T004",
+      "target": "T007"
+    },
+    {
+      "source": "T005",
+      "target": "T007"
+    },
+    {
+      "source": "T006",
+      "target": "T007"
+    },
+    {
+      "source": "T007",
+      "target": "T010"
+    },
+    {
+      "source": "T007",
+      "target": "T011"
+    },
+    {
+      "source": "T008",
+      "target": "T012"
+    },
+    {
+      "source": "T009",
+      "target": "T012"
+    },
+    {
+      "source": "T010",
+      "target": "T012"
+    },
+    {
+      "source": "T011",
+      "target": "T012"
+    }
+  ]
+}

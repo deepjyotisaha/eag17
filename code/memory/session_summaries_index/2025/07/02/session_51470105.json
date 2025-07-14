@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51470105",
+    "original_query": "I am running a real test for which you need to write a plan. First call retreiverAgent, and ask it to call 'search_web_with_text_content' for 'Ola Electric' and save the data. Then you need to call FormatterAgent and ask it create 1 page report (ask it to not call self), and then stop.",
+    "file_manifest": [],
+    "created_at": "2025-07-02T15:28:25.442963",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve data about Ola Electric using the search_web_with_text_content tool.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Execute the 'search_web_with_text_content' tool with the query 'Ola Electric' and save the retrieved data.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-02T15:28:25.459817",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Create a one-page report based on the retrieved data about Ola Electric.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Based on the data retrieved in task T001, create a comprehensive one-page report about Ola Electric. Do not call self.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

@@ -1,0 +1,753 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51367481",
+    "original_query": "I need a 7-day Japan itinerary for April 15-23 from Seattle, with a $2500-5000 budget for my fiancée and me. We love historical sites, hidden gems, and Japanese culture (kendo, tea ceremonies, Zen meditation). We want to see Nara's deer and explore cities on foot. I plan to propose during this trip and need a special location recommendation. Please provide a detailed itinerary and an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips we can reference throughout our journey. Need full details",
+    "file_manifest": [],
+    "created_at": "2025-07-01T10:58:01.004075",
+    "status": "running",
+    "globals_schema": {
+      "flight_options_T001": [],
+      "next_instruction": "Extract detailed information about each historical site and cultural experience from the URLs, focusing on opening hours, entrance fees, historical significance, and visitor reviews.",
+      "iteration_context": {
+        "current_step": "extraction_phase",
+        "next_step": "complete",
+        "cities": [
+          "Tokyo",
+          "Kyoto",
+          "Nara"
+        ],
+        "cultural_activities": [
+          "kendo",
+          "tea ceremonies",
+          "Zen meditation",
+          "traditional gardens"
+        ]
+      },
+      "total_tokens": 2949.0,
+      "accommodation_options_T002": [],
+      "site_culture_info_T003": [],
+      "transportation_options_T004": []
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T011"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {}
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research flight options from Seattle (SEA) to Japan (NRT/KIX) for April 15-23 to fit the budget.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research round-trip flight options from Seattle (SEA) to major airports in Japan (Narita - NRT, Kansai - KIX) for April 15-23, considering a total budget of $2500-$5000 for two people.  Prioritize flights with reasonable layovers and total travel time. Gather data on flight costs and airlines offering these routes. Document all flight information including airline, flight numbers, layover airports and times, and total flight duration and cost.",
+      "reads": [],
+      "writes": [
+        "flight_options_T001"
+      ],
+      "status": "completed",
+      "output": {
+        "flight_options_T001": [],
+        "call_self": true,
+        "next_instruction": "Extract details from URLs, prioritizing airline, flight numbers, layovers, duration, and cost.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "n/a",
+          "departure_date": "April 15",
+          "return_date": "April 23",
+          "data_to_process": "flight_urls_1A"
+        },
+        "code_variants": {
+          "CODE_1A": "results = []\nfor url in previous_output['code_variants']['CODE_1A'].get('flight_urls_1A', [])[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'flight_options_T001': results}",
+          "CODE_1B": "details = []\nfor url in previous_output['code_variants']['CODE_1A'].get('flight_urls_1A', [])[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract airline, flight numbers, layover airports and times, total flight duration, and cost')\n    details.append(info)\nreturn {'flight_options_T001': details}"
+        },
+        "cost": 0.000519075,
+        "input_tokens": 2962.5,
+        "output_tokens": 124.5,
+        "total_tokens": 3087.0,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000519075,
+      "start_time": "2025-07-01T10:58:01.031076",
+      "end_time": "2025-07-01T10:58:10.471277",
+      "execution_time": 9.440201,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367481",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0019325999892316759,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "flight_options_T001": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed flight information from the found URLs including airline, flight numbers, layover airports and times, total flight duration, and cost.",
+            "iteration_context": {
+              "current_step": "search_urls",
+              "next_step": "extract_details",
+              "departure_date": "April 15",
+              "return_date": "April 23"
+            },
+            "code_variants": {
+              "CODE_1A": "urls = fetch_search_urls('round trip flights Seattle to Narita Kansai April 15-23 budget $2500-$5000', 10)\nreturn {'flight_urls_1A': urls}",
+              "CODE_1B": "results = search_web_with_text_content('SEA to NRT KIX flights April 15-23 price comparison reasonable layovers', 8)\nreturn {'flight_options_T001': results}"
+            },
+            "cost": 0.000506025,
+            "input_tokens": 2893.5,
+            "output_tokens": 120.0,
+            "total_tokens": 3013.5
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "flight_options_T001": [],
+            "call_self": true,
+            "next_instruction": "Extract details from URLs, prioritizing airline, flight numbers, layovers, duration, and cost.",
+            "iteration_context": {
+              "current_step": "extract_details",
+              "next_step": "n/a",
+              "departure_date": "April 15",
+              "return_date": "April 23",
+              "data_to_process": "flight_urls_1A"
+            },
+            "code_variants": {
+              "CODE_1A": "results = []\nfor url in previous_output['code_variants']['CODE_1A'].get('flight_urls_1A', [])[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'flight_options_T001': results}",
+              "CODE_1B": "details = []\nfor url in previous_output['code_variants']['CODE_1A'].get('flight_urls_1A', [])[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract airline, flight numbers, layover airports and times, total flight duration, and cost')\n    details.append(info)\nreturn {'flight_options_T001': details}"
+            },
+            "cost": 0.000519075,
+            "input_tokens": 2962.5,
+            "output_tokens": 124.5,
+            "total_tokens": 3087.0
+          }
+        }
+      ],
+      "call_self_used": true,
+      "final_iteration_output": {
+        "flight_options_T001": [],
+        "call_self": true,
+        "next_instruction": "Extract details from URLs, prioritizing airline, flight numbers, layovers, duration, and cost.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "n/a",
+          "departure_date": "April 15",
+          "return_date": "April 23",
+          "data_to_process": "flight_urls_1A"
+        },
+        "code_variants": {
+          "CODE_1A": "results = []\nfor url in previous_output['code_variants']['CODE_1A'].get('flight_urls_1A', [])[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'flight_options_T001': results}",
+          "CODE_1B": "details = []\nfor url in previous_output['code_variants']['CODE_1A'].get('flight_urls_1A', [])[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract airline, flight numbers, layover airports and times, total flight duration, and cost')\n    details.append(info)\nreturn {'flight_options_T001': details}"
+        },
+        "cost": 0.000519075,
+        "input_tokens": 2962.5,
+        "output_tokens": 124.5,
+        "total_tokens": 3087.0
+      },
+      "input_tokens": 2962.5,
+      "output_tokens": 124.5,
+      "total_tokens": 3087.0
+    },
+    {
+      "id": "T002",
+      "description": "Research accommodation options (hotels, Ryokans) in Tokyo, Kyoto, and Nara, fitting the budget.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research various accommodation options in Tokyo, Kyoto, and Nara for April 15-23, considering a total budget of $2500-$5000 for two people. Prioritize options that offer a blend of traditional and modern experiences. Gather data on hotels, Ryokans, and Airbnb options, including prices, locations, guest ratings, and available amenities. Focus on options with proximity to historical sites, good transport links, and positive reviews.",
+      "reads": [],
+      "writes": [
+        "accommodation_options_T002"
+      ],
+      "status": "completed",
+      "output": {
+        "accommodation_options_T002": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information on the top accommodation options from the URLs found, including prices, locations, guest ratings, and available amenities. Filter based on proximity to historical sites, good transport links, and positive reviews.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "filter_and_present",
+          "cities": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ],
+          "dates": "April 15-23",
+          "budget": "$2500-$5000",
+          "people": 2,
+          "filter_criteria": [
+            "proximity to historical sites",
+            "good transport links",
+            "positive reviews"
+          ]
+        },
+        "code_variants": {
+          "CODE_1A": "urls = accommodation_options_T002[:5]\nresults = []\nfor url in urls:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}",
+          "CODE_1B": "urls = accommodation_options_T002[:3]\ndetails = []\nfor url in urls:\n    info = webpage_url_to_llm_summary(url, 'Extract accommodation name, price, location, guest rating, available amenities, proximity to historical sites, transport links, and reviews.')\n    details.append(info)\nreturn {'accommodation_options_T002': details}"
+        },
+        "cost": 0.000568575,
+        "input_tokens": 3028.5,
+        "output_tokens": 190.5,
+        "total_tokens": 3219.0,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000568575,
+      "start_time": "2025-07-01T10:58:01.034076",
+      "end_time": "2025-07-01T10:58:10.493276",
+      "execution_time": 9.4592,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367481",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0020260000019334257,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "accommodation_options_T002": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information on the top accommodation options found in the search, including prices, locations, guest ratings, and available amenities. Filter based on proximity to historical sites, good transport links, and positive reviews.",
+            "iteration_context": {
+              "current_step": "search_accommodation",
+              "next_step": "extract_details",
+              "cities": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ],
+              "dates": "April 15-23",
+              "budget": "$2500-$5000",
+              "people": 2
+            },
+            "code_variants": {
+              "CODE_1A": "results = fetch_search_urls('Tokyo Kyoto Nara accommodation Ryokan hotels Airbnb April 15-23 budget $2500-$5000 for 2 people traditional modern', 10)\nreturn {'accommodation_options_T002': results}",
+              "CODE_1B": "data = search_web_with_text_content('best Ryokans Tokyo Kyoto Nara traditional hotels Airbnb April 15-23 historical sites transport links positive reviews', 8)\nreturn {'accommodation_options_T002': data}"
+            },
+            "cost": 0.0005292,
+            "input_tokens": 2886.0,
+            "output_tokens": 160.5,
+            "total_tokens": 3046.5
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "accommodation_options_T002": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information on the top accommodation options from the URLs found, including prices, locations, guest ratings, and available amenities. Filter based on proximity to historical sites, good transport links, and positive reviews.",
+            "iteration_context": {
+              "current_step": "extract_details",
+              "next_step": "filter_and_present",
+              "cities": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ],
+              "dates": "April 15-23",
+              "budget": "$2500-$5000",
+              "people": 2,
+              "filter_criteria": [
+                "proximity to historical sites",
+                "good transport links",
+                "positive reviews"
+              ]
+            },
+            "code_variants": {
+              "CODE_1A": "urls = accommodation_options_T002[:5]\nresults = []\nfor url in urls:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}",
+              "CODE_1B": "urls = accommodation_options_T002[:3]\ndetails = []\nfor url in urls:\n    info = webpage_url_to_llm_summary(url, 'Extract accommodation name, price, location, guest rating, available amenities, proximity to historical sites, transport links, and reviews.')\n    details.append(info)\nreturn {'accommodation_options_T002': details}"
+            },
+            "cost": 0.000568575,
+            "input_tokens": 3028.5,
+            "output_tokens": 190.5,
+            "total_tokens": 3219.0
+          }
+        }
+      ],
+      "call_self_used": true,
+      "final_iteration_output": {
+        "accommodation_options_T002": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information on the top accommodation options from the URLs found, including prices, locations, guest ratings, and available amenities. Filter based on proximity to historical sites, good transport links, and positive reviews.",
+        "iteration_context": {
+          "current_step": "extract_details",
+          "next_step": "filter_and_present",
+          "cities": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ],
+          "dates": "April 15-23",
+          "budget": "$2500-$5000",
+          "people": 2,
+          "filter_criteria": [
+            "proximity to historical sites",
+            "good transport links",
+            "positive reviews"
+          ]
+        },
+        "code_variants": {
+          "CODE_1A": "urls = accommodation_options_T002[:5]\nresults = []\nfor url in urls:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'accommodation_options_T002': results}",
+          "CODE_1B": "urls = accommodation_options_T002[:3]\ndetails = []\nfor url in urls:\n    info = webpage_url_to_llm_summary(url, 'Extract accommodation name, price, location, guest rating, available amenities, proximity to historical sites, transport links, and reviews.')\n    details.append(info)\nreturn {'accommodation_options_T002': details}"
+        },
+        "cost": 0.000568575,
+        "input_tokens": 3028.5,
+        "output_tokens": 190.5,
+        "total_tokens": 3219.0
+      },
+      "input_tokens": 3028.5,
+      "output_tokens": 190.5,
+      "total_tokens": 3219.0
+    },
+    {
+      "id": "T003",
+      "description": "Research historical sites and cultural experiences in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct exhaustive research on historical sites and cultural experiences in Tokyo, Kyoto, and Nara. Focus on locations relevant to Japanese culture, such as kendo, tea ceremonies, Zen meditation, and traditional gardens. Gather detailed information about each location, including opening hours, entrance fees, historical significance, and visitor reviews. Include lesser-known, hidden gems along with popular attractions.",
+      "reads": [],
+      "writes": [
+        "site_culture_info_T003"
+      ],
+      "status": "completed",
+      "output": {
+        "site_culture_info_T003": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information about each historical site and cultural experience from the URLs, focusing on opening hours, entrance fees, historical significance, and visitor reviews.",
+        "iteration_context": {
+          "current_step": "extraction_phase",
+          "next_step": "complete",
+          "cities": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ],
+          "cultural_activities": [
+            "kendo",
+            "tea ceremonies",
+            "Zen meditation",
+            "traditional gardens"
+          ]
+        },
+        "code_variants": {
+          "CODE_2A": "results = []\nfor url in site_culture_info_T003[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'site_culture_info_T003': results}",
+          "CODE_2B": "details = []\nfor url in site_culture_info_T003[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract opening hours, entrance fees, historical significance, and visitor reviews')\n    details.append({'url': url, 'summary': info})\nreturn {'site_culture_info_T003': details}"
+        },
+        "cost": 0.000544725,
+        "input_tokens": 3025.5,
+        "output_tokens": 151.5,
+        "total_tokens": 3177.0,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000544725,
+      "start_time": "2025-07-01T10:58:01.038075",
+      "end_time": "2025-07-01T10:58:10.514284",
+      "execution_time": 9.476209,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367481",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0018256000039400533,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "site_culture_info_T003": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information about each historical site and cultural experience, including opening hours, entrance fees, historical significance, and visitor reviews. Focus on lesser-known gems as well as popular attractions.",
+            "iteration_context": {
+              "current_step": "search_phase",
+              "next_step": "extraction_phase",
+              "cities": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ],
+              "cultural_activities": [
+                "kendo",
+                "tea ceremonies",
+                "Zen meditation",
+                "traditional gardens"
+              ]
+            },
+            "code_variants": {
+              "CODE_1A": "urls = fetch_search_urls('Tokyo Kyoto Nara historical sites cultural experiences kendo tea ceremonies Zen meditation traditional gardens', 10)\nreturn {'site_culture_info_T003': urls}",
+              "CODE_1B": "results = search_web_with_text_content('Tokyo historical sites opening hours entrance fees reviews', 5)\nresults.extend(search_web_with_text_content('Kyoto cultural experiences Zen meditation tea ceremonies', 5))\nresults.extend(search_web_with_text_content('Nara traditional gardens historical significance hidden gems', 5))\nreturn {'site_culture_info_T003': results}"
+            },
+            "cost": 0.000528525,
+            "input_tokens": 2875.5,
+            "output_tokens": 162.0,
+            "total_tokens": 3037.5
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "site_culture_info_T003": [],
+            "call_self": true,
+            "next_instruction": "Extract detailed information about each historical site and cultural experience from the URLs, focusing on opening hours, entrance fees, historical significance, and visitor reviews.",
+            "iteration_context": {
+              "current_step": "extraction_phase",
+              "next_step": "complete",
+              "cities": [
+                "Tokyo",
+                "Kyoto",
+                "Nara"
+              ],
+              "cultural_activities": [
+                "kendo",
+                "tea ceremonies",
+                "Zen meditation",
+                "traditional gardens"
+              ]
+            },
+            "code_variants": {
+              "CODE_2A": "results = []\nfor url in site_culture_info_T003[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'site_culture_info_T003': results}",
+              "CODE_2B": "details = []\nfor url in site_culture_info_T003[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract opening hours, entrance fees, historical significance, and visitor reviews')\n    details.append({'url': url, 'summary': info})\nreturn {'site_culture_info_T003': details}"
+            },
+            "cost": 0.000544725,
+            "input_tokens": 3025.5,
+            "output_tokens": 151.5,
+            "total_tokens": 3177.0
+          }
+        }
+      ],
+      "call_self_used": true,
+      "final_iteration_output": {
+        "site_culture_info_T003": [],
+        "call_self": true,
+        "next_instruction": "Extract detailed information about each historical site and cultural experience from the URLs, focusing on opening hours, entrance fees, historical significance, and visitor reviews.",
+        "iteration_context": {
+          "current_step": "extraction_phase",
+          "next_step": "complete",
+          "cities": [
+            "Tokyo",
+            "Kyoto",
+            "Nara"
+          ],
+          "cultural_activities": [
+            "kendo",
+            "tea ceremonies",
+            "Zen meditation",
+            "traditional gardens"
+          ]
+        },
+        "code_variants": {
+          "CODE_2A": "results = []\nfor url in site_culture_info_T003[:5]:\n    content = webpage_url_to_raw_text(url)\n    results.append({'url': url, 'content': content})\nreturn {'site_culture_info_T003': results}",
+          "CODE_2B": "details = []\nfor url in site_culture_info_T003[:3]:\n    info = webpage_url_to_llm_summary(url, 'Extract opening hours, entrance fees, historical significance, and visitor reviews')\n    details.append({'url': url, 'summary': info})\nreturn {'site_culture_info_T003': details}"
+        },
+        "cost": 0.000544725,
+        "input_tokens": 3025.5,
+        "output_tokens": 151.5,
+        "total_tokens": 3177.0
+      },
+      "input_tokens": 3025.5,
+      "output_tokens": 151.5,
+      "total_tokens": 3177.0
+    },
+    {
+      "id": "T004",
+      "description": "Research transportation options within Japan (trains, local transport) for efficient travel between cities.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research transportation options within Japan, focusing on efficient and cost-effective methods for traveling between Tokyo, Kyoto, and Nara. Prioritize information on Japan Rail Pass, Shinkansen (bullet train), local trains, subway systems, and bus routes. Collect data on ticket prices, travel times, station locations, and any potential discounts for tourists. Include information on navigating the transportation systems in each city.",
+      "reads": [],
+      "writes": [
+        "transportation_options_T004"
+      ],
+      "status": "completed",
+      "output": {
+        "transportation_options_T004": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('Japan transportation Tokyo Kyoto Nara Japan Rail Pass Shinkansen local trains subway bus', 8)\nreturn {'transportation_options_T004': results}",
+          "CODE_1B": "data = search_web_with_text_content('travel between Tokyo Kyoto Nara cost effective transportation options', 6)\nreturn {'transportation_options_T004': data}"
+        },
+        "cost": 0.000472725,
+        "input_tokens": 2881.5,
+        "output_tokens": 67.5,
+        "total_tokens": 2949.0,
+        "execution_result": null,
+        "execution_status": "failed",
+        "execution_error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000472725,
+      "start_time": "2025-07-01T10:58:01.042074",
+      "end_time": "2025-07-01T10:58:10.536287",
+      "execution_time": 9.494213,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "51367481",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0018393000063952059,
+        "error": "'MultiMCP' object has no attribute 'search_stored_documents_rag'"
+      },
+      "input_tokens": 2881.5,
+      "output_tokens": 67.5,
+      "total_tokens": 2949.0
+    },
+    {
+      "id": "T005",
+      "description": "Research dining experiences in Tokyo, Kyoto, and Nara, focusing on unique and local cuisine.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research diverse dining experiences in Tokyo, Kyoto, and Nara, focusing on unique and local cuisine options. Identify restaurants, street food vendors, and traditional tea houses that offer authentic Japanese culinary experiences. Gather data on price ranges, menu specialties, location details, and customer reviews. Include options for various dietary preferences and budget levels.",
+      "reads": [],
+      "writes": [
+        "dining_options_T005"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T10:58:11.590977",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Analyze potential proposal locations in Japan considering romantic ambiance, scenery, and privacy.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze potential locations for a marriage proposal in Japan, considering factors such as romantic ambiance, scenic beauty, privacy, and cultural significance. Evaluate locations in Tokyo, Kyoto, and Nara based on their suitability for a memorable proposal. Prioritize spots with historical significance, stunning views, or unique cultural elements. Analyze potential weather conditions in April and suggest locations accordingly. Consider locations such as gardens, temples, scenic spots, or special restaurants. Ensure that the final recommendation accounts for optimal lighting, privacy, and the ability to capture the moment through photos or videos.",
+      "reads": [
+        "site_culture_info_T003"
+      ],
+      "writes": [
+        "proposal_location_analysis_T006"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T10:58:11.603979",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Synthesize flight, accommodation, transport, and dining options into a detailed 7-day itinerary.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Synthesize collected data on flight options from `flight_options_T001`, accommodation options from `accommodation_options_T002`, historical sites and cultural experiences from `site_culture_info_T003`, transportation options from `transportation_options_T004`, and dining experiences from `dining_options_T005` to create a detailed 7-day itinerary for a trip to Japan between April 15-23. The itinerary should include day-by-day activities, transportation schedules, accommodation check-in/check-out times, dining recommendations, and estimated costs. Optimize the schedule for efficiency and cultural immersion, balancing popular attractions with hidden gems. Prioritize the user's interests in kendo, tea ceremonies, Zen meditation, and seeing Nara's deer, all while staying within the $2500-$5000 budget. Provide specific addresses and directions for all included locations.",
+      "reads": [
+        "flight_options_T001",
+        "accommodation_options_T002",
+        "site_culture_info_T003",
+        "transportation_options_T004",
+        "dining_options_T005"
+      ],
+      "writes": [
+        "detailed_itinerary_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Refine the itinerary including the special location to propose during the trip from the proposal location analysis.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Refine the detailed 7-day itinerary from `detailed_itinerary_T007` by incorporating the best location suggested from `proposal_location_analysis_T006`. Adjust the schedule to ensure the location is visited at the appropriate time and under the most romantic circumstances. Include contingency plans for potential weather changes or unexpected events. Finalize location details and provide specific instructions on how to access the selected proposal location discreetly. Provide rationale for the chosen proposal location and what makes this ideal for the user and his fiancée.",
+      "reads": [
+        "detailed_itinerary_T007",
+        "proposal_location_analysis_T006"
+      ],
+      "writes": [
+        "refined_itinerary_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Create a list of essential Japanese phrases useful for travel and cultural interactions.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Compile a list of essential Japanese phrases useful for travelers in Japan. Focus on phrases needed for basic communication, navigation, ordering food, shopping, and expressing gratitude. Include both the Japanese text and a phonetic pronunciation guide. Categorize the phrases for easy reference, such as greetings, requests, directions, and emergency situations. Provide additional tips on Japanese etiquette and cultural norms to enhance communication.",
+      "reads": [],
+      "writes": [
+        "japanese_phrases_T009"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T10:58:11.597975",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T010",
+      "description": "Create exhaustive HTML travel handbook with itinerary, maps, site details, phrases, and travel tips.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Create a comprehensive HTML travel handbook that incorporates a detailed 7-day itinerary from `refined_itinerary_T008`, maps of key locations, attraction descriptions from `site_culture_info_T003`, essential Japanese phrases from `japanese_phrases_T009`, and practical travel tips for navigating Japan. The handbook should be well-structured, easy to navigate, and visually appealing. Include interactive maps with marked locations, high-quality photos of key attractions, and detailed information about each site's history and cultural significance. Design the handbook to be easily accessible on mobile devices and printable for offline use. Pay attention to details such as font sizes, color schemes, and overall readability. Focus on creating an exhaustive, interactive, and user-friendly handbook that enhances the travel experience. Ensure that the proposed location and time from the refined itinerary is marked clearly with big warning signs.",
+      "reads": [
+        "refined_itinerary_T008",
+        "site_culture_info_T003",
+        "japanese_phrases_T009"
+      ],
+      "writes": [
+        "html_travel_handbook_T010"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T011",
+      "description": "Summarize the HTML travel handbook.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Summarize the main contents of the HTML travel handbook in `html_travel_handbook_T010` into a concise description.",
+      "reads": [
+        "html_travel_handbook_T010"
+      ],
+      "writes": [
+        "travel_handbook_summary_T011"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "ROOT",
+      "target": "T005"
+    },
+    {
+      "source": "ROOT",
+      "target": "T009"
+    },
+    {
+      "source": "T001",
+      "target": "T007"
+    },
+    {
+      "source": "T002",
+      "target": "T007"
+    },
+    {
+      "source": "T003",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T007"
+    },
+    {
+      "source": "T003",
+      "target": "T010"
+    },
+    {
+      "source": "T004",
+      "target": "T007"
+    },
+    {
+      "source": "T005",
+      "target": "T007"
+    },
+    {
+      "source": "T006",
+      "target": "T008"
+    },
+    {
+      "source": "T007",
+      "target": "T008"
+    },
+    {
+      "source": "T008",
+      "target": "T010"
+    },
+    {
+      "source": "T009",
+      "target": "T010"
+    },
+    {
+      "source": "T010",
+      "target": "T011"
+    }
+  ]
+}

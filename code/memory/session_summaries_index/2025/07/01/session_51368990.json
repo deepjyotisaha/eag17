@@ -1,0 +1,443 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51368990",
+    "original_query": "I need a 7-day Japan itinerary for April 15-23 from Seattle, with a $2500-5000 budget for my fiancée and me. We love historical sites, hidden gems, and Japanese culture (kendo, tea ceremonies, Zen meditation). We want to see Nara's deer and explore cities on foot. I plan to propose during this trip and need a special location recommendation. Please provide a detailed itinerary and an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips we can reference throughout our journey.",
+    "file_manifest": [],
+    "created_at": "2025-07-01T11:23:10.973990",
+    "status": "running",
+    "globals_schema": {
+      "flight_options_T001": [],
+      "total_tokens": 2823.0,
+      "accommodation_options_T002": [],
+      "location_details_T003": [],
+      "proposal_location_T004": []
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T009"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {}
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research flight options from Seattle to Japan (round trip) for April 15-23 for two people.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research round-trip flight options from Seattle (SEA) to Japan (NRT or KIX) for April 15-23 for two adults, considering a budget of $2500-$5000 for the entire trip. Focus on finding the most cost-effective options without sacrificing too much travel time. Provide a summary of the best flight options with airlines, layovers, and prices.",
+      "reads": [],
+      "writes": [
+        "flight_options_T001"
+      ],
+      "status": "completed",
+      "output": {
+        "flight_options_T001": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('round trip flights Seattle to Japan April 15-23 two adults budget $2500-$5000', 8)\nflight_options_T001 = results",
+          "CODE_1B": "data = search_web_with_text_content('SEA to NRT or KIX flights April 15-23 two adults price range', 6)\nflight_options_T001 = data"
+        },
+        "cost": 0.00045315,
+        "input_tokens": 2739.0,
+        "output_tokens": 70.5,
+        "total_tokens": 2809.5,
+        "execution_result": null,
+        "execution_status": "partial_failure",
+        "execution_error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.00045315,
+      "start_time": "2025-07-01T11:23:10.998935",
+      "end_time": "2025-07-01T11:23:15.598084",
+      "execution_time": 4.599149,
+      "execution_result": {
+        "status": "partial_failure",
+        "session_id": "51368990",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "failed",
+          "result": {},
+          "created_files": [],
+          "execution_time": 0.002812199993059039,
+          "error": "All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+          "failed_variants": 2,
+          "all_errors": [
+            "CODE_1A: NameError: name 'search_web_with_text_content' is not defined",
+            "CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+          ]
+        },
+        "total_time": 0.0034694999922066927,
+        "error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+      },
+      "input_tokens": 2739.0,
+      "output_tokens": 70.5,
+      "total_tokens": 2809.5
+    },
+    {
+      "id": "T002",
+      "description": "Research accommodation options in Tokyo, Kyoto, and Nara within the budget.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research accommodation options in Tokyo, Kyoto, and Nara for the dates of April 15-23, suitable for two adults.  Consider the overall trip budget of $2500-$5000. Prioritize hotels, ryokans, and Airbnb options close to historical sites and with good reviews. Provide a list of potential accommodations with prices and a brief description of each.",
+      "reads": [],
+      "writes": [
+        "accommodation_options_T002"
+      ],
+      "status": "completed",
+      "output": {
+        "accommodation_options_T002": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('Tokyo Kyoto Nara accommodation April 15-23 hotels ryokans Airbnb historical sites budget $2500-$5000 good reviews', 8)\naccommodation_options_T002 = results",
+          "CODE_1B": "data = search_web_with_text_content('Tokyo Kyoto Nara hotels ryokans Airbnb April 15-23 near historical sites prices reviews for two adults budget travel', 6)\naccommodation_options_T002 = data"
+        },
+        "cost": 0.00046124999999999996,
+        "input_tokens": 2739.0,
+        "output_tokens": 84.0,
+        "total_tokens": 2823.0,
+        "execution_result": null,
+        "execution_status": "partial_failure",
+        "execution_error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.00046124999999999996,
+      "start_time": "2025-07-01T11:23:11.002929",
+      "end_time": "2025-07-01T11:23:15.613081",
+      "execution_time": 4.610152,
+      "execution_result": {
+        "status": "partial_failure",
+        "session_id": "51368990",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "failed",
+          "result": {},
+          "created_files": [],
+          "execution_time": 0.002360800004680641,
+          "error": "All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+          "failed_variants": 2,
+          "all_errors": [
+            "CODE_1A: NameError: name 'search_web_with_text_content' is not defined",
+            "CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+          ]
+        },
+        "total_time": 0.0026864999963436276,
+        "error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+      },
+      "input_tokens": 2739.0,
+      "output_tokens": 84.0,
+      "total_tokens": 2823.0
+    },
+    {
+      "id": "T003",
+      "description": "Research historical sites, hidden gems, and cultural experiences in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct in-depth research on historical sites, hidden gems, and cultural experiences in Tokyo, Kyoto, and Nara, Japan. Focus on locations relevant to Japanese culture, such as kendo, tea ceremonies, and Zen meditation. Include information on Nara's deer park. Gather detailed information about each location, including opening hours, admission fees, and historical significance.",
+      "reads": [],
+      "writes": [
+        "location_details_T003"
+      ],
+      "status": "completed",
+      "output": {
+        "location_details_T003": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('Tokyo Kyoto Nara historical sites hidden gems cultural experiences kendo tea ceremonies Zen meditation Nara deer park opening hours admission fees historical significance', 8)\nlocation_details_T003 = results",
+          "CODE_1B": "data = search_web_with_text_content('Tokyo Kyoto Nara Japan culture kendo tea ceremonies Zen meditation deer park tourist attractions information', 6)\nlocation_details_T003 = data"
+        },
+        "cost": 0.00046552499999999994,
+        "input_tokens": 2737.5,
+        "output_tokens": 91.5,
+        "total_tokens": 2829.0,
+        "execution_result": null,
+        "execution_status": "partial_failure",
+        "execution_error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.00046552499999999994,
+      "start_time": "2025-07-01T11:23:11.006932",
+      "end_time": "2025-07-01T11:23:15.628081",
+      "execution_time": 4.621149,
+      "execution_result": {
+        "status": "partial_failure",
+        "session_id": "51368990",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "failed",
+          "result": {},
+          "created_files": [],
+          "execution_time": 0.0023179999989224598,
+          "error": "All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+          "failed_variants": 2,
+          "all_errors": [
+            "CODE_1A: NameError: name 'search_web_with_text_content' is not defined",
+            "CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+          ]
+        },
+        "total_time": 0.0026837999903364107,
+        "error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+      },
+      "input_tokens": 2737.5,
+      "output_tokens": 91.5,
+      "total_tokens": 2829.0
+    },
+    {
+      "id": "T004",
+      "description": "Identify a special location for a proposal in Japan during the trip.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Identify a special and romantic location for a proposal in Japan, considering the trip dates of April 15-23 and locations in Tokyo, Kyoto, or Nara. The location should be scenic, memorable, and suitable for a marriage proposal. Consider gardens, temples, or viewpoints with cultural significance. Provide a detailed description of the location and why it is a good fit for a proposal.",
+      "reads": [],
+      "writes": [
+        "proposal_location_T004"
+      ],
+      "status": "completed",
+      "output": {
+        "proposal_location_T004": [],
+        "call_self": false,
+        "code_variants": {
+          "CODE_1A": "results = search_web_with_text_content('romantic proposal locations Japan Tokyo Kyoto Nara April cherry blossoms gardens temples viewpoints', 8)\nproposal_location_T004 = results",
+          "CODE_1B": "data = search_web_with_text_content('best places propose Japan April scenic gardens temples Kyoto Tokyo Nara', 6)\nproposal_location_T004 = data"
+        },
+        "cost": 0.000455175,
+        "input_tokens": 2752.5,
+        "output_tokens": 70.5,
+        "total_tokens": 2823.0,
+        "execution_result": null,
+        "execution_status": "partial_failure",
+        "execution_error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+        "execution_time": null,
+        "executed_variant": null
+      },
+      "error": null,
+      "cost": 0.000455175,
+      "start_time": "2025-07-01T11:23:11.009935",
+      "end_time": "2025-07-01T11:23:15.643087",
+      "execution_time": 4.633152,
+      "execution_result": {
+        "status": "partial_failure",
+        "session_id": "51368990",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "failed",
+          "result": {},
+          "created_files": [],
+          "execution_time": 0.0022601999953622,
+          "error": "All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined",
+          "failed_variants": 2,
+          "all_errors": [
+            "CODE_1A: NameError: name 'search_web_with_text_content' is not defined",
+            "CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+          ]
+        },
+        "total_time": 0.00259719998575747,
+        "error": "Code execution failed: All code variants failed. Errors: CODE_1A: NameError: name 'search_web_with_text_content' is not defined; CODE_1B: NameError: name 'search_web_with_text_content' is not defined"
+      },
+      "input_tokens": 2752.5,
+      "output_tokens": 70.5,
+      "total_tokens": 2823.0
+    },
+    {
+      "id": "T005",
+      "description": "Create a detailed 7-day itinerary based on the research.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Create a comprehensive 7-day Japan itinerary for April 15-23, incorporating the researched flight options from `flight_options_T001`, accommodation options from `accommodation_options_T002`, historical sites and cultural experiences from `location_details_T003`, and the proposal location from `proposal_location_T004`. The itinerary should balance historical exploration, cultural immersion, and relaxation, taking into account the couple's interests in kendo, tea ceremonies, Zen meditation, and Nara's deer. Ensure the itinerary fits within the $2500-$5000 budget and includes walking tours and free time for exploration.",
+      "reads": [
+        "flight_options_T001",
+        "accommodation_options_T002",
+        "location_details_T003",
+        "proposal_location_T004"
+      ],
+      "writes": [
+        "detailed_itinerary_T005"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T11:23:16.695701",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Gather essential Japanese phrases and travel tips for the handbook.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Gather a list of essential Japanese phrases for tourists, including greetings, polite expressions, and phrases for asking directions, ordering food, and making purchases.  Research relevant travel tips for Japan, including etiquette, transportation, currency, and cultural norms. Compile this information into a format suitable for inclusion in a travel handbook.",
+      "reads": [],
+      "writes": [
+        "japanese_phrases_tips_T006"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-01T11:23:16.690698",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Find or create maps for Tokyo, Kyoto, and Nara highlighting key locations from the itinerary.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find or create simple, clear maps for Tokyo, Kyoto, and Nara, highlighting the key historical sites, hidden gems, and cultural experience locations included in the itinerary from `detailed_itinerary_T005`. Ensure the maps are easy to read and suitable for printing or viewing on a mobile device.",
+      "reads": [
+        "detailed_itinerary_T005"
+      ],
+      "writes": [
+        "maps_data_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Create an exhaustive HTML travel handbook with itinerary, maps, attraction descriptions, phrases, and tips.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Create a comprehensive HTML travel handbook for a 7-day trip to Japan, incorporating the following information:\n\n*   Detailed itinerary from `detailed_itinerary_T005`\n*   Maps of Tokyo, Kyoto, and Nara from `maps_data_T007`\n*   Detailed descriptions of attractions and historical sites from `location_details_T003`\n*   Essential Japanese phrases and travel tips from `japanese_phrases_tips_T006`\n\nThe handbook should be well-structured, visually appealing, and easy to navigate. Use HTML, CSS, and potentially JavaScript to create an interactive and informative guide. Include sections for each day of the itinerary, maps with clickable locations, a phrasebook, and general travel advice. Structure it in a way that ensures easy access and is readily usable on a mobile device. Include links to external resources for more information where relevant.",
+      "reads": [
+        "detailed_itinerary_T005",
+        "maps_data_T007",
+        "location_details_T003",
+        "japanese_phrases_tips_T006"
+      ],
+      "writes": [
+        "travel_handbook_html_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Summarize the creation of the travel handbook.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Summarize the key features and content of the generated HTML travel handbook from `travel_handbook_html_T008`. Highlight the sections covered, visual elements, and interactive features. The summary should be suitable for presentation to the user.",
+      "reads": [
+        "travel_handbook_html_T008"
+      ],
+      "writes": [
+        "handbook_summary_T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "ROOT",
+      "target": "T006"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T002",
+      "target": "T005"
+    },
+    {
+      "source": "T003",
+      "target": "T005"
+    },
+    {
+      "source": "T003",
+      "target": "T008"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    },
+    {
+      "source": "T005",
+      "target": "T007"
+    },
+    {
+      "source": "T005",
+      "target": "T008"
+    },
+    {
+      "source": "T006",
+      "target": "T008"
+    },
+    {
+      "source": "T007",
+      "target": "T008"
+    },
+    {
+      "source": "T008",
+      "target": "T009"
+    }
+  ]
+}

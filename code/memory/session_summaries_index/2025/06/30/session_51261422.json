@@ -1,0 +1,230 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "51261422",
+    "original_query": "Based on my computer hardware and system, tell me what should I upgrade to run LLMs locally?",
+    "file_manifest": [],
+    "created_at": "2025-06-30T05:30:22.618157",
+    "status": "running",
+    "globals_schema": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T008"
+      ],
+      "warnings": [],
+      "errors": []
+    },
+    "file_profiles": {}
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0,
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Gather detailed specifications of current computer hardware.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve detailed specifications of the current computer hardware, including CPU model, GPU model (if any), RAM size and speed, storage type and size (SSD/HDD), and motherboard model.",
+      "reads": [],
+      "writes": [
+        "hardware_specifications_T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-06-30T05:30:22.641978",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Identify the current operating system and version.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Identify the current operating system and its version. Include details such as Windows 10/11, macOS version, or Linux distribution and kernel version.",
+      "reads": [],
+      "writes": [
+        "os_information_T002"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-06-30T05:30:22.644980",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Research the minimum and recommended hardware requirements for running LLMs locally.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research the minimum and recommended hardware requirements for running modern large language models (LLMs) locally. Focus on CPU, GPU (VRAM), RAM, and storage requirements.",
+      "reads": [],
+      "writes": [
+        "llm_hardware_requirements_T003"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-06-30T05:30:22.647981",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Compare current hardware against LLM requirements and identify bottlenecks.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Compare the current hardware specifications (`hardware_specifications_T001` and `os_information_T002`) against the minimum and recommended hardware requirements for running LLMs locally (`llm_hardware_requirements_T003`). Identify any bottlenecks or areas where the current hardware does not meet the requirements.",
+      "reads": [
+        "hardware_specifications_T001",
+        "os_information_T002",
+        "llm_hardware_requirements_T003"
+      ],
+      "writes": [
+        "hardware_bottlenecks_T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Research suitable upgrade options for each identified bottleneck.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Based on the identified hardware bottlenecks (`hardware_bottlenecks_T004`), research suitable upgrade options for each component. Consider compatibility with the current system and budget considerations. For example, if the GPU is a bottleneck, research different GPU models that are compatible with the motherboard and power supply. If RAM is a bottleneck, research compatible RAM modules and speeds.",
+      "reads": [
+        "hardware_bottlenecks_T004"
+      ],
+      "writes": [
+        "upgrade_options_T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Analyze the cost and performance benefits of each upgrade option.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the cost and performance benefits of each upgrade option identified in `upgrade_options_T005`. Consider the impact on LLM performance and the overall system performance.  Create a table summarizing the cost, estimated performance increase, and compatibility notes for each upgrade option.",
+      "reads": [
+        "upgrade_options_T005"
+      ],
+      "writes": [
+        "upgrade_analysis_T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Present a prioritized list of upgrade recommendations.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Based on the analysis of upgrade options (`upgrade_analysis_T006`), present a prioritized list of upgrade recommendations. The list should be ordered by the performance benefit per dollar spent, and include considerations for compatibility and ease of installation.  Summarize the key benefits and drawbacks of each recommended upgrade.  Rank upgrade recommendations from highest to lowest priority.",
+      "reads": [
+        "upgrade_analysis_T006"
+      ],
+      "writes": [
+        "upgrade_recommendations_T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Format the recommendations into a human-readable report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the prioritized list of upgrade recommendations (`upgrade_recommendations_T007`) into a clear and concise human-readable report. Include a brief explanation of each upgrade option, its benefits, and potential drawbacks. Structure the report with a table summarizing the upgrade options, costs, estimated performance gains, and compatibility notes. Highlight the top 1-2 recommended upgrades.",
+      "reads": [
+        "upgrade_recommendations_T007"
+      ],
+      "writes": [
+        "final_report_T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T004"
+    },
+    {
+      "source": "T002",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    },
+    {
+      "source": "T005",
+      "target": "T006"
+    },
+    {
+      "source": "T006",
+      "target": "T007"
+    },
+    {
+      "source": "T007",
+      "target": "T008"
+    }
+  ]
+}
