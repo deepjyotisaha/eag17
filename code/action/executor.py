@@ -6,6 +6,9 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 import traceback
+from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
+
+logger = get_logger(__name__)
 
 # Simple imports for Python execution
 SAFE_BUILTINS = {
@@ -240,26 +243,31 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
             "error": f"{type(e).__name__}: {str(e)}"
         }
 
-async def execute_code_variants(code_variants: dict, multi_mcp, session_id: str, inputs: dict = None) -> dict:
+async def execute_code_variants(code_variants: dict, multi_mcp, session_id: str, inputs: dict = None, step_id: str = None) -> dict:
     """
     Execute multiple code variants sequentially until one succeeds
     """
     start_time = time.perf_counter()
-    
+
     # Sort variants by priority (CODE_1A, CODE_1B, CODE_1C)
     sorted_variants = sorted(code_variants.items())
     
     log_step(f"🐍 Executing {len(sorted_variants)} Python code variants", symbol="🧪")
+
+    logger_step(logger, f"🐍 Executing {len(sorted_variants)} Python code variants", symbol="🧪")
     
     all_errors = []
     
     for variant_name, code in sorted_variants:
         log_step(f"⚡ Trying {variant_name}", symbol="🔬")
+        logger_step(logger, f"⚡ Executing {variant_name}", symbol="🔬")
         
         result = await execute_python_code_variant(code, multi_mcp, session_id, inputs)
 
         print("HALT HERE")
         print(result)
+
+        logger_code_block(logger, f"⚡ Executor results for session {session_id} step {step_id} variant {variant_name}", code, result)
         
         if result["status"] == "success":
             # Success!
@@ -287,7 +295,7 @@ async def execute_code_variants(code_variants: dict, multi_mcp, session_id: str,
         "all_errors": all_errors
     }
 
-async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default_session", inputs: dict = None) -> dict:
+async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default_session", inputs: dict = None, step_id: str = None) -> dict:
     """
     Main execution function: handles direct files, Python code, or both
     
@@ -301,6 +309,8 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
         Combined results from file creation and/or code execution
     """
     start_time = time.perf_counter()
+
+    logger_step(logger, f"🚀 Executor starting for session {session_id} step {step_id}", symbol="⚡")
     
     # 🚨 DEBUG: Print input data
     print(f"\n🚨 EXECUTOR RECEIVED:")
@@ -341,9 +351,9 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
         # Phase 2: Execute Python Code (if present)
         if "code_variants" in output_data and output_data["code_variants"]:
             log_step("🐍 Phase 2: Python code execution", symbol="⚙️")
-            
+
             code_results = await execute_code_variants(
-                output_data["code_variants"], multi_mcp, session_id, inputs
+                output_data["code_variants"], multi_mcp, session_id, inputs, step_id
             )
             results["code_results"] = code_results
             results["operations"].append("python_code")

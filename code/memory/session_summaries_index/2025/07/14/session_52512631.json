@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52512631",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T17:03:51.959598",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch details on the features of the Mahindra XUV 3XO from the internet.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed information on the features of the Mahindra XUV 3XO vehicle from reliable online sources, including the official Mahindra website, reputable automotive news sites, and review platforms. Focus on specifications, new technologies, and unique selling points.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution exception: logger_step() missing 1 required positional argument: 'title'",
+      "cost": 0.0,
+      "start_time": "2025-07-14T17:03:51.971909",
+      "end_time": "2025-07-14T17:03:56.442330",
+      "execution_time": 4.470421
+    },
+    {
+      "id": "T002",
+      "description": "Organize and categorize the fetched features of the Mahindra XUV 3XO.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information retrieved about the Mahindra XUV 3XO's features. Categorize the features into logical groups such as performance, safety, technology, comfort, and design. Summarize each feature's key aspects and benefits. Exclude promotional or marketing content and focus on factual specifications.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Present the organized features of the Mahindra XUV 3XO in a structured and readable format.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a well-structured and visually appealing report of the Mahindra XUV 3XO's features based on the organized information. Use headings, bullet points, and tables to present the features clearly and concisely. The target audience is potential buyers looking for detailed information. Format the output into HTML.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

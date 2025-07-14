@@ -1,0 +1,173 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52512922",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T17:08:42.056029",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "xuv_3xo_features": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 160-221: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      },
+      "T002": {
+        "initial_thoughts": "The previous attempt to extract features for the Mahindra XUV 3XO resulted in an encoding error. I will attempt to process the same data again, in case the issue was transient. If the encoding error persists, I will add a detailed debugging section to identify the source of the issue within the `all_globals_schema`. Since the original data source is still problematic, I will create a minimal report structure with error flags and call self again, but this time only if the error is resolved. Otherwise, I will mark this as the final turn.",
+        "output": {
+          "final_format": "html",
+          "images": [],
+          "fallback_markdown": "# Mahindra XUV 3XO Features Report\n\nDue to a persistent encoding error, the full feature list could not be extracted. A basic report structure is provided below with a debugging section.",
+          "reasoning": "Attempted to re-process the data but the encoding error persists. Added a debugging section to the report to highlight the issue and call attention to the problematic data source.  Included sections for different aspects of the vehicle and highlighted the data unavailability. I will set call_self to false, as the error is persistent.",
+          "formatted_report_T002": "<div class='report'><h1>Mahindra XUV 3XO Features Report</h1><div class='executive-summary'><h2>Executive Summary</h2><p>A persistent encoding error occurred while retrieving the feature list. Some characters could not be properly decoded, resulting in an incomplete feature extraction.  The encoding issue persists despite retry.</p><div class='callout warning'>⚠️ Encoding Error: The character set caused errors during data extraction, resulting in an incomplete report.</div></div><h2>Engine and Performance</h2><p>Data not available due to persistent encoding error.</p><h2>Safety Features</h2><p>Data not available due to persistent encoding error.</p><h2>Technology and Infotainment</h2><p>Data not available due to persistent encoding error.</p><h2>Interior Design</h2><p>Data not available due to persistent encoding error.</p><h2>Exterior Design</h2><p>Data not available due to persistent encoding error.</p><h2>Unique Selling Points</h2><p>Data not available due to persistent encoding error.</p><h2>Key Specifications</h2><p>Data not available due to persistent encoding error.</p><div class='debugging'><h2>Debugging Information</h2><p>The encoding error originates from the following data source:</p><code>T001: {\"xuv_3xo_features\": [{\"type\": \"text\", \"text\": \"[error] 'charmap' codec can't encode characters in position 160-221: character maps to <undefined>\", \"annotations\": null, \"_meta\": null}]}</code><p>The specific error indicates that the 'charmap' codec cannot encode certain characters. This suggests that the text contains characters outside the ASCII range that are not handled by the default encoding.</p></div></div>"
+        },
+        "call_self": false,
+        "cost": 0.000846675,
+        "input_tokens": 3448.5,
+        "output_tokens": 549.0,
+        "total_tokens": 3997.5
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch details on the features of the Mahindra XUV 3XO from official Mahindra websites and reputable automotive news sources.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Search for 'Mahindra XUV 3XO features' on Google and prioritize results from official Mahindra websites (mahindra.com) and reputable automotive news sources like Autocar India, ZigWheels, and CarDekho. Extract detailed information about the vehicle's features, including engine specifications, safety features, technology, interior and exterior design elements, and any unique selling points.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "xuv_3xo_features": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 160-221: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-14T17:08:42.070029",
+      "end_time": "2025-07-14T17:08:59.844987",
+      "execution_time": 17.774958,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T002",
+      "description": "Present the fetched details of Mahindra XUV 3XO features in a well-organized HTML report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a comprehensive HTML report summarizing the features of the Mahindra XUV 3XO based on the information retrieved in the previous step. Organize the information into sections such as: Engine and Performance, Safety Features, Technology and Infotainment, Interior Design, Exterior Design, and Unique Selling Points. Include a table summarizing key specifications. Make the report visually appealing and easy to read.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "completed",
+      "output": {
+        "initial_thoughts": "The previous attempt to extract features for the Mahindra XUV 3XO resulted in an encoding error. I will attempt to process the same data again, in case the issue was transient. If the encoding error persists, I will add a detailed debugging section to identify the source of the issue within the `all_globals_schema`. Since the original data source is still problematic, I will create a minimal report structure with error flags and call self again, but this time only if the error is resolved. Otherwise, I will mark this as the final turn.",
+        "output": {
+          "final_format": "html",
+          "images": [],
+          "fallback_markdown": "# Mahindra XUV 3XO Features Report\n\nDue to a persistent encoding error, the full feature list could not be extracted. A basic report structure is provided below with a debugging section.",
+          "reasoning": "Attempted to re-process the data but the encoding error persists. Added a debugging section to the report to highlight the issue and call attention to the problematic data source.  Included sections for different aspects of the vehicle and highlighted the data unavailability. I will set call_self to false, as the error is persistent.",
+          "formatted_report_T002": "<div class='report'><h1>Mahindra XUV 3XO Features Report</h1><div class='executive-summary'><h2>Executive Summary</h2><p>A persistent encoding error occurred while retrieving the feature list. Some characters could not be properly decoded, resulting in an incomplete feature extraction.  The encoding issue persists despite retry.</p><div class='callout warning'>⚠️ Encoding Error: The character set caused errors during data extraction, resulting in an incomplete report.</div></div><h2>Engine and Performance</h2><p>Data not available due to persistent encoding error.</p><h2>Safety Features</h2><p>Data not available due to persistent encoding error.</p><h2>Technology and Infotainment</h2><p>Data not available due to persistent encoding error.</p><h2>Interior Design</h2><p>Data not available due to persistent encoding error.</p><h2>Exterior Design</h2><p>Data not available due to persistent encoding error.</p><h2>Unique Selling Points</h2><p>Data not available due to persistent encoding error.</p><h2>Key Specifications</h2><p>Data not available due to persistent encoding error.</p><div class='debugging'><h2>Debugging Information</h2><p>The encoding error originates from the following data source:</p><code>T001: {\"xuv_3xo_features\": [{\"type\": \"text\", \"text\": \"[error] 'charmap' codec can't encode characters in position 160-221: character maps to <undefined>\", \"annotations\": null, \"_meta\": null}]}</code><p>The specific error indicates that the 'charmap' codec cannot encode certain characters. This suggests that the text contains characters outside the ASCII range that are not handled by the default encoding.</p></div></div>"
+        },
+        "call_self": false,
+        "cost": 0.000846675,
+        "input_tokens": 3448.5,
+        "output_tokens": 549.0,
+        "total_tokens": 3997.5
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-14T17:08:59.850985",
+      "end_time": "2025-07-14T17:09:11.185768",
+      "execution_time": 11.334783,
+      "iterations": [
+        {
+          "iteration": 1,
+          "output": {
+            "initial_thoughts": "The input data 'T001' contains an encoding error. I need to handle this error gracefully and extract any usable information. I'll focus on creating a basic report structure and indicate the encoding issue. Since the primary data source has issues, I will call self to see if the issue gets resolved in the subsequent turn.",
+            "output": {
+              "final_format": "html",
+              "images": [],
+              "fallback_markdown": "# Mahindra XUV 3XO Features Report\n\nDue to an encoding error, the full feature list could not be extracted. A basic report structure is provided below.",
+              "reasoning": "Created a basic HTML structure for the Mahindra XUV 3XO features report.  Handled the encoding error gracefully by displaying an error message in the executive summary. Included sections for different aspects of the vehicle. Since the data is incomplete, calling self for another try.",
+              "formatted_report_T002": "<div class='report'><h1>Mahindra XUV 3XO Features Report</h1><div class='executive-summary'><h2>Executive Summary</h2><p>An encoding error occurred while retrieving the feature list. Some characters could not be properly decoded, resulting in an incomplete feature extraction. Further attempts to retrieve the complete data may be necessary.</p><div class='callout warning'>⚠️ Encoding Error: The character set caused errors during data extraction, resulting in an incomplete report.</div></div><h2>Engine and Performance</h2><p>Data not available due to encoding error.</p><h2>Safety Features</h2><p>Data not available due to encoding error.</p><h2>Technology and Infotainment</h2><p>Data not available due to encoding error.</p><h2>Interior Design</h2><p>Data not available due to encoding error.</p><h2>Exterior Design</h2><p>Data not available due to encoding error.</p><h2>Unique Selling Points</h2><p>Data not available due to encoding error.</p><h2>Key Specifications</h2><p>Data not available due to encoding error.</p></div>"
+            },
+            "call_self": true,
+            "cost": 0.00069795,
+            "input_tokens": 3159.0,
+            "output_tokens": 373.5,
+            "total_tokens": 3532.5
+          }
+        },
+        {
+          "iteration": 2,
+          "output": {
+            "initial_thoughts": "The previous attempt to extract features for the Mahindra XUV 3XO resulted in an encoding error. I will attempt to process the same data again, in case the issue was transient. If the encoding error persists, I will add a detailed debugging section to identify the source of the issue within the `all_globals_schema`. Since the original data source is still problematic, I will create a minimal report structure with error flags and call self again, but this time only if the error is resolved. Otherwise, I will mark this as the final turn.",
+            "output": {
+              "final_format": "html",
+              "images": [],
+              "fallback_markdown": "# Mahindra XUV 3XO Features Report\n\nDue to a persistent encoding error, the full feature list could not be extracted. A basic report structure is provided below with a debugging section.",
+              "reasoning": "Attempted to re-process the data but the encoding error persists. Added a debugging section to the report to highlight the issue and call attention to the problematic data source.  Included sections for different aspects of the vehicle and highlighted the data unavailability. I will set call_self to false, as the error is persistent.",
+              "formatted_report_T002": "<div class='report'><h1>Mahindra XUV 3XO Features Report</h1><div class='executive-summary'><h2>Executive Summary</h2><p>A persistent encoding error occurred while retrieving the feature list. Some characters could not be properly decoded, resulting in an incomplete feature extraction.  The encoding issue persists despite retry.</p><div class='callout warning'>⚠️ Encoding Error: The character set caused errors during data extraction, resulting in an incomplete report.</div></div><h2>Engine and Performance</h2><p>Data not available due to persistent encoding error.</p><h2>Safety Features</h2><p>Data not available due to persistent encoding error.</p><h2>Technology and Infotainment</h2><p>Data not available due to persistent encoding error.</p><h2>Interior Design</h2><p>Data not available due to persistent encoding error.</p><h2>Exterior Design</h2><p>Data not available due to persistent encoding error.</p><h2>Unique Selling Points</h2><p>Data not available due to persistent encoding error.</p><h2>Key Specifications</h2><p>Data not available due to persistent encoding error.</p><div class='debugging'><h2>Debugging Information</h2><p>The encoding error originates from the following data source:</p><code>T001: {\"xuv_3xo_features\": [{\"type\": \"text\", \"text\": \"[error] 'charmap' codec can't encode characters in position 160-221: character maps to <undefined>\", \"annotations\": null, \"_meta\": null}]}</code><p>The specific error indicates that the 'charmap' codec cannot encode certain characters. This suggests that the text contains characters outside the ASCII range that are not handled by the default encoding.</p></div></div>"
+            },
+            "call_self": false,
+            "cost": 0.000846675,
+            "input_tokens": 3448.5,
+            "output_tokens": 549.0,
+            "total_tokens": 3997.5
+          }
+        }
+      ],
+      "call_self_used": true,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52502219",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T14:10:19.647348",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information about Mahindra XUV 3XO features from the web.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Search the web for official Mahindra XUV 3XO product pages, news articles, and reviews that detail the vehicle's features. Focus on gathering comprehensive information about engine specifications, safety features, interior design, technology, and available trims.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-14T14:10:19.668002",
+      "end_time": "2025-07-14T14:10:27.802621",
+      "execution_time": 8.134619
+    },
+    {
+      "id": "T002",
+      "description": "Extract the key features of the Mahindra XUV 3XO from the retrieved information.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information gathered in the previous step and extract a detailed list of key features for the Mahindra XUV 3XO. Categorize the features under relevant headings such as Engine and Performance, Safety, Interior and Comfort, Technology and Infotainment, and Exterior Design. Ensure all trims and available options are accounted for.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Format the extracted features into a comprehensive report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a well-structured HTML report detailing the features of the Mahindra XUV 3XO. Use the extracted information from the previous step to create sections for each feature category (Engine and Performance, Safety, Interior and Comfort, Technology and Infotainment, and Exterior Design). Include detailed specifications, available options, and any relevant images or diagrams. Ensure the report is visually appealing and easy to read, suitable for presentation to a user.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

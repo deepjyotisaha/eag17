@@ -201,7 +201,8 @@ Profile each file separately and return details."""
                     executor_input, 
                     self.multi_mcp, 
                     context.plan_graph.graph['session_id'] or "default_session",
-                    inputs  # Pass inputs to code execution
+                    inputs,  # Pass inputs to code execution
+                    step_id
                 )
 
                 logger_json_block(logger, f"Execute Step: {step_id} - Executor Result", execution_result)
