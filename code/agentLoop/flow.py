@@ -210,6 +210,7 @@ Profile each file separately and return details."""
                 # Handle execution results
                 if execution_result["status"] == "success":
                     log_step(f"✅ {step_id}: Code execution succeeded", symbol="🎉")
+                    logger_step(logger, f"✅ {step_id}: Code execution succeeded")
                     
                     # Extract the actual result from code execution
                     code_output = execution_result.get("code_results", {}).get("result", {})
@@ -258,6 +259,7 @@ Profile each file separately and return details."""
         # Handle call_self if needed
         if result["success"] and result["output"].get("call_self"):
             log_step(f"🔄 CALL_SELF triggered for {step_id}", symbol="🔄")
+            logger_step(logger, f"🔄 CALL_SELF triggered for {step_id}")
             
             # Second iteration with previous output
             second_input = build_agent_input(
