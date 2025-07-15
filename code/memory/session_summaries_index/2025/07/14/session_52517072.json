@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52517072",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T18:17:52.829659",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve details on the features of the Mahindra XUV 3XO from the web.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch details on the features of the Mahindra XUV 3XO vehicle from reliable online sources, including the official Mahindra website, automotive news websites, and review sites.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-14T18:17:52.836175",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Synthesize the information on the features of the Mahindra XUV 3XO.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Synthesize the information retrieved in the previous step regarding the features of the Mahindra XUV 3XO. Identify key features, specifications, and unique selling points. Organize the features into categories like performance, safety, technology, comfort, and design. Highlight any notable or innovative features.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Present the features of the Mahindra XUV 3XO in a user-friendly format.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Present the synthesized information on the features of the Mahindra XUV 3XO in a user-friendly format. Organize the features into categories like performance, safety, technology, comfort, and design. Create a table or bulleted list for each category. Highlight any notable or innovative features. Ensure the presentation is clear, concise, and easy to understand.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52586180",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-15T13:29:40.522815",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch details about Mahindra XUV 3XO features from Mahindra's official website.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed information about the features of the Mahindra XUV 3XO from Mahindra's official website. Focus on technical specifications, new technologies, and unique selling points.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-15T13:29:40.534823",
+      "end_time": "2025-07-15T13:29:45.167169",
+      "execution_time": 4.632346
+    },
+    {
+      "id": "T002",
+      "description": "Fetch details about Mahindra XUV 3XO features from reputable automotive news websites.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed information about the features of the Mahindra XUV 3XO from reputable automotive news websites like Autocar India, ZigWheels, and CarDekho. Focus on expert reviews, comparisons with competitors, and user opinions.",
+      "reads": [],
+      "writes": [
+        "T002"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-15T13:29:40.537816",
+      "end_time": "2025-07-15T13:29:45.172167",
+      "execution_time": 4.634351
+    },
+    {
+      "id": "T003",
+      "description": "Synthesize the information gathered from Mahindra's website and automotive news websites to create a comprehensive overview of the Mahindra XUV 3XO features.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Synthesize the information from T001 and T002 to create a comprehensive overview of the Mahindra XUV 3XO features. Identify key features, technical specifications, unique selling points, expert opinions, and user feedback. Highlight any discrepancies or conflicting information between the sources.",
+      "reads": [
+        "T001",
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Format the synthesized information into a human-readable report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the synthesized information from T003 into a well-structured and human-readable report. Include sections for key features, technical specifications, expert opinions, and user feedback. Use tables, lists, and headings to organize the information effectively. The report should provide a comprehensive overview of the Mahindra XUV 3XO features.",
+      "reads": [
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}

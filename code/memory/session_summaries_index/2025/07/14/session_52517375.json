@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52517375",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T18:22:55.972914",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve detailed information about the features of the Mahindra XUV 3XO from reliable online sources.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch exhaustive details regarding features of Mahindra XUV 3XO car from official Mahindra website and other reliable automotive news websites and blogs. Focus on all aspects of car like exteriors, interiors, engine specs, safety features, technology and any unique selling points.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: Code execution failed: All code variants failed. Errors: CODE_1: NameError: name 'search_web_with_text_content' is not defined; CODE_2: NameError: name 'search_web_with_text_content' is not defined; CODE_3: NameError: name 'search_web_with_text_content' is not defined",
+      "cost": 0.0,
+      "start_time": "2025-07-14T18:22:55.981181",
+      "end_time": "2025-07-14T18:22:59.367006",
+      "execution_time": 3.385825
+    },
+    {
+      "id": "T002",
+      "description": "Present the retrieved details of Mahindra XUV 3XO features in a comprehensive and user-friendly format.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Using the details retrieved in the previous step, create a well-structured and user-friendly report that describes the features of the Mahindra XUV 3XO. The report should contain all aspects of car like exteriors, interiors, engine specs, safety features, technology and any unique selling points. Format the information in a clear, organized manner, possibly using headings, subheadings, bullet points, and tables to enhance readability. Also include comparison section against competitor vehicles.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

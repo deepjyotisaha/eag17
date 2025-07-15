@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52586194",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-15T13:29:54.998372",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "vehicle_features": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 161-222: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch detailed information about the features of the Mahindra XUV 3XO vehicle from the internet.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve comprehensive details regarding the features of the Mahindra XUV 3XO vehicle from reputable online sources, including official Mahindra websites, automotive news publications, and reliable review sites.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "vehicle_features": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 161-222: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T13:29:55.006154",
+      "end_time": "2025-07-15T13:29:59.522479",
+      "execution_time": 4.516325,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T002",
+      "description": "Distill the information retrieved about the Mahindra XUV 3XO's features into a concise and informative summary, highlighting key aspects and specifications.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Analyze the information retrieved in the previous step (T001) regarding the Mahindra XUV 3XO vehicle. Create a detailed, but concise summary of the key features, including engine specifications, safety features, technology and infotainment, interior and exterior design elements, and any notable performance characteristics. Include information from various reputable sources to provide a balanced perspective.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-15T13:29:59.527478",
+      "end_time": "2025-07-15T13:30:01.684325",
+      "execution_time": 2.156847
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

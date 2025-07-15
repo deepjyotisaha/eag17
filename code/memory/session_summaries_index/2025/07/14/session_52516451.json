@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52516451",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T18:07:31.845237",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch details on the features of Mahindra XUV 3XO from online sources.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed information on the features of the Mahindra XUV 3XO vehicle from reputable online sources such as Mahindra's official website, automotive news websites, and review platforms. Focus on gathering information about engine specifications, safety features, technology features, interior and exterior design elements, and any unique selling points.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-14T18:07:31.853238",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Summarize the key features of Mahindra XUV 3XO.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information gathered in the previous step and summarize the key features of the Mahindra XUV 3XO. Organize the features into categories such as engine and performance, safety, technology, interior and exterior design. Highlight any unique or innovative features of the vehicle. Provide a concise and informative summary of each feature category.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Format the summarized features into a user-friendly report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the summarized features of the Mahindra XUV 3XO into a user-friendly report. Use clear headings and subheadings to organize the information. Create tables or bullet points to present the features in an easily digestible format. Ensure the report is visually appealing and easy to read. Prioritize clarity and conciseness in the presentation of information.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

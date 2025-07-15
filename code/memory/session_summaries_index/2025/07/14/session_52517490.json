@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52517490",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T18:24:50.340746",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch details on Mahindra XUV 3XO from multiple online sources including Mahindra's official website, news articles, car review sites, and automotive blogs.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch details on the Mahindra XUV 3XO including its features, specifications, price, release date, and any reviews from official Mahindra website, news articles, car review sites, and automotive blogs. Provide URLs of visited websites.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: Code execution failed: All code variants failed. Errors: CODE_1: NameError: name 'search_web_with_text_content' is not defined; CODE_2: NameError: name 'search_web_with_text_content' is not defined; CODE_3: NameError: name 'search_web_with_text_content' is not defined",
+      "cost": 0.0,
+      "start_time": "2025-07-14T18:24:50.350746",
+      "end_time": "2025-07-14T18:24:56.753309",
+      "execution_time": 6.402563
+    },
+    {
+      "id": "T002",
+      "description": "Extract and synthesize the key features and specifications of Mahindra XUV 3XO from the information retrieved in T001. Compare different sources to ensure accuracy and identify unique selling propositions. Consolidate key details like engine specs, safety features, technology features, design elements, and variant options.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information retrieved from the online sources in task T001. Extract the key features and specifications of the Mahindra XUV 3XO. Compare information from multiple sources to ensure accuracy and identify any discrepancies. Synthesize all the findings into a comprehensive list of features, specifications, and any unique selling propositions. Consolidate data like engine specs, safety features, technology features, design elements, and variant options.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Generate a well-structured HTML report summarizing the features, specifications, and other relevant details of the Mahindra XUV 3XO, based on the analysis in T002.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a comprehensive HTML report summarizing the features, specifications, and other relevant details of the Mahindra XUV 3XO, using the information extracted and synthesized in task T002. Ensure the report is well-structured and visually appealing. Include sections for key features, specifications, and variant options. Generate a complete HTML document.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

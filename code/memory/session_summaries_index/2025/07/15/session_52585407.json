@@ -1,0 +1,125 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52585407",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-15T13:16:47.701876",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "data": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 159-220: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Gather information about Mahindra XUV 3XO features from the internet.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed information about the features of the Mahindra XUV 3XO vehicle from reliable online sources such as the Mahindra official website, reputable automotive news websites, and automotive review sites. Focus on gathering details about the engine, safety features, technology, design, and comfort. Exclude user opinions.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "data": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 159-220: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T13:16:47.720849",
+      "end_time": "2025-07-15T13:17:07.098272",
+      "execution_time": 19.377423,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T002",
+      "description": "Extract and synthesize the key features of the Mahindra XUV 3XO from the gathered information.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information gathered in the previous step (T001) and extract the key features of the Mahindra XUV 3XO. Group the features into categories such as engine specifications, safety features, technology and infotainment, interior and exterior design, and comfort features.  Synthesize the information into a concise summary for each category. Prioritize factual data and exclude any subjective opinions or marketing fluff. Focus on providing detailed metrics wherever available (e.g., engine power, safety ratings, screen sizes).",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T13:17:07.105469",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Format the extracted features into a human-readable report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Take the extracted and synthesized features of the Mahindra XUV 3XO from the previous step (T002) and format them into a comprehensive and well-structured report. Use headings and subheadings to organize the information by category (engine, safety, technology, design, comfort). Present the features in a clear and concise manner, using bullet points and tables where appropriate. Include detailed metrics and specifications for each feature. Make sure the report looks professional and is easy to read.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

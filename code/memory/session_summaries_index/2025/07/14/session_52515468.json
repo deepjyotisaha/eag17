@@ -1,0 +1,209 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52515468",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-14T17:51:08.926358",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "car_features": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 159-220: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      },
+      "T002": {
+        "initial_thoughts": "The previous step encountered a character encoding error, preventing the extraction of Mahindra XUV 3XO features. I need to handle this error and provide a response indicating the failure, along with relevant details in the processing_status and quality_assessment sections.",
+        "summary_unavailable": true,
+        "processing_status": {
+          "file_accessible": true,
+          "content_readable": false,
+          "extraction_method": "failed",
+          "content_completeness": "failed"
+        },
+        "quality_assessment": {
+          "task_completion_score": 0,
+          "confidence_level": "low",
+          "data_reliability": "low",
+          "limitations": [
+            "Character encoding error prevented content extraction."
+          ],
+          "recommendations": [
+            "Investigate the character encoding of the source data and implement appropriate decoding to handle the specific characters. Retry content extraction."
+          ]
+        },
+        "cost": 0.00037305,
+        "input_tokens": 1923.0,
+        "output_tokens": 141.0,
+        "total_tokens": 2064.0
+      },
+      "T003": {
+        "initial_thoughts": "The input indicates that the previous step failed to extract the features of the Mahindra XUV 3XO due to a character encoding error. As a result, I cannot create a comprehensive report. I need to generate a report that explains the issue and provides some basic information about the car, while emphasizing the data extraction failure. Since no data was extracted, I will not be able to include images. Since all_globals_schema does not contain data, I will set call_self to false.",
+        "output": {
+          "final_format": "html",
+          "images": [],
+          "fallback_markdown": "# Mahindra XUV 3XO Features Report\n\n## Executive Summary\n\nThis report was intended to provide a detailed overview of the Mahindra XUV 3XO's features. However, due to a character encoding error during data extraction, the content could not be processed. Consequently, a full feature analysis is unavailable.\n\n## Data Extraction Failure\n\nThe primary source of information encountered a character encoding issue, preventing the successful retrieval of the vehicle's specifications. Further investigation is needed to resolve this issue.\n\n## Recommendations\n\nAddress the character encoding problem and attempt to re-extract the data. Once resolved, a complete feature report can be generated.\n",
+          "reasoning": "The report explains the failure to extract data, includes processing details, and recommends actions to address the problem. It includes the sections required.",
+          "formatted_report_T003": "<div class='report'><h1 id='mahindra-xuv-3xo-features-report'>📊 Mahindra XUV 3XO Features Report</h1><div class='executive-summary'><h2 id='executive-summary'>🎯 Executive Summary</h2><p>This report was intended to provide a detailed overview of the Mahindra XUV 3XO's features. Unfortunately, due to a character encoding error during data extraction, the content could not be processed. Consequently, a full feature analysis is unavailable.</p></div><div class='data-extraction-failure'><h2 id='data-extraction-failure'>⚠️ Data Extraction Failure</h2><p>The primary source of information encountered a character encoding issue, preventing the successful retrieval of the vehicle's specifications. Further investigation is needed to resolve this issue.</p></div><div class='recommendations'><h2 id='recommendations'>✅ Recommendations</h2><p>Address the character encoding problem and attempt to re-extract the data. Once resolved, a complete feature report can be generated.</p></div><div class='no-images'><h2 id='no-images'>🖼️ No Images Found</h2><p>No images were found during the data retrieval process due to the character encoding error, which prevented proper content extraction and image identification.</p><p><b>Data Structures Scanned:</b> All data structures were intended to be scanned within the raw text of potential sources. However, the character encoding error halted the scanning process at the initial stage.</p></div></div>"
+        },
+        "call_self": false,
+        "cost": 0.0008208,
+        "input_tokens": 3240.0,
+        "output_tokens": 558.0,
+        "total_tokens": 3798.0
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information about Mahindra XUV 3XO features from the web.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch details about the features of the Mahindra XUV 3XO car from reliable sources like the official Mahindra website, reputable car review websites, and news articles.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "car_features": [
+          {
+            "type": "text",
+            "text": "[error] 'charmap' codec can't encode characters in position 159-220: character maps to <undefined>",
+            "annotations": null,
+            "_meta": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-14T17:51:08.941390",
+      "end_time": "2025-07-14T17:51:26.288123",
+      "execution_time": 17.346733,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T002",
+      "description": "Extract the key features of the Mahindra XUV 3XO from the retrieved information.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Analyze the information retrieved in the previous step and extract a comprehensive list of key features of the Mahindra XUV 3XO. Categorize them (e.g., safety, performance, comfort, technology) and create a structured output.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "completed",
+      "output": {
+        "initial_thoughts": "The previous step encountered a character encoding error, preventing the extraction of Mahindra XUV 3XO features. I need to handle this error and provide a response indicating the failure, along with relevant details in the processing_status and quality_assessment sections.",
+        "summary_unavailable": true,
+        "processing_status": {
+          "file_accessible": true,
+          "content_readable": false,
+          "extraction_method": "failed",
+          "content_completeness": "failed"
+        },
+        "quality_assessment": {
+          "task_completion_score": 0,
+          "confidence_level": "low",
+          "data_reliability": "low",
+          "limitations": [
+            "Character encoding error prevented content extraction."
+          ],
+          "recommendations": [
+            "Investigate the character encoding of the source data and implement appropriate decoding to handle the specific characters. Retry content extraction."
+          ]
+        },
+        "cost": 0.00037305,
+        "input_tokens": 1923.0,
+        "output_tokens": 141.0,
+        "total_tokens": 2064.0
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-14T17:51:26.297112",
+      "end_time": "2025-07-14T17:51:31.609451",
+      "execution_time": 5.312339,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T003",
+      "description": "Format the extracted features into a user-friendly report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a well-structured and visually appealing report summarizing the features of the Mahindra XUV 3XO based on the extracted information. Use clear headings, bullet points, and tables to enhance readability. Highlight the most important and unique features.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "completed",
+      "output": {
+        "initial_thoughts": "The input indicates that the previous step failed to extract the features of the Mahindra XUV 3XO due to a character encoding error. As a result, I cannot create a comprehensive report. I need to generate a report that explains the issue and provides some basic information about the car, while emphasizing the data extraction failure. Since no data was extracted, I will not be able to include images. Since all_globals_schema does not contain data, I will set call_self to false.",
+        "output": {
+          "final_format": "html",
+          "images": [],
+          "fallback_markdown": "# Mahindra XUV 3XO Features Report\n\n## Executive Summary\n\nThis report was intended to provide a detailed overview of the Mahindra XUV 3XO's features. However, due to a character encoding error during data extraction, the content could not be processed. Consequently, a full feature analysis is unavailable.\n\n## Data Extraction Failure\n\nThe primary source of information encountered a character encoding issue, preventing the successful retrieval of the vehicle's specifications. Further investigation is needed to resolve this issue.\n\n## Recommendations\n\nAddress the character encoding problem and attempt to re-extract the data. Once resolved, a complete feature report can be generated.\n",
+          "reasoning": "The report explains the failure to extract data, includes processing details, and recommends actions to address the problem. It includes the sections required.",
+          "formatted_report_T003": "<div class='report'><h1 id='mahindra-xuv-3xo-features-report'>📊 Mahindra XUV 3XO Features Report</h1><div class='executive-summary'><h2 id='executive-summary'>🎯 Executive Summary</h2><p>This report was intended to provide a detailed overview of the Mahindra XUV 3XO's features. Unfortunately, due to a character encoding error during data extraction, the content could not be processed. Consequently, a full feature analysis is unavailable.</p></div><div class='data-extraction-failure'><h2 id='data-extraction-failure'>⚠️ Data Extraction Failure</h2><p>The primary source of information encountered a character encoding issue, preventing the successful retrieval of the vehicle's specifications. Further investigation is needed to resolve this issue.</p></div><div class='recommendations'><h2 id='recommendations'>✅ Recommendations</h2><p>Address the character encoding problem and attempt to re-extract the data. Once resolved, a complete feature report can be generated.</p></div><div class='no-images'><h2 id='no-images'>🖼️ No Images Found</h2><p>No images were found during the data retrieval process due to the character encoding error, which prevented proper content extraction and image identification.</p><p><b>Data Structures Scanned:</b> All data structures were intended to be scanned within the raw text of potential sources. However, the character encoding error halted the scanning process at the initial stage.</p></div></div>"
+        },
+        "call_self": false,
+        "cost": 0.0008208,
+        "input_tokens": 3240.0,
+        "output_tokens": 558.0,
+        "total_tokens": 3798.0
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-14T17:51:31.618982",
+      "end_time": "2025-07-14T17:51:39.919208",
+      "execution_time": 8.300226,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

@@ -7,6 +7,15 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional
 import traceback
 from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
+import sys
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+    except AttributeError:
+        import codecs
+        sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+        sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
 
 logger = get_logger(__name__)
 
