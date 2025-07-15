@@ -220,7 +220,8 @@ Profile each file separately and return details."""
                     
                     # Combine agent output with code execution results
                     combined_output = {
-                        **result["output"].get("output", {}),  # Agent's direct output
+                        ##**result["output"].get("output", {}),  # Agent's direct output
+                        **result["output"], # Agent's direct output
                         **code_output  # Code execution results
                     }
                     
@@ -289,7 +290,8 @@ Profile each file separately and return details."""
                     if execution_result["status"] == "success":
                         code_output = execution_result.get("code_results", {}).get("result", {})
                         combined_output = {
-                            **second_result["output"].get("output", {}),
+                            ##**second_result["output"].get("output", {}),
+                            **second_result["output"],
                             **code_output
                         }
                         second_result["output"] = combined_output
@@ -307,6 +309,8 @@ Profile each file separately and return details."""
                 {"iteration": 2, "output": second_result["output"] if second_result["success"] else None}
             ]
             step_data['call_self_used'] = True
+
+            logger_json_block(logger, f"Execute Step: {step_id} - Second Iteration Result", second_result)
             
             return second_result if second_result["success"] else result
         

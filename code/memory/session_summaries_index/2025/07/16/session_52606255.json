@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52606255",
+    "original_query": "Find comprehensive flight options from Delhi to Tokyo, must use only a single step for retriever agent but you can use multiple iterations (call_self=true) to compile this data.",
+    "file_manifest": [],
+    "created_at": "2025-07-15T19:04:15.391609",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve comprehensive flight options from Delhi to Tokyo.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve a comprehensive list of flight options from Delhi (DEL) to Tokyo (NRT and HND). Ensure to include details such as airline, flight number, departure time, arrival time, layover details (if any), flight duration, and price. Call self until a comprehensive list is created. If API limits are reached mid-request, please save the current output and resume on the next call, avoiding duplicate calls. In the output, provide pagination information.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-15T19:04:15.401122",
+      "end_time": "2025-07-15T19:04:17.995615",
+      "execution_time": 2.594493
+    },
+    {
+      "id": "T002",
+      "description": "Distill the flight options data into a concise and readable summary.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Analyze the comprehensive flight options data retrieved in the previous step. Create a distilled summary that includes a variety of flight options, highlighting the key differences in airlines, departure/arrival times, layovers, flight durations, and prices. Focus on presenting the most relevant information for a user to make an informed decision. Summarize this into a bulleted list with each bullet representing a unique flight journey. Each journey option should include airline name, departure and arrival times and location for origin and destination, layover information if applicable, flight duration, and price.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Format the distilled flight options summary into a user-friendly report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Take the distilled flight options summary and format it into a comprehensive, user-friendly report. Organize the flight options by price, departure time, and flight duration, creating separate sections for each. Include a brief introduction explaining the data and any assumptions made. Highlight the best options in each category. Make the report visually appealing and easy to read.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

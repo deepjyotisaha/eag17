@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52605699",
+    "original_query": "Find comprehensive flight options from Delhi to Tokyo, must use only a single step for retriever agent but you can use multiple iterations (call_self=true) to compile this data, till you are satisfied.",
+    "file_manifest": [],
+    "created_at": "2025-07-15T18:54:59.169623",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve comprehensive flight options from Delhi to Tokyo.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find comprehensive flight options from Delhi (DEL) to Tokyo (NRT, HND) using various online sources. Include details such as airline, flight number, departure time, arrival time, layovers (if any), duration, and price. Check multiple sources to ensure comprehensive coverage. Output the results in a structured JSON format with fields for airline, flight_number, departure_time, arrival_time, layovers, duration, and price. If you are not satisfied, please try different queries to refine your search, and include `call_self=true` so that you can keep calling yourself till you are happy.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T18:54:59.178130",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Summarize and format the flight options data into a readable report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Consolidate the flight options retrieved from Delhi to Tokyo, using the output from T001. Structure the data in a well-formatted report including a table that includes airline, flight number, departure time, arrival time, layovers (if any), duration, and price. Ensure it is human readable and visually organized.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

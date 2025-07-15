@@ -1,0 +1,103 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52606329",
+    "original_query": "Find comprehensive flight options from Delhi to Tokyo, must use only a single step for retriever agent but you can use multiple iterations (call_self=true) to compile this data.",
+    "file_manifest": [],
+    "created_at": "2025-07-15T19:05:29.796521",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve comprehensive flight options from Delhi to Tokyo, including airlines, flight times, prices, and layover information. The RetrieverAgent will need to use iterative calls to get exhaustive results by looking through all pages or parts. If the retreival fails, try again until successful.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve comprehensive flight options from Delhi (DEL) to Tokyo (TYO). Include airline, flight times, prices, and layover information. Since complete results might be spread across multiple pages or API responses, implement a retry and pagination or iterative retrieval mechanism until no new data is found. Do not stop until no new data is retrieved from source.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T19:05:29.807519",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Review the retrieved flight data and ensures all important information (airlines, times, prices, layovers) are present and consistent.",
+      "agent": "QAAgent",
+      "agent_prompt": "Review the flight data retrieved in the previous step and assess its comprehensiveness and consistency. Ensure all key details such as airlines, flight times, prices, and layover information are clearly and consistently represented. If data is incomplete, send instruction back to retriever agent in T001. If complete and comprehensive, respond 'OKAY'.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Formats the comprehensive flight options into a human-readable table with clear columns for airline, flight times, prices, and layovers.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the comprehensive flight options data retrieved in T001 and reviewed by T002 into a well-structured, human-readable table with clear columns for airline, flight times, prices, and layovers. Ensure the table is easy to read and understand. Use HTML or Markdown format.",
+      "reads": [
+        "T001",
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

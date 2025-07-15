@@ -1,0 +1,125 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52606038",
+    "original_query": "Find comprehensive flight options from Delhi to Tokyo, must use only a single step for retriever agent but you can use multiple iterations (call_self=true) to compile this data.",
+    "file_manifest": [],
+    "created_at": "2025-07-15T19:00:38.780417",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve initial flight options from Delhi to Tokyo.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve flight options from Delhi (DEL) to Tokyo (TYO) for the next 7 days. Include details such as airline, flight number, departure time, arrival time, layover information (if any), and price.  Format the output as a JSON array of flight objects. If the data is incomplete or insufficient, indicate what further information is needed.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-15T19:00:38.793419",
+      "end_time": "2025-07-15T19:00:43.989430",
+      "execution_time": 5.196011
+    },
+    {
+      "id": "T002",
+      "description": "Check if additional flight data retrieval is required. If flight options are incomplete, re-plan to retrieve more flight data.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the flight options retrieved in T001. Determine if additional data retrieval is required to cover all available flight options (e.g., flights beyond the initial 7-day window or flights from different websites). If more data is needed, output 'call_self=true' and specify the parameters for the next retrieval. If the data is sufficiently comprehensive, output 'call_self=false'.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Compile Comprehensive Flight Options",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Consolidate flight information from all the RetrieverAgent iterations. Present a well-structured HTML table showing all flights from Delhi to Tokyo (DEL-TYO), their timings, layovers (if applicable) and the cost. Highlight the cheapest and fastest flights.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "QA the comprehensiveness and accuracy of flight information.",
+      "agent": "QAAgent",
+      "agent_prompt": "Review the consolidated flight options from T003.  Ensure the data is accurate and complete, covering a reasonable range of dates and airlines.  Identify any missing information or discrepancies.",
+      "reads": [
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}

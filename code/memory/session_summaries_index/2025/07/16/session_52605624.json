@@ -1,0 +1,168 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52605624",
+    "original_query": "Find comprehensive flight options from Delhi to Tokyo, use a single step for retriever agent but multiple iterations to compile this data.",
+    "file_manifest": [],
+    "created_at": "2025-07-15T18:53:44.974792",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "initial_thoughts": "I need to create a schedule to retrieve flight data every 4 hours for the next 24 hours. This requires a cron-like setup. I will set the trigger to run every 4 hours and resume from T002, which saves the query output.",
+        "output": {
+          "scheduled_task": {
+            "task_id": "flight_data_retrieval",
+            "trigger_type": "cron",
+            "trigger_time": null,
+            "cron_expression": "0 */4 * * *",
+            "resume_from": "T002",
+            "resume_inputs": [],
+            "ttl_policy": null
+          },
+          "status": "scheduled"
+        },
+        "call_self": false,
+        "cost": 0.00017167499999999999,
+        "input_tokens": 694.5,
+        "output_tokens": 112.5,
+        "total_tokens": 807.0
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Set up a flight data retrieval schedule from Delhi to Tokyo, initiating the first retrieval immediately.",
+      "agent": "SchedulerAgent",
+      "agent_prompt": "Create a schedule to retrieve flight data from Delhi to Tokyo every 4 hours for the next 24 hours, initiating the first retrieval immediately. Use a specific format for the query, including departure date and time windows, to ensure consistent data retrieval. Save query output to T002.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "initial_thoughts": "I need to create a schedule to retrieve flight data every 4 hours for the next 24 hours. This requires a cron-like setup. I will set the trigger to run every 4 hours and resume from T002, which saves the query output.",
+        "output": {
+          "scheduled_task": {
+            "task_id": "flight_data_retrieval",
+            "trigger_type": "cron",
+            "trigger_time": null,
+            "cron_expression": "0 */4 * * *",
+            "resume_from": "T002",
+            "resume_inputs": [],
+            "ttl_policy": null
+          },
+          "status": "scheduled"
+        },
+        "call_self": false,
+        "cost": 0.00017167499999999999,
+        "input_tokens": 694.5,
+        "output_tokens": 112.5,
+        "total_tokens": 807.0
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T18:53:44.981266",
+      "end_time": "2025-07-15T18:53:47.794837",
+      "execution_time": 2.813571,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T002",
+      "description": "Retrieve initial flight options from Delhi to Tokyo based on the scheduler's defined parameters.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve flight options from Delhi (DEL) to Tokyo (TYO) for the departure date and time window specified by SchedulerAgent in T001. Include details such as airline, flight number, departure time, arrival time, layovers (if any), and price. Store the retrieved data in a structured format that can be easily processed by subsequent agents.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T18:53:47.805837",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Compile and consolidate flight data from all retrieval iterations.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Aggregate flight data retrieved in T002 (and subsequent scheduled retrievals) into a single comprehensive dataset. Remove duplicates and organize the data by departure time, price, and layover duration. Identify any trends or patterns in flight availability and pricing across different times of the day. Store the compiled and analyzed data for final formatting.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Format the consolidated flight data into a human-readable report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the comprehensive flight data compiled in T003 into a well-structured and human-readable report. Include sections for flight schedules, pricing trends, and layover options. Present the data in a clear and concise manner, using tables and summaries to highlight key information. The report should be suitable for presentation to a user seeking comprehensive flight options.",
+      "reads": [
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}
