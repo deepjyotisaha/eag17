@@ -1,0 +1,56 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52607471",
+    "original_query": "Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle. Use only one step of the Retriever agent but use multiple iterations (call_Self=true)",
+    "file_manifest": [],
+    "created_at": "2025-07-15T19:24:31.009452",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T001"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch details on the features for Mahindra XUV 3XO using multiple iterations.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed information about the Mahindra XUV 3XO, specifically focusing on its key features, specifications, technology, safety features, and any unique selling points. Analyze user reviews and expert opinions to gather comprehensive insights. If there are related pages from Mahindra's website, include them. After your initial search, recursively call yourself with call_self=true to further refine and expand the search based on new information or keywords identified in the previous results. Store all information in the output field in key-value pairs. Make sure to summarize all information. Each iteration should focus on a different set of features.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-15T19:24:31.016452",
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    }
+  ]
+}

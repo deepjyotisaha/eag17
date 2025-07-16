@@ -9,16 +9,17 @@ from agentLoop.visualizer import ExecutionVisualizer
 from rich.console import Console
 from pathlib import Path
 from action.executor import run_user_code
-from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block  
+from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block , logger_error
 
 logger = get_logger(__name__)    
 
 
 class AgentLoop4:
-    def __init__(self, multi_mcp, strategy="conservative"):
+    def __init__(self, multi_mcp, strategy="conservative", max_self_iter=5):
         self.multi_mcp = multi_mcp
         self.strategy = strategy
         self.agent_runner = AgentRunner(multi_mcp)
+        self.max_self_iter = max_self_iter  # Maximum number of call_self iterations
 
     async def run(self, query, file_manifest, uploaded_files):
         # Phase 1: File Profiling (if files exist)
@@ -142,8 +143,10 @@ Profile each file separately and return details."""
             # Process results - SIMPLE!
             for step_id, result in zip(current_batch, results):
                 if isinstance(result, Exception):
+                    logger_error(logger, f"Execute Step: {step_id} - Exception, calling mark_failed", result)
                     context.mark_failed(step_id, str(result))
                 elif result["success"]:
+                    logger_step(logger, f"Execute Step: {step_id} - Success, Calling mark_done")
                     await context.mark_done(step_id, result["output"])
                 else:
                     context.mark_failed(step_id, result["error"])
@@ -194,6 +197,7 @@ Profile each file separately and return details."""
             }
 
             logger_json_block(logger, f"Execute Step: {step_id} - Executor Input - Code Variants", executor_input)
+            logger_json_block(logger, f"Execute Step: {step_id} - Step Inputs", inputs)
             
             # Execute code variants sequentially until one succeeds
             try:
@@ -213,34 +217,43 @@ Profile each file separately and return details."""
                     logger_step(logger, f"✅ {step_id}: Code execution succeeded")
                     
                     # Extract the actual result from code execution
-                    code_output = execution_result.get("code_results", {}).get("result", {})
+                    #code_output = execution_result.get("code_results", {}).get("result", {})
 
-                    logger_json_block(logger, f"Execute Step: {step_id} - Code Output", code_output)
+                    logger_json_block(logger, f"Execute Step: {step_id} - Execution Output", execution_result) #This has the varaiale alone
                     logger_json_block(logger, f"Execute Step: {step_id} - Agent Output", result["output"])
+
                     
                     # Combine agent output with code execution results
-                    combined_output = {
-                        ##**result["output"].get("output", {}),  # Agent's direct output
-                        **result["output"], # Agent's direct output
-                        **code_output  # Code execution results
-                    }
+                    #combined_output = {
+                    #    #**result["output"].get("output", {}),  # Agent's direct output
+                    #    **result["output"], # Agent's direct output
+                    #    **code_output  # Code execution results
+                    #}
+
+                    combined_agent_output = await context.merge_execution_results(step_id, result["output"], execution_result)
                     
+                    # After this step result["output"] has the agent output and the variable alone
                     
                     # Update result with combined output
-                    result["output"] = combined_output
+                    #result["output"] = combined_output
 
-                    logger_json_block(logger, f"Execute Step: {step_id} - Combined Output", combined_output)
+                    #need to change result["output"] to combined_agent_output'
+                    result["output"] = combined_agent_output
+
+                    logger_json_block(logger, f"Execute Step: {step_id} - Combined Agent Output", result["output"])
                     
                 elif execution_result["status"] == "partial_failure":
                     log_step(f"⚠️ {step_id}: Code execution partial failure", symbol="⚠️")
                     
                     # Try to extract any successful results
+                    #### Handle the partial failure
                     code_output = execution_result.get("code_results", {}).get("result", {})
                     if code_output:
                         combined_output = {
                             **result["output"].get("output", {}),
                             **code_output
                         }
+                        previous_output = result["output"]
                         result["output"] = combined_output
                     else:
                         # Mark as failed
@@ -251,7 +264,10 @@ Profile each file separately and return details."""
                     log_step(f"❌ {step_id}: Code execution failed", symbol="🚨")
                     result["success"] = False
                     result["error"] = f"Code execution failed: {execution_result.get('error', 'Unknown error')}"
-                    
+
+
+                # The check for call_Self should be done here
+                
             except Exception as e:
                 log_step(f"💥 {step_id}: Code execution exception: {e}", symbol="❌")
                 result["success"] = False
@@ -262,57 +278,97 @@ Profile each file separately and return details."""
             log_step(f"🔄 CALL_SELF triggered for {step_id}", symbol="🔄")
             logger_step(logger, f"🔄 CALL_SELF triggered for {step_id}")
             
-            # Second iteration with previous output
-            second_input = build_agent_input(
-                instruction=result["output"].get("next_instruction", "Continue"),
-                previous_output=result["output"]
-            )
+            # Initialize iteration tracking
+            current_iteration = 1
+            iterations_data = [{"iteration": 1, "output": result["output"]}]
+            current_result = result
             
-            second_result = await self.agent_runner.run_agent(agent_type, second_input)
-            
-            # Handle code execution for second iteration too
-            if second_result["success"] and "code" in second_result["output"]:
-                log_step(f"🔧 {step_id}: Second iteration returned code variants", symbol="⚙️")
+            # While loop for call_self iterations
+            while (current_result["success"] and 
+                   current_result["output"].get("call_self") and 
+                   current_iteration < self.max_self_iter):
                 
-                executor_input = {
-                    "code_variants": second_result["output"]["code"],
-                }
+                current_iteration += 1
+                log_step(f"🔄 CALL_SELF iteration {current_iteration} for {step_id}", symbol="🔄")
+                logger_step(logger, f"🔄 CALL_SELF iteration {current_iteration} for {step_id}")
+                
+                # Build input for next iteration
+                next_input = build_agent_input(
+                    instruction=current_result["output"].get("next_instruction", "Continue"),
+                    previous_output=current_result["output"]
+                )
 
+                logger_json_block(logger, f"Execute Step: {step_id}, iteration {current_iteration} - Agent Input", next_input)
                 
-                try:
-                    execution_result = await run_user_code(
-                        executor_input,
-                        self.multi_mcp,
-                        context.plan_graph.graph['session_id'] or "default_session",
-                        inputs
-                    )
+                # Run next iteration
+                next_result = await self.agent_runner.run_agent(agent_type, next_input)
+
+                logger_json_block(logger, f"Execute Step: {step_id}, iteration {current_iteration} - Agent Result", next_result)
+                
+                # Handle code execution for this iteration too
+                if next_result["success"] and "code" in next_result["output"]:
+                    log_step(f"🔧 {step_id}: Iteration {current_iteration} returned code variants", symbol="⚙️")
+                    logger_step(logger, f"🔧 {step_id}: Iteration {current_iteration} returned code variants")
                     
-                    if execution_result["status"] == "success":
-                        code_output = execution_result.get("code_results", {}).get("result", {})
-                        combined_output = {
-                            ##**second_result["output"].get("output", {}),
-                            **second_result["output"],
-                            **code_output
-                        }
-                        second_result["output"] = combined_output
-                    else:
-                        second_result["success"] = False
-                        second_result["error"] = f"Code execution failed: {execution_result.get('error')}"
-                        
-                except Exception as e:
-                    second_result["success"] = False
-                    second_result["error"] = f"Code execution exception: {str(e)}"
-            
-            # Store iteration data
-            step_data['iterations'] = [
-                {"iteration": 1, "output": result["output"]},
-                {"iteration": 2, "output": second_result["output"] if second_result["success"] else None}
-            ]
-            step_data['call_self_used'] = True
+                    executor_input = {
+                        "code_variants": next_result["output"]["code"],
+                    }
 
-            logger_json_block(logger, f"Execute Step: {step_id} - Second Iteration Result", second_result)
+                    try:
+                        execution_result = await run_user_code(
+                            executor_input,
+                            self.multi_mcp,
+                            context.plan_graph.graph['session_id'] or "default_session",
+                            {**inputs, **next_input}
+                        )
+
+                        logger_json_block(logger, f"Execute Step: {step_id}, iteration {current_iteration} - Executor Result", execution_result)
+                        logger_json_block(logger, f"Execute Step: {step_id}, iteration {current_iteration} - Agent Result", next_result)
+                        
+                        if execution_result["status"] == "success":
+                            code_output = execution_result.get("code_results", {}).get("result", {})
+                            combined_output = {
+                                **next_result["output"],
+                                #**next_result["output"].get("output", {}),
+                                **code_output
+                            }
+                            next_result["output"] = combined_output
+                            logger_json_block(logger, f"Execute Step: {step_id}, iteration {current_iteration} - Combined Output", combined_output)
+                        else:
+                            next_result["success"] = False
+                            next_result["error"] = f"Code execution failed: {execution_result.get('error')}"
+                            
+                    except Exception as e:
+                        next_result["success"] = False
+                        next_result["error"] = f"Code execution exception: {str(e)}"
+                
+                # Store iteration data
+                iterations_data.append({
+                    "iteration": current_iteration, 
+                    "output": next_result["output"] if next_result["success"] else None
+                })
+                
+                # Update current result for next iteration
+                current_result = next_result
+                
+                # Log the iteration result
+                logger_json_block(logger, f"Execute Step: {step_id} - Iteration {current_iteration} Final Result", next_result)
             
-            return second_result if second_result["success"] else result
+            # Store final iteration data
+            step_data['iterations'] = iterations_data
+            step_data['call_self_used'] = True
+            step_data['total_iterations'] = current_iteration
+            
+            # Return the final result (last successful iteration or fallback to previous)
+            if current_result["success"]:
+                return current_result
+            else:
+                # Find the last successful iteration
+                for iteration_data in reversed(iterations_data):
+                    if iteration_data["output"] is not None:
+                        return {"success": True, "output": iteration_data["output"]}
+                # Fallback to original result
+                return result
         
         if result["success"] and "clarification_request" in result:
             log_step(f"🤔 {step_id}: Clarification needed", symbol="❓")

@@ -1,0 +1,283 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52636540",
+    "original_query": "I need a 7-day Japan itinerary for April 15-23 from Seattle, with a $2500-5000 budget for my fiancée and me. We love historical sites, hidden gems, and Japanese culture (kendo, tea ceremonies, Zen meditation). We want to see Nara's deer and explore cities on foot. I plan to propose during this trip and need a special location recommendation. Please provide a detailed itinerary and an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips we can reference throughout our journey.",
+    "file_manifest": [],
+    "created_at": "2025-07-16T03:29:00.956774",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T010"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research flight options from Seattle (SEA) to Japan (NRT or KIX) for April 15-23, considering the $2500-5000 budget for two people. Focus on finding the most cost-effective and convenient options.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find the best round-trip flight options from Seattle (SEA) to either Narita (NRT) or Kansai (KIX) airport in Japan, for two adults traveling from April 15th to April 23rd. Prioritize flights that are within the $2500-$5000 budget range for two people. Consider factors like flight duration, layovers, and airline reputation to optimize for both cost and convenience. Return results with specific flight times and prices.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T03:29:00.972780",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Research accommodation options in Tokyo, Kyoto, and Nara for April 15-23, tailored to the user's budget and preferences (historical sites, hidden gems, culture). Include a mix of traditional Ryokans and modern hotels.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find a range of accommodation options (hotels, Ryokans) in Tokyo, Kyoto, and Nara for two adults traveling from April 15th to April 23rd.  Consider a daily budget of $150-$350 per night for two people. Focus on accommodations that are close to historical sites, cultural experiences (kendo, tea ceremonies, Zen meditation), or hidden gems. Provide a variety of options, including traditional Ryokans and modern hotels. List prices and addresses for each option.",
+      "reads": [],
+      "writes": [
+        "T002"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T03:29:00.975785",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Research specific historical sites, hidden gems, and cultural experiences (kendo, tea ceremonies, Zen meditation) in Tokyo, Kyoto, and Nara.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Compile a list of historical sites, hidden gems, and unique cultural experiences (kendo, tea ceremonies, Zen meditation, etc.) available in Tokyo, Kyoto, and Nara. Include information on opening hours, admission fees, and typical visit durations. Focus on sites and experiences that offer a deep dive into Japanese culture and history.",
+      "reads": [],
+      "writes": [
+        "T003"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T03:29:00.976782",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Research transportation options between Tokyo, Kyoto, and Nara, including bullet trains (Shinkansen) and local trains. Include pricing and travel time estimates.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find information on transportation options for traveling between Tokyo, Kyoto, and Nara. Prioritize bullet trains (Shinkansen) for speed and convenience. Also, include local train options for cost-effective travel. Provide pricing information, travel time estimates, and information on purchasing Japan Rail Pass.",
+      "reads": [],
+      "writes": [
+        "T004"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T03:29:00.979746",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Research a special location suitable for a marriage proposal, considering the user's preferences (historical sites, hidden gems, Japanese culture).",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Identify a unique and memorable location in Tokyo, Kyoto, or Nara suitable for a marriage proposal. The location should align with the user's interests in historical sites, hidden gems, or Japanese culture (kendo, tea ceremonies, Zen meditation). Consider factors like ambiance, privacy, and photographic potential. Include information on access, permits, and potential costs.",
+      "reads": [],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Synthesize the flight, accommodation, and transportation research to create a feasible travel plan that fits the user's budget and timeline.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on the flight options (T001), accommodation options (T002), transportation options (T004), and site/experience research (T003), create a detailed 7-day itinerary for Japan, covering travel between Tokyo, Kyoto, and Nara.  The itinerary must fall within the $2500-$5000 budget for two people and fit within the April 15-23 timeframe. Maximize cultural experiences and visits to historical sites and hidden gems. Also, consider user's walking tour preference and include recommendations. Prioritize travel efficiency. Provide a draft itinerary with day-by-day plans including travel times and accommodation information.",
+      "reads": [
+        "T001",
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "writes": [
+        "T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Analyze the potential proposal locations and select the most suitable option, considering ambiance, privacy, and user preferences.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on the research of potential proposal locations (T005), analyze the pros and cons of each location based on factors like ambiance, privacy, accessibility, and alignment with the user's preferences. Select the single best location and provide a detailed justification for your choice. Include details on how to make the proposal special.",
+      "reads": [
+        "T005"
+      ],
+      "writes": [
+        "T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Combine the travel plan and proposal location information into a comprehensive itinerary, including daily activities, accommodation details, transportation schedules, and proposal plan.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Synthesize the detailed 7-day itinerary (T006) with the selected proposal location and plan (T007). Create a complete itinerary document including daily activities, times, accommodation details, transportation schedules, and the proposal plan. Ensure the itinerary is well-structured and easy to follow.",
+      "reads": [
+        "T006",
+        "T007"
+      ],
+      "writes": [
+        "T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Research essential Japanese phrases and travel tips that will be useful for the user during their trip.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Compile a list of essential Japanese phrases (greetings, directions, basic requests) with English translations and pronunciations. Gather general travel tips for Japan, covering topics like etiquette, transportation, currency, and technology (pocket wifi).",
+      "reads": [],
+      "writes": [
+        "T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T010",
+      "description": "Create an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips, incorporating all research and planning outputs.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create an exhaustive HTML travel handbook for the user's 7-day trip to Japan (April 15-23). The handbook should include: a detailed itinerary (T008), maps of Tokyo, Kyoto, and Nara (using online map APIs), descriptions of attractions (T003), essential Japanese phrases and travel tips (T009). Design the handbook to be user-friendly and easily accessible on mobile devices. Use CSS for styling. The proposal plan should be mentioned with high level description.",
+      "reads": [
+        "T003",
+        "T008",
+        "T009"
+      ],
+      "writes": [
+        "T010"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "ROOT",
+      "target": "T005"
+    },
+    {
+      "source": "ROOT",
+      "target": "T009"
+    },
+    {
+      "source": "T001",
+      "target": "T006"
+    },
+    {
+      "source": "T002",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T010"
+    },
+    {
+      "source": "T004",
+      "target": "T006"
+    },
+    {
+      "source": "T005",
+      "target": "T007"
+    },
+    {
+      "source": "T006",
+      "target": "T008"
+    },
+    {
+      "source": "T007",
+      "target": "T008"
+    },
+    {
+      "source": "T008",
+      "target": "T010"
+    },
+    {
+      "source": "T009",
+      "target": "T010"
+    }
+  ]
+}

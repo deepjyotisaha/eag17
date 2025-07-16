@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📊 Mahindra XUV300 Facelift Analysis Report</title>
+  <style>
+    /* Base styles */
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0a0a0a;
+      --text-light: #111111;
+      --text-dark: #f1f1f1;
+      --border-light: #000000;
+      --border-dark: #ffffff;
+      --font-sans: 'Inter', 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'EB Garamond', 'New York', 'Georgia', serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: 18px;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s, font-family 0.3s;
+    }
+    
+    html.dark, body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background-color: var(--bg-light);
+      transition: background-color 0.3s;
+    }
+    html.dark .container, body.dark .container {
+      background-color: var(--bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 2.5em;
+      margin-bottom: 0.8em;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      border-bottom: 0.5px solid var(--border-light);
+      padding-bottom: 0.2em;
+    }
+    html.dark h1, body.dark h1 {
+      border-color: var(--border-dark);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+      z-index: 999;
+    }
+
+    .controls button {
+      all: unset;
+      cursor: pointer;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-weight: 500;
+      color: inherit;
+      opacity: 0.6;
+      transition: opacity 0.3s, background-color 0.3s;
+    }
+    .controls button:hover {
+      opacity: 1;
+    }
+    html.dark .controls button, body.dark .controls button {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer {
+      font-size: 0.55rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #aaa;
+    }
+
+    @media print {
+      .controls { display: none; }
+    }
+
+    
+        /* Image Carousel Styles */
+        .image-carousel {
+            margin: 2rem 0;
+        }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+        
+        .carousel-slides {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .carousel-slide.active {
+            display: flex;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .carousel-caption {
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        
+        .carousel-caption p {
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+        
+        .carousel-caption small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        html.dark .carousel-caption small, body.dark .carousel-caption small {
+            color: #aaa;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-size: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.9);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-btn.prev {
+            left: 0;
+        }
+        
+        .carousel-btn.next {
+            right: 0;
+        }
+        
+        .carousel-dots {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .carousel-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active, .carousel-dot:hover {
+            background-color: #333;
+            transform: scale(1.2);
+        }
+        html.dark .carousel-dot {
+            background-color: #666;
+        }
+        html.dark .carousel-dot.active, body.dark .carousel-dot.active,
+        html.dark .carousel-dot:hover, body.dark .carousel-dot:hover {
+            background-color: #ccc;
+        }
+        
+        /* Content Images Styling */
+        .container img:not(.carousel-slide img) {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        html.dark .container img:not(.carousel-slide img), 
+        body.dark .container img:not(.carousel-slide img) {
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+        
+        /* Remove any remaining inline width/height styles */
+        .container img[style*="width"] {
+            width: auto !important;
+            max-width: 100% !important;
+        }
+        .container img[style*="height"] {
+            height: auto !important;
+        }
+        
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="toggleDark()">Th</button>
+    <button onclick="toggleFont()">Aa</button>
+    <button onclick="toggleEmojis()">Em</button>
+  </div>
+  <div class="container" id="main-container">
+    <h1>📊 Mahindra XUV300 Facelift Analysis Report</h1>
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+        
+                    <div class="carousel-slide active">
+                        <img src="https://media.zigcdn.com/media/content/2023/Dec/6581758c9390a.jpg?tr=w-420" alt="Upcoming Mahindra Cars In 2024" />
+                        <div class="carousel-caption">
+                            <p><strong>Upcoming Mahindra Cars In 2024</strong></p>
+                            <small><a href="//media.zigcdn.com" target="_blank" rel="noopener noreferrer">Source: media.zigcdn.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2023/02/Mahindra-BE.07.jpg" alt="Mahindra BE.07" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra BE.07</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2023/02/mahindra-bolero-neo-plus-7-seater.jpg" alt="Mahindra BE.07" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra BE.07</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2022/12/5-Door-Mahindra-Thar-Launch.jpg" alt="Mahindra BE.07" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra BE.07</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2023/03/Mahindra-Bolero-Diesel.jpg" alt="Mahindra bolero neo plus 7 seater" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra bolero neo plus 7 seater</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2021/05/Mahindra-Design-Sketch-1.jpg" alt="5-Door Mahindra Thar Launch" />
+                        <div class="carousel-caption">
+                            <p><strong>5-Door Mahindra Thar Launch</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw95797f68/images/SCRC/large/ScorpioClassic_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc6625064/images/NEOP/large/BoleroNeoPlus_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/on/demandware.static/Sites-amc-Site/-/default/dwbe1329bd/images/placeholder-image.png" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://carfusion360.in/english/wp-content/uploads/2024/12/Mahindra-XUV300-1024x580.jpg" alt="Mahindra XUV300" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV300</strong></p>
+                            <small><a href="//carfusion360.in" target="_blank" rel="noopener noreferrer">Source: carfusion360.in</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://carfusion360.in/english/wp-content/uploads/2024/11/Kia-EV4-1024x580.jpg" alt="New Ford Everest" />
+                        <div class="carousel-caption">
+                            <p><strong>New Ford Everest</strong></p>
+                            <small><a href="//carfusion360.in" target="_blank" rel="noopener noreferrer">Source: carfusion360.in</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/pwa/img/spacer3x2.png" alt="Mahindra XUV300" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV300</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                </div>
+                
+                <button class="carousel-btn prev" onclick="changeSlide(-1)">&lt;</button>
+                <button class="carousel-btn next" onclick="changeSlide(1)">&gt;</button>
+            
+            </div>
+        <div class="carousel-dots"><button class="carousel-dot active" onclick="currentSlide(1)"></button><button class="carousel-dot " onclick="currentSlide(2)"></button><button class="carousel-dot " onclick="currentSlide(3)"></button><button class="carousel-dot " onclick="currentSlide(4)"></button><button class="carousel-dot " onclick="currentSlide(5)"></button><button class="carousel-dot " onclick="currentSlide(6)"></button><button class="carousel-dot " onclick="currentSlide(7)"></button><button class="carousel-dot " onclick="currentSlide(8)"></button><button class="carousel-dot " onclick="currentSlide(9)"></button><button class="carousel-dot " onclick="currentSlide(10)"></button><button class="carousel-dot " onclick="currentSlide(11)"></button><button class="carousel-dot " onclick="currentSlide(12)"></button></div>
+        </div>
+        <div><div><h2 id="executive-summary">🎯 Executive Summary</h2><p>This report provides a detailed overview of the Mahindra XUV300 Facelift, focusing on its key features, specifications, and unique selling points. The analysis includes market landscape, funding details, geographic distribution, technology breakdown, company profiles, market trends, and strategic recommendations. This version includes a competitive analysis and further details on expected features.<i>Final analysis and recommendations follow in conclusion.</i></p><img src="https://imgd.aeplcdn.com/0x0/n/cw/ec/135679/xuv300-exterior-right-front-three-quarter-2.jpeg" alt="Mahindra XUV300 Right Front Three Quarter"></div><h2>🔍 Market Landscape Overview</h2><p>The Mahindra XUV300 competes in the subcompact SUV segment, facing rivals such as Maruti Suzuki Brezza, Hyundai Venue, Tata Nexon, and Kia Sonet. The segment is characterized by high competition and demand for fuel-efficient, feature-rich vehicles. Mahindra aims to strengthen its position in this segment with the XUV300 Facelift, focusing on enhanced design, advanced features, and improved performance.</p><img src="https://imgd.aeplcdn.com/0x0/n/cw/ec/135679/xuv300-exterior-right-rear-three-quarter-2.jpeg" alt="Mahindra XUV300 Right Rear Three Quarter"><h2>💰 Funding Analysis Deep Dive</h2><p>No Funding data found specific to the XUV300 Facelift. However, Mahindra & Mahindra, the parent company, has a strong financial background and invests significantly in research and development to launch new and updated models.</p><h2>🌍 Geographic Distribution Analysis</h2><p>The Mahindra XUV300 is primarily targeted at the Indian market, but it is also exported to several other countries. The success of the XUV300 in different regions depends on factors such as local market conditions, government regulations, and consumer preferences.</p><h2>⚙️ Technology Breakdown</h2><p>The Mahindra XUV300 Facelift is expected to feature advanced technologies, including:</p><ul><li><b>Improved Infotainment System:</b> A larger touchscreen display with enhanced connectivity features.</li><li><b>Advanced Driver Assistance Systems (ADAS):</b> Features such as adaptive cruise control, lane departure warning, and automatic emergency braking.</li><li><b>Enhanced Safety Features:</b> Six airbags, electronic stability program (ESP), and hill start assist.</li><li><b>BS6 Phase 2 Compliance:</b> Updated engines to meet the latest emission standards.</li></ul><img src="https://imgd.aeplcdn.com/0x0/n/cw/ec/135679/xuv300-interior-dashboard-2.jpeg" alt="Mahindra XUV300 Interior Dashboard"><h2>🏢 Company Profiles (Top 10)</h2><p>No specific company profiles are directly related to the XUV300 Facelift, but Mahindra & Mahindra is a key player in the Indian automotive market. Mahindra's profile includes:</p><ul><li><b>Strong Brand Reputation:</b> Known for robust and reliable vehicles.</li><li><b>Wide Distribution Network:</b> Extensive sales and service network across India.</li><li><b>Focus on Innovation:</b> Investing in new technologies and product development.</li></ul><h2>📈 Market Trends & Insights</h2><p>The subcompact SUV segment is witnessing several key trends:</p><ul><li><b>Increasing Demand:</b> Growing preference for SUVs due to their versatility and road presence.</li><li><b>Electrification:</b> Gradual shift towards electric vehicles, with manufacturers launching EV versions of popular SUV models.</li><li><b>Connectivity:</b> Rising demand for connected car features, such as telematics, smartphone integration, and over-the-air updates.</li></ul><img src="https://imgd.aeplcdn.com/0x0/n/cw/ec/135679/xuv300-exterior-front-view-2.jpeg" alt="Mahindra XUV300 Front View"><h2>🎯 Strategic Recommendations</h2><p>Based on the current analysis, the following strategic recommendations can be made:</p><ul><li><b>Focus on Feature Enhancement:</b> Differentiate the XUV300 Facelift with advanced features and technologies.</li><li><b>Strengthen Brand Positioning:</b> Emphasize Mahindra's reputation for reliability and performance.</li><li><b>Expand Distribution Network:</b> Enhance reach in key markets to capture growing demand.</li></ul><h2>Risk Factors and Uncertainties</h2><p>The Mahindra XUV300 Facelift faces several risk factors and uncertainties:</p><ul><li><b>Market Competition:</b> Intense competition from established players and new entrants.</li><li><b>Economic Conditions:</b> Fluctuations in economic conditions can impact consumer spending and demand.</li><li><b>Regulatory Changes:</b> Changes in government regulations, such as emission standards and safety norms, can affect product development and pricing.</li><li><b>Supply Chain Disruptions:</b> Disruptions in the supply chain can impact production and delivery schedules.</li></ul><p>These risk factors need to be carefully managed to ensure the successful launch and market performance of the XUV300 Facelift. The company must continuously monitor market trends, economic indicators, and regulatory developments to adapt its strategies accordingly.</p><h2>Hidden Signals and Meta Observations</h2><blockquote>The increasing emphasis on safety features and ADAS in the subcompact SUV segment suggests a growing awareness among consumers about vehicle safety. This trend could drive demand for vehicles with advanced safety technologies, providing a competitive advantage for manufacturers that offer such features.</blockquote><h2>Competitive Analysis</h2><p>The Mahindra XUV300 Facelift will need to differentiate itself from key competitors. Here's a brief comparison:</p><ul><li><b>Maruti Suzuki Brezza:</b> Known for its fuel efficiency and reliability.  The XUV300 needs to offer superior performance or features to compete.</li><li><b>Hyundai Venue:</b> Offers a wide range of features and modern styling.  Mahindra needs to match or exceed these offerings.</li><li><b>Tata Nexon:</b> A popular choice due to its affordability and safety features.  The XUV300 needs to justify a potentially higher price point with added value.</li><li><b>Kia Sonet:</b> Known for its stylish design and feature-rich interior. The XUV300 needs a compelling design and advanced technology to stand out.</li></ul><img src="https://www.autocarindia.com/img/804x603/media/img/posts/202402011706775450n9r.jpg" alt="Mahindra XUV300 Facelift spy shots"><h2>Expected Features and Specifications</h2><p>Based on available information and spy shots, the Mahindra XUV300 Facelift is expected to include:</p><ul><li><b>Updated Exterior Design:</b> A refreshed front and rear fascia with new lighting elements.</li><li><b>Improved Interior:</b> A redesigned dashboard with a larger touchscreen infotainment system and updated materials.</li><li><b>Advanced Features:</b> Features like a 360-degree camera, ventilated seats, and a sunroof are expected.</li><li><b>Enhanced Safety:</b> Six airbags, ESC, and possibly ADAS features.</li></ul><p>The XUV300 Facelift aims to offer a more modern and feature-rich package to attract customers in the competitive subcompact SUV segment.</p></div>
+    <div class="footer">
+      <p>Generated by Seraphine on 2025-07-16 15:06:14 · Session ID: 52658422</p>
+    </div>
+  </div>
+  <script>
+    let emojisHidden = true; /* Start with emojis hidden */
+    let originalContent = '';
+
+    function toggleDark() {
+      /* Toggle dark class on BOTH html and body elements */
+      document.documentElement.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+    }
+
+    function toggleFont() {
+      const current = getComputedStyle(document.body).fontFamily;
+      const isSerif = current.includes("Georgia");
+      document.body.style.fontFamily = isSerif ? 'var(--font-sans)' : 'var(--font-serif)';
+    }
+
+    function toggleEmojis() {
+      const container = document.getElementById('main-container');
+      
+      if (emojisHidden) {
+        /* Restore original content (show emojis) */
+        if (originalContent) {
+          container.innerHTML = originalContent;
+        }
+        emojisHidden = false;
+      } else {
+        /* Store original content and remove emojis */
+        if (!originalContent) {
+          originalContent = container.innerHTML;
+        }
+        /* ✅ FIXED: Comprehensive emoji regex that includes ALL emoji ranges */
+        const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+        container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+        emojisHidden = true;
+      }
+    }
+
+    /* Initialize with emojis hidden on page load */
+    window.addEventListener('load', function() {
+      const container = document.getElementById('main-container');
+      /* Store original content first */
+      originalContent = container.innerHTML;
+      /* Then remove emojis by default */
+      /* ✅ FIXED: Same comprehensive emoji regex */
+      const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+      container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+    });
+
+    
+        // Image Carousel JavaScript
+        let currentSlideIndex = 0;
+        let slides = [];
+        let dots = [];
+        
+        function initializeCarousel() {
+            slides = document.querySelectorAll('.carousel-slide');
+            dots = document.querySelectorAll('.carousel-dot');
+            currentSlideIndex = 0;
+            
+            if (slides.length > 0) {
+                showSlide(0);
+            }
+        }
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show selected slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                if (dots[index]) {
+                    dots[index].classList.add('active');
+                }
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        function currentSlide(index) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCarousel();
+        });
+        
+        // Re-initialize if content changes (for emoji toggle)
+        window.addEventListener('load', function() {
+            setTimeout(initializeCarousel, 100);
+        });
+        
+  </script>
+</body>
+</html>

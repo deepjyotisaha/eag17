@@ -1,0 +1,125 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52645086",
+    "original_query": "Find detailed filght booking agencies for Delhi to Tokyo, and share their booking details",
+    "file_manifest": [],
+    "created_at": "2025-07-16T05:51:26.661576",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research potential flight booking agencies for the Delhi to Tokyo route.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find a comprehensive list of flight booking agencies that offer flights from Delhi to Tokyo. Include both well-known international agencies and smaller, local agencies that might specialize in this route.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T05:51:26.672575",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Analyze the retrieved list of flight booking agencies and identify the most relevant and reputable ones.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the list of flight booking agencies from T001. Identify the most relevant and reputable agencies based on factors such as customer reviews, website traffic, and the range of flight options offered for the Delhi to Tokyo route. Exclude agencies with consistently negative reviews or limited flight options.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Extract detailed booking information from the identified flight booking agencies for flights from Delhi to Tokyo.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "For each flight booking agency identified in T002, extract detailed booking information for flights from Delhi to Tokyo. Include details such as flight schedules, prices, available classes (e.g., economy, business, first class), baggage allowances, cancellation policies, and any additional fees or charges. Focus on direct flights and flights with minimal layovers. Present the data in a structured format.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Format the extracted booking details into a user-friendly report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Format the detailed flight booking information extracted in T003 into a comprehensive and user-friendly report. The report should include a table comparing the flight options offered by each agency, highlighting the key details such as price, flight duration, baggage allowance, and cancellation policies.  The table must include agency, and should list all the offers from most economic to the most expensive. Ensure the report is well-structured, visually appealing, and easy to read. Prioritize clarity and conciseness.",
+      "reads": [
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}

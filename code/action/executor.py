@@ -222,6 +222,10 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
         
         # Execute the async function
         result = await local_vars['__async_exec']()
+
+        logger_code_block(logger, f"🐍 Safe Globals for session {session_id}:", safe_globals)
+        logger_code_block(logger, f"🐍 Local vars for session {session_id}:", local_vars)
+        logger_code_block(logger, f"🐍 Code execution result for session {session_id}:", compiled, result)
         
         # Find created files
         created_files = []

@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52647610",
+    "original_query": "Mahindra has launched few new vehciles, I want to know more about the new launches, also fetch details on the features for the vehicle which looks like Tesla. Use a single step for Retriever Agent but use multiple iterations in a single step (call_Self=true) to compile the data and then create a report",
+    "file_manifest": [],
+    "created_at": "2025-07-16T06:33:30.736045",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information about Mahindra's new vehicle launches and details on the features for the vehicle which looks like Tesla.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Your task is to gather information about Mahindra's new vehicle launches and to fetch details on the features for a vehicle that resembles Tesla. You should perform multiple iterations of web searches to compile a comprehensive dataset, and if needed call yourself by setting `call_self` to true (e.g., `call_self: true`). The `iteration` variable is initialized to 1 and will be incremented by 1 with each iteration. The `max_iterations` is 5. If iteration exceeds the `max_iterations`, do not call yourself again and provide results till now.\n\nHere's the logic:\n1. **Initial Search**: Start with a broad search for 'Mahindra new vehicle launches'.\n2. **Iterative Refinement**: In each iteration, refine the search query based on the findings from the previous search. For example:\n   - If the initial search reveals a specific model, search for 'Mahindra [Model Name] features'.\n   - If there's mention of a technology or feature similar to Tesla (e.g., advanced driver-assistance systems), search for 'Mahindra [Model Name] [Specific Feature]'.\n3. **Tesla-like Vehicle**: Identify the Mahindra vehicle that most closely resembles a Tesla in terms of design, features, or technology. Focus on gathering detailed information about this particular vehicle.\n4. **Data Compilation**: Compile the gathered information into a structured format. Include details such as:\n   - Model Name\n   - Launch Date\n   - Key Features\n   - Price Range\n   - Comparison with Tesla (if applicable)\n   - Technical Specifications\n5. **Output Format**: Return output in JSON format. Store the results in the `vehicle_launches` key and features of the Tesla-like vehicle in `tesla_like_vehicle_features` key.\n\nDo not leave placeholders or missing information. Use as many iterations as possible to make sure that the data is not missing.\n\n```json\n{\n  \"iteration\": {{iteration}},\n  \"max_iterations\": 5,\n  \"search_query\": {{search_query}},\n  \"vehicle_launches\": [],\n  \"tesla_like_vehicle_features\": {}\n  \"call_self\": false\n}\n```",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T06:33:30.749665",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Create a report based on the information retrieved.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "You are a report generation expert, capable of converting raw data into easily digestible formats like HTML.\n\nBased on the provided information, create an HTML report containing the details of Mahindra's new vehicle launches and the features of the Mahindra vehicle that looks like a Tesla.\n\nThe HTML report should include:\n- A heading with the title 'Mahindra New Vehicle Launches and Tesla-like Features'\n- A section for 'New Vehicle Launches' with a list of vehicles, their launch dates, key features, and price ranges.\n- A section for 'Tesla-like Vehicle Features' with detailed information about the features of the Mahindra vehicle that resembles a Tesla. This section should contain the features of the vehicle, comparisons with the Tesla Model, and all technical specifications if found.\n- Use clear formatting and headers to structure the report.\n\nHere is the information:\n```json\n{{T001.output}}\n```",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

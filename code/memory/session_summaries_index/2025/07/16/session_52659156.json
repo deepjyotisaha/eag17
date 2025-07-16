@@ -1,0 +1,135 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52659156",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle, use a single step for Retriever Agent but use multiple iterations in a single step (call_Self=true) to fetch detailed information and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-16T09:45:56.322334",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information on recent Mahindra car launches.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch details on recent Mahindra car launches, including model names, release dates, and key specifications. Consider retrieving from reliable sources like Mahindra's official website, credible automotive news sites, and car review platforms. Focus on launches within the last 2 years.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution exception: cannot access local variable 'combined_output' where it is not associated with a value",
+      "cost": 0.0,
+      "start_time": "2025-07-16T09:45:56.338337",
+      "end_time": "2025-07-16T09:46:38.736158",
+      "execution_time": 42.397821
+    },
+    {
+      "id": "T002",
+      "description": "Recommend a Mahindra vehicle from the recent launches based on user requirements.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on the retrieved information about recent Mahindra car launches, recommend a specific vehicle to the user. Justify the recommendation based on factors such as user preferences (assuming a general preference for recent technology, good fuel efficiency, and safety features), market reviews, and the vehicle's specifications. Output the car name as the final recommendation and reason for recommending that specific car.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Retrieve detailed feature information about the recommended vehicle using multiple iterations.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Based on the recommended Mahindra vehicle from the previous step, retrieve detailed information about its features. Use a single function call with multiple iterations to achieve comprehensive information gathering. Split up the retrieval into specific aspects like: 1. Engine and Performance specifications 2. Safety Features 3. Infotainment and Technology features 4. Interior and Exterior Design. Fetch from reliable sources like Mahindra's official website, car review websites, and automotive news platforms.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Create a report summarizing the recent Mahindra car launches, recommended vehicle, and its detailed features.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Based on the retrieved information about recent Mahindra car launches, the recommended vehicle, and its features, create a comprehensive report. The report should include: 1. An overview of recent Mahindra car launches with key specifications. 2. A detailed description of the recommended vehicle and the reasons for its recommendation. 3. Exhaustive details about the vehicle's features, including engine specifications, safety features, infotainment and technology, and interior and exterior design. The report should be well-structured, visually appealing, and easy to understand. Use appropriate formatting to enhance readability.",
+      "reads": [
+        "T001",
+        "T002",
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T004"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}

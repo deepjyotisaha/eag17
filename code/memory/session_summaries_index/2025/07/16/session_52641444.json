@@ -1,0 +1,151 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52641444",
+    "original_query": "Mahindra has launched few new vehciles, I want to know more about the new launches, also fetch details on the features for the vehicle which looks like Tesla. Use a single step for Retriever Agent but use multiple iterations in a single step (call_Self=true) to compile the data and then create a report",
+    "file_manifest": [],
+    "created_at": "2025-07-16T04:50:44.970336",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T005"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Identify Mahindra's new vehicle launches in the recent past.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct a comprehensive search to identify all new vehicle launches by Mahindra in the recent past (e.g., last 1-2 years). Compile a list of these vehicles with their launch dates. call_Self=true, iterate until you are unable to find any more vehicles.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T04:50:44.983587",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Identify the Mahindra vehicle that visually resembles a Tesla.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Perform a detailed search to identify the Mahindra vehicle that has a design or features visually similar to Tesla vehicles. Provide the name and model of the vehicle.",
+      "reads": [],
+      "writes": [
+        "T002"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T04:50:44.985094",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Gather detailed information about the identified Mahindra vehicle launches from T001. Unroll multiple iterations into a single turn by using call_self=true",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "For each vehicle identified in T001, gather comprehensive details including specifications, features, pricing, and target market. Use multiple iterations of web searches and consolidate the information into a structured format.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Gather detailed information about the Tesla-like Mahindra vehicle from T002, unroll multiple iterations into a single turn by using call_self=true",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "For the Mahindra vehicle identified in T002, collect exhaustive details about its features, design elements, technology, and performance metrics. Also, compare its similar features with Tesla. call_Self=true, iterate until you have detailed information regarding the mentioned vehicle.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Generate a comprehensive report summarizing the new Mahindra vehicle launches and the Tesla-like vehicle, including detailed feature comparisons.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a detailed report summarizing the findings from T003 and T004. The report should include an overview of each new Mahindra vehicle launch, their key features, and a detailed comparison of the Tesla-like Mahindra vehicle with Tesla, highlighting the similar design elements and features. Include tables, bullet points, and clear headings to organize the information effectively.",
+      "reads": [
+        "T003",
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T005"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    }
+  ]
+}

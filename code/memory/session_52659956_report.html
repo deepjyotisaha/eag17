@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📊 Mahindra Car Analysis Report</title>
+  <style>
+    /* Base styles */
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0a0a0a;
+      --text-light: #111111;
+      --text-dark: #f1f1f1;
+      --border-light: #000000;
+      --border-dark: #ffffff;
+      --font-sans: 'Inter', 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'EB Garamond', 'New York', 'Georgia', serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: 18px;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s, font-family 0.3s;
+    }
+    
+    html.dark, body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background-color: var(--bg-light);
+      transition: background-color 0.3s;
+    }
+    html.dark .container, body.dark .container {
+      background-color: var(--bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 2.5em;
+      margin-bottom: 0.8em;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      border-bottom: 0.5px solid var(--border-light);
+      padding-bottom: 0.2em;
+    }
+    html.dark h1, body.dark h1 {
+      border-color: var(--border-dark);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+      z-index: 999;
+    }
+
+    .controls button {
+      all: unset;
+      cursor: pointer;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-weight: 500;
+      color: inherit;
+      opacity: 0.6;
+      transition: opacity 0.3s, background-color 0.3s;
+    }
+    .controls button:hover {
+      opacity: 1;
+    }
+    html.dark .controls button, body.dark .controls button {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer {
+      font-size: 0.55rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #aaa;
+    }
+
+    @media print {
+      .controls { display: none; }
+    }
+
+    
+        /* Image Carousel Styles */
+        .image-carousel {
+            margin: 2rem 0;
+        }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+        
+        .carousel-slides {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .carousel-slide.active {
+            display: flex;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .carousel-caption {
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        
+        .carousel-caption p {
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+        
+        .carousel-caption small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        html.dark .carousel-caption small, body.dark .carousel-caption small {
+            color: #aaa;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-size: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.9);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-btn.prev {
+            left: 0;
+        }
+        
+        .carousel-btn.next {
+            right: 0;
+        }
+        
+        .carousel-dots {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .carousel-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active, .carousel-dot:hover {
+            background-color: #333;
+            transform: scale(1.2);
+        }
+        html.dark .carousel-dot {
+            background-color: #666;
+        }
+        html.dark .carousel-dot.active, body.dark .carousel-dot.active,
+        html.dark .carousel-dot:hover, body.dark .carousel-dot:hover {
+            background-color: #ccc;
+        }
+        
+        /* Content Images Styling */
+        .container img:not(.carousel-slide img) {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        html.dark .container img:not(.carousel-slide img), 
+        body.dark .container img:not(.carousel-slide img) {
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+        
+        /* Remove any remaining inline width/height styles */
+        .container img[style*="width"] {
+            width: auto !important;
+            max-width: 100% !important;
+        }
+        .container img[style*="height"] {
+            height: auto !important;
+        }
+        
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="toggleDark()">Th</button>
+    <button onclick="toggleFont()">Aa</button>
+    <button onclick="toggleEmojis()">Em</button>
+  </div>
+  <div class="container" id="main-container">
+    <h1>📊 Mahindra Car Analysis Report</h1>
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+        
+                    <div class="carousel-slide active">
+                        <img src="https://media.zigcdn.com/media/content/2024/May/6647040a77c48.jpg?tr=w-930" alt="Mahindra Upcoming Launches" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra Upcoming Launches</strong></p>
+                            <small><a href="//media.zigcdn.com" target="_blank" rel="noopener noreferrer">Source: media.zigcdn.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://media.zigcdn.com/media/content/2024/May/6634c31db1065.jpg?tr=w-930" alt="Mahindra Upcoming Launches" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra Upcoming Launches</strong></p>
+                            <small><a href="//media.zigcdn.com" target="_blank" rel="noopener noreferrer">Source: media.zigcdn.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://media.zigcdn.com/media/content/2023/Aug/64dcac64a1c5c.jpg?tr=w-930" alt="Mahindra Upcoming Launches" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra Upcoming Launches</strong></p>
+                            <small><a href="//media.zigcdn.com" target="_blank" rel="noopener noreferrer">Source: media.zigcdn.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://media.zigcdn.com/media/content/2024/May/front-1-4-left-1182353370_930x620.jpg?tr=w-930" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//media.zigcdn.com" target="_blank" rel="noopener noreferrer">Source: media.zigcdn.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://media.zigcdn.com/media/content/2024/May/rear-3-4-right-2114170148_930x620.jpg?tr=w-930" alt="Mahindra Thar E" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra Thar E</strong></p>
+                            <small><a href="//media.zigcdn.com" target="_blank" rel="noopener noreferrer">Source: media.zigcdn.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://carsandtrucks.in/wp-content/uploads/2024/12/Mahindra-XEV-9e1.jpg" alt="Upcoming Mahindra Cars to Watch Out for in 2025" />
+                        <div class="carousel-caption">
+                            <p><strong>Upcoming Mahindra Cars to Watch Out for in 2025</strong></p>
+                            <small><a href="//carsandtrucks.in" target="_blank" rel="noopener noreferrer">Source: carsandtrucks.in</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://carsandtrucks.in/wp-content/uploads/2025/07/vx2-go-electric-scooter-150x150.webp" alt="Upcoming Mahindra Cars to Watch Out for in 2025" />
+                        <div class="carousel-caption">
+                            <p><strong>Upcoming Mahindra Cars to Watch Out for in 2025</strong></p>
+                            <small><a href="//carsandtrucks.in" target="_blank" rel="noopener noreferrer">Source: carsandtrucks.in</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://carsandtrucks.in/wp-content/uploads/2025/07/2023-mercedes-amg-gls63-exterior-101-673226ad7a7a2-150x150.jpg" alt="Upcoming Mahindra Cars to Watch Out for in 2025" />
+                        <div class="carousel-caption">
+                            <p><strong>Upcoming Mahindra Cars to Watch Out for in 2025</strong></p>
+                            <small><a href="//carsandtrucks.in" target="_blank" rel="noopener noreferrer">Source: carsandtrucks.in</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://carsandtrucks.in/wp-content/uploads/2025/07/tata-curvvev-150x150.webp" alt="Hero Vida VX2 Review: Affordable, Practical, and Smart Electric Scooter for City Riders" />
+                        <div class="carousel-caption">
+                            <p><strong>Hero Vida VX2 Review: Affordable, Practical, and Smart Electric Scooter for City Riders</strong></p>
+                            <small><a href="//carsandtrucks.in" target="_blank" rel="noopener noreferrer">Source: carsandtrucks.in</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://carsandtrucks.in/wp-content/uploads/2025/07/1ghi20jg_volkswagen-jasprit-bumrah-_625x300_10_July_25-150x150.webp" alt="Mercedes-Benz India Launches GLS AMG Line: Sporty Luxury SUV Starts at \u20b91.4 Crore" />
+                        <div class="carousel-caption">
+                            <p><strong>Mercedes-Benz India Launches GLS AMG Line: Sporty Luxury SUV Starts at \u20b91.4 Crore</strong></p>
+                            <small><a href="//carsandtrucks.in" target="_blank" rel="noopener noreferrer">Source: carsandtrucks.in</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/cms/carnewsimages/editorimages/676b90265033c.jpg?impolicy=resize&imwidth=420" alt="All Mahindra cars launching in 2025" />
+                        <div class="carousel-caption">
+                            <p><strong>All Mahindra cars launching in 2025</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.v3cars.com/media/content/370326mahindra-xuv3xo-diesel-variants-explained.webp" alt="2024 Mahindra XUV3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>2024 Mahindra XUV3XO</strong></p>
+                            <small><a href="//www.v3cars.com" target="_blank" rel="noopener noreferrer">Source: v3cars.com</a> | Confidence: 1.00</small>
+                        </div>
+                    </div>
+            
+                </div>
+                
+                <button class="carousel-btn prev" onclick="changeSlide(-1)">&lt;</button>
+                <button class="carousel-btn next" onclick="changeSlide(1)">&gt;</button>
+            
+            </div>
+        <div class="carousel-dots"><button class="carousel-dot active" onclick="currentSlide(1)"></button><button class="carousel-dot " onclick="currentSlide(2)"></button><button class="carousel-dot " onclick="currentSlide(3)"></button><button class="carousel-dot " onclick="currentSlide(4)"></button><button class="carousel-dot " onclick="currentSlide(5)"></button><button class="carousel-dot " onclick="currentSlide(6)"></button><button class="carousel-dot " onclick="currentSlide(7)"></button><button class="carousel-dot " onclick="currentSlide(8)"></button><button class="carousel-dot " onclick="currentSlide(9)"></button><button class="carousel-dot " onclick="currentSlide(10)"></button><button class="carousel-dot " onclick="currentSlide(11)"></button><button class="carousel-dot " onclick="currentSlide(12)"></button></div>
+        </div>
+        <div id='executive_summary'><h2>🎯 Executive Summary</h2><p>This report provides an in-depth analysis of recent Mahindra car launches, with a specific recommendation for the Mahindra XUV 3XO. The analysis includes a review of its features, safety ratings, and competitive positioning in the Indian automotive market. The report also identifies potential risks and uncertainties associated with the vehicle and provides meta observations to aid potential buyers in making an informed decision.</p></div><div id='recent_launches'><h2>🚗 Recent Mahindra Car Launches</h2><img src='https://www.carandbike.com/_next/image?url=https%3A%2F%2Fimages.carandbike.com%2Fcar-images%2Fmedium%2Fmahindra%2Fxuv-3xo%2Fmahindra-xuv-3xo.jpg%3Fv%3D28&w=640&q=75' alt='Mahindra XUV 3XO'><p>Based on the data from T001, recent Mahindra car launches include the Mahindra XUV 3XO, launched in early 2024. Additionally, Mahindra has several upcoming models expected in 2025 and beyond, including electric SUVs from the XUV and BE sub-brands. Key models to watch out for include the Mahindra XUV.e8 (electric XUV700), expected by the end of 2024, and the Thar 5-door, expected on August 15, 2024.</p><ul><li>Mahindra XUV 3XO</li><li>Mahindra XUV.e8 (expected by the end of 2024)</li><li>Mahindra Thar 5-door (expected on August 15, 2024)</li></ul><p>Mahindra has also confirmed plans to launch 16 new vehicles by 2030, including both ICE and electric SUVs. This includes updates to existing models like the XUV 3XO and new SUVs and electric models. The Mahindra XUV 3XO RevX variant was also launched recently.</p></div><div id='vehicle_recommendation'><h2>⭐ Recommended Vehicle: Mahindra XUV 3XO</h2><img src='https://media.zigcdn.com/media/content/2024/May/6647040a77c48.jpg?tr=w-930' alt='Mahindra Upcoming Launches'><p>According to T002, the Mahindra XUV 3XO, launched in early 2024, is recommended as the latest Mahindra vehicle launch. This recommendation is based on a review of web search results and considers the launch date relative to July 2025.</p><p><b>Reasons for Recommendation:</b></p><ul><li>Recent launch (early 2024)</li><li>Confirmed launch status (vs. 'upcoming' or 'expected')</li><li>Relevance of search results</li><li>Evidence from multiple sources</li></ul><p><b>Risks and Warnings:</b> The recommendation is based on web search results and may not reflect the absolute latest information. Availability and specifications should be verified directly with Mahindra. The 'launch' date might refer to the unveiling, and actual availability in the market may vary. It's also crucial to check dealership availability and any recent trim or feature updates directly with Mahindra or authorized dealers.</p></div><div id='feature_details'><h2>🛠️ Detailed Features of Mahindra XUV 3XO</h2><!-- Broken image removed: https://cars24.com/news/wp-content/uploads/2024/11/Mahindra-XUV-3XO-Bharat-NCAP-(2).webp --><p>Based on the data from T003, the Mahindra XUV 3XO excels in safety features. The XUV 3XO has achieved a 5-star safety rating in Bharat NCAP crash tests. Key safety features include:</p><ul><li><b>5-star rating</b> in Bharat NCAP crash test</li><li><b>Adult Occupant Protection:</b> The XUV 3XO scored 29.36 out of a possible 32 points.</li><li><b>Child Occupant Protection:</b> It scored 43 out of 49 points.</li><li><b>Standard safety features:</b> 6 airbags, Electronic Stability Control (ESC), seat belt reminder, and pre-tensioner with load limiter.</li></ul><p>The XUV 3XO is offered with 1.2-litre petrol, 1.2-litre TGDi, and 1.5-litre diesel engines with manual and automatic gearboxes.</p></div><div id='competitive_positioning'><h2>⚔️ Competitive Positioning</h2><p>The Mahindra XUV 3XO competes in the compact SUV segment, facing rivals such as:</p><ul><li>Hyundai Venue</li><li>Kia Sonet</li><li>Tata Nexon</li><li>Maruti Brezza</li></ul><p>The XUV 3XO aims to differentiate itself through a combination of safety, striking looks, and multiple powertrain options. The 5-star safety rating from Bharat NCAP gives it a competitive edge over some rivals.</p></div><div id='risk_factors_uncertainties'><h2>⚠️ Risk Factors and Uncertainties</h2><p>Purchasing a vehicle always involves certain risks and uncertainties. For the Mahindra XUV 3XO, these include:</p><ul><li><b>Market Volatility:</b> Changes in economic conditions or consumer preferences could affect demand for the XUV 3XO.</li><li><b>Competition:</b> The compact SUV segment is highly competitive, with frequent model updates and new entrants.</li><li><b>Regulatory Changes:</b> Changes in safety or emission standards could require costly modifications to the vehicle.</li><li><b>Supply Chain Disruptions:</b> Disruptions in the supply of components could lead to production delays and increased costs.</li><li><b>Fuel Price Volatility:</b> Fluctuations in fuel prices could affect the attractiveness of the XUV 3XO's ICE powertrain options.</li></ul><p><b>Uncertainties:</b></p><ul><li>The long-term reliability of the XUV 3XO is still uncertain, as it is a relatively new model.</li><li>The impact of new safety regulations on the XUV 3XO's design and cost is also uncertain.</li></ul></div><div id='hidden_signals_meta_observations'><h2>🔍 Hidden Signals and Meta Observations</h2><p>Based on available data, here are some hidden signals and meta observations:</p><ul><li><i>The strong focus on safety in Mahindra's marketing suggests a strategic emphasis on this aspect to attract safety-conscious buyers.</i></li><li><i>The launch of the XUV 3XO RevX variant indicates an attempt to capture a younger, more style-focused demographic.</i></li><li><i>The confirmed plans for 16 new vehicle launches by 2030 signal Mahindra's commitment to long-term growth and innovation.</i></li></ul><blockquote>The rise in government-backed funding suggests a strategic pivot to nationalized clean energy R&D.</blockquote></div><div id='source_citations'><h2>📜 Source Citations</h2><ol><li><a href='https://www.carandbike.com/mahindra-cars/xuv-3xo' target='_blank' rel='noopener noreferrer'>carandbike.com - Mahindra XUV 3XO</a></li><li><a href='https://www.zigwheels.com/newcars/mahindra/xuv-3xo' target='_blank' rel='noopener noreferrer'>ZigWheels.com - Mahindra XUV 3XO</a></li><li><a href='https://www.cars24.com/news/auto/mahindra-xuv-3xo-safety-rating-secures-5-stars-in-bharat-ncap/' target='_blank' rel='noopener noreferrer'>cars24.com - Mahindra XUV 3XO Safety Rating</a></li><li><a href='https://www.cardekho.com/mahindra/xuv-3xo' target='_blank' rel='noopener noreferrer'>CarDekho.com - Mahindra XUV 3XO</a></li><li><a href='https://www.91wheels.com/cars/mahindra-xuv-3xo' target='_blank' rel='noopener noreferrer'>91wheels.com - Mahindra XUV 3XO</a></li></ol></div><div id='final_highlights_recommendations'><h2>✨ Final Highlights and Recommendations</h2><p><b>Final Highlights:</b> The Mahindra XUV 3XO stands out as a recent and safe vehicle in the compact SUV segment. Its 5-star safety rating and competitive pricing make it an attractive option for buyers.</p><p><b>Recommendations:</b> Potential buyers should consider the XUV 3XO if safety and value are top priorities. It's recommended to compare it with other models in the segment and test drive the vehicle to ensure it meets their specific needs.</p></div>
+    <div class="footer">
+      <p>Generated by Seraphine on 2025-07-16 15:31:17 · Session ID: 52659956</p>
+    </div>
+  </div>
+  <script>
+    let emojisHidden = true; /* Start with emojis hidden */
+    let originalContent = '';
+
+    function toggleDark() {
+      /* Toggle dark class on BOTH html and body elements */
+      document.documentElement.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+    }
+
+    function toggleFont() {
+      const current = getComputedStyle(document.body).fontFamily;
+      const isSerif = current.includes("Georgia");
+      document.body.style.fontFamily = isSerif ? 'var(--font-sans)' : 'var(--font-serif)';
+    }
+
+    function toggleEmojis() {
+      const container = document.getElementById('main-container');
+      
+      if (emojisHidden) {
+        /* Restore original content (show emojis) */
+        if (originalContent) {
+          container.innerHTML = originalContent;
+        }
+        emojisHidden = false;
+      } else {
+        /* Store original content and remove emojis */
+        if (!originalContent) {
+          originalContent = container.innerHTML;
+        }
+        /* ✅ FIXED: Comprehensive emoji regex that includes ALL emoji ranges */
+        const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+        container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+        emojisHidden = true;
+      }
+    }
+
+    /* Initialize with emojis hidden on page load */
+    window.addEventListener('load', function() {
+      const container = document.getElementById('main-container');
+      /* Store original content first */
+      originalContent = container.innerHTML;
+      /* Then remove emojis by default */
+      /* ✅ FIXED: Same comprehensive emoji regex */
+      const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+      container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+    });
+
+    
+        // Image Carousel JavaScript
+        let currentSlideIndex = 0;
+        let slides = [];
+        let dots = [];
+        
+        function initializeCarousel() {
+            slides = document.querySelectorAll('.carousel-slide');
+            dots = document.querySelectorAll('.carousel-dot');
+            currentSlideIndex = 0;
+            
+            if (slides.length > 0) {
+                showSlide(0);
+            }
+        }
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show selected slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                if (dots[index]) {
+                    dots[index].classList.add('active');
+                }
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        function currentSlide(index) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCarousel();
+        });
+        
+        // Re-initialize if content changes (for emoji toggle)
+        window.addEventListener('load', function() {
+            setTimeout(initializeCarousel, 100);
+        });
+        
+  </script>
+</body>
+</html>

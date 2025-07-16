@@ -11,6 +11,9 @@ from agentLoop.session_serializer import SessionSerializer
 from agentLoop.graph_validator import GraphValidator
 from utils.utils import log_step, log_error
 import pdb
+from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block , logger_error
+
+logger = get_logger(__name__)
 
 class ExecutionContextManager:
     def __init__(self, plan_graph: dict, session_id: str = None, original_query: str = None, file_manifest: list = None, debug_mode: bool = False):
@@ -97,6 +100,10 @@ class ExecutionContextManager:
             if read_key in output_chain:
                 reads_data[read_key] = output_chain[read_key]
 
+        logger_json_block(logger, f"Auto Execute Code: {step_id} - OUTPUT", output)
+        logger_json_block(logger, f"Auto Execute Code: {step_id} - OUTPUT CHAIN", self.plan_graph.graph['output_chain'])
+        logger_json_block(logger, f"Auto Execute Code: {step_id} - READS DATA", reads_data)
+        
         try:
             result = await run_user_code(
                 output_data=output,
@@ -119,15 +126,25 @@ class ExecutionContextManager:
             log_error(error_msg)
             return {"status": "failed", "error": error_msg}
 
+    async def merge_execution_results(self, step_id, output, execution_result):
+        """Merge execution results"""
+        final_output = output.copy()
+        final_output["execution_result"] = execution_result
+        
+        return final_output
+
+
     async def mark_done(self, step_id, output=None, cost=None, input_tokens=None, output_tokens=None):
         """SIMPLE: Store output directly - NO COMPLEX EXTRACTION!"""
         
         # Execute code if present
         final_output = output
         execution_result = None
+
+        logger_json_block(logger, f"Mark Done: {step_id} - output", output)
         
         if output and self._has_executable_code(output):
-            log_step(f"🔧 Executing code for {step_id}", symbol="⚙️")
+            log_step(f"🔧 Mark Done: {step_id} - Executing code", symbol="⚙️")
             execution_result = await self._auto_execute_code(step_id, output)
             
             # Merge execution results properly
@@ -147,6 +164,11 @@ class ExecutionContextManager:
                 # Also include any tool outputs or files
                 if execution_result.get("created_files"):
                     final_output["created_files"] = execution_result["created_files"]
+        else:
+            log_step(f"🔧 Mark Done: {step_id} - No code to execute", symbol="⚙️")
+
+        #logger_json_block(logger, f"Mark Done: {step_id} - OUTPUT RECEIVED", output)
+        #logger_json_block(logger, f"Mark Done: {step_id} - FINAL OUTPUT CHAIN", final_output)
         
         # SIMPLE: Store the output directly in chain
         self.plan_graph.graph['output_chain'][step_id] = final_output
@@ -185,6 +207,9 @@ class ExecutionContextManager:
                 print(f"   Output chain: {self.plan_graph.graph['output_chain'].get(step_id, 'NOT_FOUND')}")
                 print(f"   Starting PDB debugger...")
 
+        logger_json_block(logger, f"✅ Mark Done: {step_id} - FINAL OUTPUT CHAIN", self.plan_graph.graph['output_chain'][step_id])
+        logger_json_block(logger, f"✅Mark Done: {step_id} - NODE DATA", node_data)
+        
         log_step(f"✅ {step_id} completed - output stored in chain", symbol="📦")
         self._auto_save()
 
