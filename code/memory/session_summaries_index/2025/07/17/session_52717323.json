@@ -1,0 +1,103 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52717323",
+    "original_query": "THis is a test where you have to invoke the RetrieverAgent once, and once the RetrieverAgent is invovked, it should run for two iterations; In the first iteration it should return the code which returns a string \"Hello World\" in a varaibale, and in the second iteration it should return the code to access the value of the same variable and print the same.",
+    "file_manifest": [],
+    "created_at": "2025-07-17T01:55:23.247810",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Generate code to store the string 'Hello World' in a variable using CoderAgent. Specify the programming language to ensure code can be printed in a future step.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Write code that assigns the string 'Hello World' to a variable in Python. The code should only include the assignment statement. Output the variable name that the string is assigned to. Also, include a comment in the code explaining the assignment.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-17T01:55:23.259806",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Generate code to access the value of the variable created in the previous step and print the string 'Hello World' to the console. Use the variable name returned by the previous step as input.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Write Python code to print the value of the variable from the previous step (T001). The variable name from the prior output is: {{T001.output.variable_name}}. The code should only contain the print statement, using the variable specified.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Summarize the code generation and execution performed in the previous steps.",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Summarize the code generation and execution steps performed to store and print 'Hello World'. Include the details of the variable used and any relevant execution outputs from T001 and T002.",
+      "reads": [
+        "T001",
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

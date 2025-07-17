@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52686733",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle, use ONLY ONE step for Retriever Agent but you can use multiple iterations in the single step (call_Self=true) to fetch all information needed and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-16T17:25:33.748666",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information about recent Mahindra car launches, including model names, launch dates, and key specifications, using iterative self-calls until comprehensive data is collected.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "You are RetrieverAgent. Find a list of recent Mahindra car launches in the last 2 years. For each launch, collect details regarding launch date, specifications, variants, price, and latest customer reviews. If any information is missing for a particular launch, perform another search to retrieve the missing details. Incorporate 'call_self=true' in your search queries to iteratively refine and augment the data. Be exhaustive in your search.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T17:25:33.766536",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Analyze the retrieved information to identify the most recently launched Mahindra vehicle and summarize its key features, variants, and price.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "You are ThinkerAgent. Based on the data retrieved in the previous step, identify the most recent Mahindra car launch. Provide a detailed summary of this vehicle, including its key features, available variants, and price range. Consider customer reviews and expert opinions to highlight the vehicle's strengths and weaknesses.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Create a report summarizing the recent Mahindra car launches and providing detailed information about the recommended vehicle, including its features, variants, price, and customer reviews. Include all the data from previous steps.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "You are FormatterAgent. Generate a comprehensive report that first lists recent Mahindra car launches and then provides an extensive overview of the recommended Mahindra vehicle including all details gathered from the previous steps. The report should include the vehicle's key features, specifications, available variants, pricing, and customer reviews. Present the information in a well-organized and easy-to-understand manner. Format the document with headings and subheadings to enhance readability and create a polished final document.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

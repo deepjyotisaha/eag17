@@ -1,0 +1,107 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52696541",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle, use ONLY ONE step for Retriever Agent but you can use multiple iterations in the single step (call_Self=true) to fetch all information needed and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-16T20:09:01.839735",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information about recent Mahindra car launches, call_self=true to fetch all information for launches and for recommended product",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Research and retrieve details about the latest Mahindra car launches, including models, specifications, and release dates. Also retrieve specifications on the model recommended in the previous call. Do not stop until you have exhaustive data on the vehicles mentioned.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-16T20:09:01.853744",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Based on the retrieved information, recommend the most suitable and latest Mahindra vehicle.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information about recent Mahindra car launches from T001 and recommend the latest vehicle that aligns with general customer preferences. Prioritize vehicles with advanced features and positive reviews.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Format the information and recommendation into a comprehensive report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a detailed and exhaustive report including the vehicle recommendation from T002 and the features and details of the recommended Mahindra vehicle from T001. Present the information in a well-structured and easy-to-understand format, highlighting key features and benefits.",
+      "reads": [
+        "T001",
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}
