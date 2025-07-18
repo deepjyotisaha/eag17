@@ -1,0 +1,156 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52765629",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-17T15:20:29.034437",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T005"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Research recent Mahindra car launches (last 1-2 years)",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find a comprehensive list of Mahindra car launches in the last 1-2 years. Include model names, launch dates, and brief descriptions.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:20:29.048437",
+      "end_time": "2025-07-17T15:20:31.824667",
+      "execution_time": 2.77623
+    },
+    {
+      "id": "T002",
+      "description": "Gather details on current Mahindra models",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch information about all the current Mahindra car models. Include model names, types of car (SUV, sedan, etc.) and their brief descriptions.",
+      "reads": [],
+      "writes": [
+        "T002"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:20:32.846468",
+      "end_time": "2025-07-17T15:20:37.315601",
+      "execution_time": 4.469133
+    },
+    {
+      "id": "T003",
+      "description": "Analyze Mahindra recent launches and current models to recommend a latest vehicle.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the list of recent Mahindra car launches (T001) and current models(T002). Consider factors such as launch date, popularity, features, and user reviews to recommend the most suitable and latest vehicle to the user. Explain the reason for recommendation.",
+      "reads": [
+        "T001",
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Fetch the details for the recommended vehicle.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Based on the recommended vehicle from T003, find detailed specifications, features, variants, and price range of the vehicle.",
+      "reads": [
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Format a report with details on the recommended Mahindra vehicle.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a detailed report in HTML format. The report should include the recommended vehicle from T003, its features, specifications, variants and price range from T004, and reasons for recommending it (from T003). Structure the report into sections like 'Recommendation', 'Key Features', 'Specifications', 'Variants and Pricing'.",
+      "reads": [
+        "T003",
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T005"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    }
+  ]
+}

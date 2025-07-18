@@ -1,0 +1,156 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52766061",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle. Format the report in the HTML and CSS theme from this website: https://groww.in/",
+    "file_manifest": [],
+    "created_at": "2025-07-17T15:27:41.518321",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T005"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information about recent Mahindra car launches.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve the latest information about recent car launches from Mahindra, including model names, release dates, and key specifications. Be exhaustive and detailed.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:27:41.526852",
+      "end_time": "2025-07-17T15:27:46.618794",
+      "execution_time": 5.091942
+    },
+    {
+      "id": "T002",
+      "description": "Analyze recent launches and recommend the latest Mahindra vehicle.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information about recent Mahindra car launches. Based on the launch dates and specifications, recommend the latest Mahindra vehicle that is likely to be of interest to a buyer. Explain the reasons for your recommendation.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Retrieve detailed features of the recommended Mahindra vehicle.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve detailed information about the features of the Mahindra vehicle recommended in the previous step, including engine specifications, dimensions, safety features, and available technology. Be exhaustive and detailed.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Extract CSS theme from the provided website and prepare HTML placeholders for later formatting.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Extract the CSS theme from the website https://groww.in/. Create HTML placeholders within the CSS such that it allows injection of content later in HTML report generation. The aim is to use this CSS to format the final HTML report about the Mahindra vehicle. Be exhaustive and detailed.",
+      "reads": [],
+      "writes": [
+        "T004"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: Code execution failed: All code variants failed. Errors: CODE_1: UnicodeEncodeError: 'charmap' codec can't encode character '\\x80' in position 131954: character maps to <undefined>",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:27:47.636082",
+      "end_time": "2025-07-17T15:27:53.678213",
+      "execution_time": 6.042131
+    },
+    {
+      "id": "T005",
+      "description": "Generate the final HTML report incorporating the vehicle information and CSS theme.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Generate an HTML report that presents the information about recent Mahindra car launches, the recommended vehicle, and its detailed features. Apply the CSS theme extracted from https://groww.in/ to format the report. The report should be well-structured, visually appealing, and easy to read. Incorporate all the data and format into a single deliverable. Be exhaustive and detailed.",
+      "reads": [
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T005"
+    },
+    {
+      "source": "T003",
+      "target": "T005"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    }
+  ]
+}

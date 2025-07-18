@@ -1,0 +1,130 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52765666",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-17T15:21:06.320172",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information about recent Mahindra car launches.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find and list the most recent car launches by Mahindra in the last year. Prioritize official Mahindra sources and reputable automotive news websites.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:21:06.329947",
+      "end_time": "2025-07-17T15:21:10.232880",
+      "execution_time": 3.902933
+    },
+    {
+      "id": "T002",
+      "description": "Recommend a specific Mahindra vehicle from the recent launches.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on the list of recent Mahindra car launches from T001, recommend one specific vehicle that is the most recent and innovative. Explain the reasons for the recommendation, focusing on its new features or improvements over previous models. If more than one vehicle have launched in the last month, rank them and pick the best one.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Retrieve detailed information about the features of the recommended vehicle.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find detailed information about the features of the Mahindra vehicle recommended in T002. Focus on specifications, technology, safety features, and any unique selling points. Use only official Mahindra sources and reliable automotive review sites.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Present the information about the recommended vehicle and its features in a user-friendly format.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a detailed report in Markdown format based on the Mahindra vehicle recommendation from T002 and the feature details retrieved in T003. The report should include:\n\n- The name of the recommended Mahindra vehicle.\n- The reasons for the recommendation, based on T002's analysis.\n- A comprehensive list of features, organized by category (e.g., performance, safety, technology, comfort). Use bullet points.\n- Source links for each feature.\n\nFormat the report to be easily readable and highlight key selling points.",
+      "reads": [
+        "T002",
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}

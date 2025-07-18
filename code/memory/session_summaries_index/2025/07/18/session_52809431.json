@@ -1,0 +1,315 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52809431",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a multiple steps for Retriever Agent OR use multiple iterations in a single step to fetch detailed information (using the pattern --> find sources → extract details) and then create a report. Suggested approach is to fetch the releavnt urls first and then look for data in those URLs",
+    "file_manifest": [],
+    "created_at": "2025-07-18T03:30:31.459751",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "xuv_3xo_urls": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "T002": {
+        "xuv_3xo_urls": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "T003": {
+        "xuv_3xo_feature_data": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "T004": {
+        "xuv_3xo_details": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "T005": {
+        "xuv_3xo_urls": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T007"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Find relevant URLs for Mahindra XUV 3XO features",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find at least 5 relevant URLs that describe the features of Mahindra XUV 3XO. Focus on official Mahindra websites, reputable automotive news sources, and detailed review sites.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "completed",
+      "output": {
+        "xuv_3xo_urls": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-18T03:30:31.473241",
+      "end_time": "2025-07-18T03:30:55.386816",
+      "execution_time": 23.913575,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T002",
+      "description": "Extract detailed feature information from URL 1",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Extract all detailed information about Mahindra XUV 3XO features from the URL provided. Focus on specifications, safety features, technology, and performance details.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "completed",
+      "output": {
+        "xuv_3xo_urls": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-18T03:30:55.391816",
+      "end_time": "2025-07-18T03:31:08.623408",
+      "execution_time": 13.231592,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T003",
+      "description": "Extract detailed feature information from URL 2",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Extract all detailed information about Mahindra XUV 3XO features from the URL provided. Focus on specifications, safety features, technology, and performance details.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "completed",
+      "output": {
+        "xuv_3xo_feature_data": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-18T03:31:13.640969",
+      "end_time": "2025-07-18T03:31:26.787102",
+      "execution_time": 13.146133,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T004",
+      "description": "Extract detailed feature information from URL 3",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Extract all detailed information about Mahindra XUV 3XO features from the URL provided. Focus on specifications, safety features, technology, and performance details.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "completed",
+      "output": {
+        "xuv_3xo_details": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-18T03:31:31.806493",
+      "end_time": "2025-07-18T03:31:45.478098",
+      "execution_time": 13.671605,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T005",
+      "description": "Extract detailed feature information from URL 4",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Extract all detailed information about Mahindra XUV 3XO features from the URL provided. Focus on specifications, safety features, technology, and performance details.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "completed",
+      "output": {
+        "xuv_3xo_urls": [
+          {
+            "type": "text",
+            "text": "[error] No search results found",
+            "annotations": null
+          }
+        ]
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-18T03:31:50.500903",
+      "end_time": "2025-07-18T03:32:03.521468",
+      "execution_time": 13.020565,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T006",
+      "description": "Extract detailed feature information from URL 5",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Extract all detailed information about Mahindra XUV 3XO features from the URL provided. Focus on specifications, safety features, technology, and performance details.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T006"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-18T03:32:08.535264",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Create a comprehensive report of Mahindra XUV 3XO features",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a comprehensive and well-structured report detailing the features of the Mahindra XUV 3XO. Incorporate the detailed feature information extracted from the URLs. The report should include sections for specifications, safety features, technology, and performance. Use a well formatted style, use tables, bullet points, images, etc. to make the report readable and visually appealing.",
+      "reads": [
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006"
+      ],
+      "writes": [
+        "T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T004"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T001",
+      "target": "T006"
+    },
+    {
+      "source": "T002",
+      "target": "T007"
+    },
+    {
+      "source": "T003",
+      "target": "T007"
+    },
+    {
+      "source": "T004",
+      "target": "T007"
+    },
+    {
+      "source": "T005",
+      "target": "T007"
+    },
+    {
+      "source": "T006",
+      "target": "T007"
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52766535",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle. Format the report in the HTML and CSS theme from this website: https://groww.in/",
+    "file_manifest": [],
+    "created_at": "2025-07-17T15:35:35.162074",
+    "status": "running",
+    "output_chain": {
+      "T004": {
+        "message": "HTML and CSS files downloaded and saved successfully to the groww_in_theme directory"
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T006"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information on Mahindra's recent car launches, focusing on the latest models and their specifications.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch data on Mahindra's recent car launches, including the latest models, specifications, release dates, and any available reviews or comparisons. Focus on cars launched within the last two years.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:35:35.172328",
+      "end_time": "2025-07-17T15:35:38.074701",
+      "execution_time": 2.902373
+    },
+    {
+      "id": "T002",
+      "description": "Analyze the retrieved data to recommend the most suitable Mahindra car based on the latest launch and user preferences.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the data from T001 regarding Mahindra's latest car launches. Based on launch date, features, specifications, and market reviews, recommend the most suitable vehicle. Provide a clear justification for the recommendation, highlighting key features and benefits.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Extract detailed features and specifications of the recommended Mahindra vehicle.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve a detailed list of features, specifications, and available options for the Mahindra vehicle recommended in T002.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Download the HTML and CSS from the provided website to replicate its theme.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Download all HTML and CSS files from the website https://groww.in/. Save these files locally. These files will be used for theming a report about the recommended Mahindra car.",
+      "reads": [],
+      "writes": [
+        "T004"
+      ],
+      "status": "completed",
+      "output": {
+        "message": "HTML and CSS files downloaded and saved successfully to the groww_in_theme directory"
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:35:39.091769",
+      "end_time": "2025-07-17T15:35:46.122848",
+      "execution_time": 7.031079,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T005",
+      "description": "Create a consolidated HTML report detailing the recommended Mahindra car's features, using the downloaded HTML and CSS for theming.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Using the HTML and CSS from T004, design a report in HTML format that presents the information about the recommended Mahindra car from T002. Incorporate the detailed features and specifications extracted in T003. Ensure the report is well-structured, visually appealing, and thematically consistent with the groww.in website.",
+      "reads": [
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Summarize the final HTML output generated by FormatterAgent",
+      "agent": "DistillerAgent",
+      "agent_prompt": "Create a short summary of the HTML report file output of FormatterAgent in T005.",
+      "reads": [
+        "T005"
+      ],
+      "writes": [
+        "T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T005"
+    },
+    {
+      "source": "T003",
+      "target": "T005"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    },
+    {
+      "source": "T005",
+      "target": "T006"
+    }
+  ]
+}

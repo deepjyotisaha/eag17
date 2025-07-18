@@ -6,21 +6,14 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 import traceback
+import matplotlib
+from bs4 import BeautifulSoup
+import ast
+import re
+import cssutils
 from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
 
 logger = get_logger(__name__)
-
-import sys
-if sys.platform == "win32":
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-        sys.stderr.reconfigure(encoding='utf-8')
-    except AttributeError:
-        import codecs
-        sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-        sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
-
-
 
 # Simple imports for Python execution
 SAFE_BUILTINS = {
@@ -33,6 +26,7 @@ SAFE_BUILTINS = {
         'IndexError': IndexError, 'FileNotFoundError': FileNotFoundError,
         'Exception': Exception, 'min': min, 'max': max, 'sum': sum,
         'open': open, 'json': json, 'os': os, 'Path': Path,
+        'matplotlib': matplotlib,
         '__import__': __import__
     }
 }
@@ -42,7 +36,7 @@ def log_step(message, symbol="🔧"):
     timestamp = datetime.now().strftime("%H:%M:%S")
     print(f"{symbol} [{timestamp}] {message}")
 
-async def process_direct_files(files_dict: Dict[str, str], session_id: str) -> Dict[str, Any]:
+async def process_direct_files(files_dict: Dict[str, str], session_id: str, step_id: str = None, iteration: int = 1) -> Dict[str, Any]:
     """
     Process direct file creation from CoderAgent 'files' field
     
@@ -54,6 +48,8 @@ async def process_direct_files(files_dict: Dict[str, str], session_id: str) -> D
         Results with created file paths and metadata
     """
     start_time = time.perf_counter()
+
+    logger_json_block(logger, f"📁 Process Direct Files - Step {step_id}, iteration {iteration} - INPUTS", files_dict)
     
     # Setup session directory
     output_dir = Path(f"media/generated/{session_id}")
@@ -85,6 +81,7 @@ async def process_direct_files(files_dict: Dict[str, str], session_id: str) -> D
             results["total_size"] += file_size
             
             log_step(f"✅ Created {safe_filename} ({file_size:,} bytes)", symbol="📄")
+            logger_step(logger, f"✅ Step {step_id}, iteration {iteration} - Created {safe_filename} ({file_size:,} bytes)", symbol="📄")
             
         except Exception as e:
             error_msg = f"Failed to create {filename}: {str(e)}"
@@ -144,29 +141,23 @@ def create_file_utilities(session_id: str):
         'write_session_file': write_session_file
     }
 
-async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inputs: dict = None, step_id: str = None, iteration: int = 0) -> dict:
+async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inputs: dict = None, step_id: str = None, iteration: int = 1) -> dict:
     """
     Execute a single Python code variant with safety
     """
     start_time = time.perf_counter()
 
-    logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing code variant: 1")
+    logger_json_block(logger, f"🐍 Execute Python Code Variant - Step {step_id}, iteration {iteration} - INPUTS", inputs)
     
     # Setup execution environment
     output_dir = Path(f"media/generated/{session_id}")
     output_dir.mkdir(parents=True, exist_ok=True)
-
-    logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing code variant: 2")
     
     # Create tool proxies using function_wrapper
     tool_funcs = {}
     if multi_mcp:
         for tool in multi_mcp.get_all_tools():
             tool_funcs[tool.name] = make_tool_proxy(tool.name, multi_mcp)
-
-    logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing code variant: 3")
-
-    logger_json_block(logger, f"Execute Python Code Variant - Step {step_id}, iteration {iteration} - Inputs", inputs)
     
     # Build safe execution context
     file_utils = create_file_utilities(session_id)
@@ -179,30 +170,15 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
         'output_dir': str(output_dir),
         'inputs': inputs or {}
     }
-
-    logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing code variant: 4")
-
-    logger_code_block(logger, f"🐍 Step {step_id}, iteration {iteration} - Safe Globals for session {session_id}:", safe_globals)
-
-    logger_code_block(logger, f"🐍 Step {step_id}, iteration {iteration} - Inputs for session {session_id}:", inputs)
     
     # Add input variables directly to execution context
     if inputs:
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Updating safe globals with inputs")
-        logger_code_block(logger, f"🐍 Step {step_id}, iteration {iteration} - Safe Globals before updating with inputs for session {session_id}:", safe_globals)
         safe_globals.update(inputs)
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Updated safe globals with inputs")
-        logger_code_block(logger, f"🐍 Step {step_id}, iteration {iteration} - Updated safe globals with inputs", safe_globals)
-
-    logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing code variant: 5")
-
-    logger.info(f"🐍 Step {step_id}, iteration {iteration} - Safe Globals for session {session_id}:", safe_globals)
+    
+    logger_json_block(logger, f"⚡ Execute Python Code Variant - Step {step_id}, iteration {iteration} - SAFE GLOBALS", safe_globals)
     
     try:
         # Handle async execution properly
-        import ast
-
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Parsing code")
         
         # Parse and transform code to handle async tool calls
         tree = ast.parse(code)
@@ -214,8 +190,6 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
         return_stmt = ast.Return(value=ast.Name(id='output', ctx=ast.Load()))
         func_body.append(return_stmt)
         
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Creating async function")
-
         async_func = ast.AsyncFunctionDef(
             name='__async_exec',
             args=ast.arguments(
@@ -226,8 +200,6 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
             decorator_list=[],
             returns=None
         )
-
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Transforming tool calls to be awaited")
         
         # Transform tool calls to be awaited
         class AwaitTransformer(ast.NodeTransformer):
@@ -237,35 +209,21 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
                     return ast.Await(value=node)
                 return node
         
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Transforming tool calls to be awaited - 2 ")
-        
-        sync_func = AwaitTransformer().visit(async_func)
+        async_func = AwaitTransformer().visit(async_func)
         
         # Create module with async function
         module = ast.Module(body=[async_func], type_ignores=[])
         ast.fix_missing_locations(module)
-
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Creating module")
         
         # Compile and execute
         compiled = compile(module, '<string>', 'exec')
         local_vars = {}
         exec(compiled, safe_globals, local_vars)
-
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing async function")
-
-        import pdb; pdb.set_trace()
         
         # Execute the async function
         result = await local_vars['__async_exec']()
 
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing async function - DONE")
-
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Executing async function - Result: {result}")
-
-        #logger_code_block(logger, f"🐍 Safe Globals for session {session_id}:", safe_globals)
-        #logger_code_block(logger, f"🐍 Local vars for session {session_id}:", local_vars)
-        #logger_code_block(logger, f"🐍 Code execution result for session {session_id}:", compiled, result)
+        logger_json_block(logger, f"✅ Execute Python Code Variant - Step {step_id}, iteration {iteration} - RESULT", result)
         
         # Find created files
         created_files = []
@@ -291,8 +249,7 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
         }
         
     except Exception as e:
-        logger.error(f"🐍 ERROR: Step {step_id}, iteration {iteration} - Error executing code variant: {e}")
-
+        logger_error(logger, f"❌ Execute Python Code Variant - Step {step_id}, iteration {iteration} - EXCEPTION", str(e))
         return {
             "status": "failed",
             "result": {},
@@ -301,43 +258,36 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
             "error": f"{type(e).__name__}: {str(e)}"
         }
 
-async def execute_code_variants(code_variants: dict, multi_mcp, session_id: str, inputs: dict = None, step_id: str = None, iteration: int = 0) -> dict:
+async def execute_code_variants(code_variants: dict, multi_mcp, session_id: str, inputs: dict = None, step_id: str = None, iteration: int = 1) -> dict:
     """
     Execute multiple code variants sequentially until one succeeds
     """
     start_time = time.perf_counter()
-
+    
     # Sort variants by priority (CODE_1A, CODE_1B, CODE_1C)
     sorted_variants = sorted(code_variants.items())
     
-    log_step(f"🐍 Step {step_id}, iteration {iteration} - Executing {len(sorted_variants)} Python code variants", symbol="🧪")
-
-    logger_step(logger, f"🐍 Executor Variants - Step {step_id}, iteration {iteration} - Executing {len(sorted_variants)} Python code variants", symbol="🧪")
+    log_step(f"🐍 Executing {len(sorted_variants)} Python code variants", symbol="🧪")
     
     all_errors = []
     
     for variant_name, code in sorted_variants:
-        log_step(f"⚡ Step {step_id}, iteration {iteration} - Trying {variant_name}", symbol="🔬")
-        logger_step(logger, f"⚡ Executor Variants - Step {step_id}, iteration {iteration} - Trying {variant_name}", symbol="🔬")
-
-        logger_json_block(logger, f"Execute Code Variants - Step {step_id}, iteration {iteration} - Inputs", inputs)
+        log_step(f"⚡ Trying {variant_name}", symbol="🔬")
+        logger_json_block(logger, f"⚡ Step {step_id}, iteration {iteration} - Trying {variant_name}", code)
         
         result = await execute_python_code_variant(code, multi_mcp, session_id, inputs, step_id, iteration)
 
-        logger.info(f"🐍 Step {step_id}, iteration {iteration} - Result for variant {variant_name}:", result)
+        logger_code_block(logger, f"⚡ Executor results for session {session_id} step {step_id}, iteration {iteration} - variant {variant_name}", code, result)
 
         print("HALT HERE")
         print(result)
-
-        logger_code_block(logger, f"⚡ Executor Variants - Step {step_id}, iteration {iteration} - Results for session {session_id} variant {variant_name}", code, result)
         
         if result["status"] == "success":
             # Success!
             result["successful_variant"] = variant_name
             result["total_variants_tried"] = len(all_errors) + 1
             result["all_errors"] = all_errors
-
-            logger_step(logger, f"✅ Step {step_id}, iteration {iteration} - {variant_name} succeeded!", symbol="🎉")
+            
             log_step(f"✅ {variant_name} succeeded!", symbol="🎉")
             return result
         else:
@@ -345,12 +295,9 @@ async def execute_code_variants(code_variants: dict, multi_mcp, session_id: str,
             error_msg = f"{variant_name}: {result['error']}"
             all_errors.append(error_msg)
             log_step(f"❌ {variant_name} failed: {result['error']}", symbol="🚨")
-            logger_step(logger, f"❌ Step {step_id}, iteration {iteration} - {variant_name} failed: {result['error']}", symbol="🚨")
     
     # All variants failed
     log_step(f"💀 All {len(sorted_variants)} variants failed", symbol="❌")
-    logger_step(logger, f"💀 Step {step_id}, iteration {iteration} - All {len(sorted_variants)} variants failed", symbol="❌")
-    
     return {
         "status": "failed",
         "result": {},
@@ -361,7 +308,108 @@ async def execute_code_variants(code_variants: dict, multi_mcp, session_id: str,
         "all_errors": all_errors
     }
 
-async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default_session", inputs: dict = None, step_id: str = None, iteration: int = 0) -> dict:
+async def process_ast_updates(ast_updates: dict, session_id: str) -> dict:
+    """Process AST-based file updates"""
+    results = {
+        "status": "success",
+        "updated_files": [],
+        "errors": []
+    }
+    
+    session_dir = Path(f"media/generated/{session_id}")
+    
+    for filename, operations in ast_updates.items():
+        try:
+            file_path = session_dir / filename
+            if not file_path.exists():
+                results["errors"].append(f"File not found: {filename}")
+                continue
+                
+            # Read existing file
+            with open(file_path, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+            
+            # Apply operations based on file type
+            if filename.endswith('.html'):
+                updated_content = apply_html_operations(original_content, operations)
+            elif filename.endswith('.css'):
+                updated_content = apply_css_operations(original_content, operations)
+            elif filename.endswith('.js'):
+                updated_content = apply_js_operations(original_content, operations)
+            else:
+                results["errors"].append(f"Unsupported file type: {filename}")
+                continue
+            
+            # Write updated file
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(updated_content)
+            
+            results["updated_files"].append(filename)
+            log_step(f"✅ Updated {filename}")
+            
+        except Exception as e:
+            results["errors"].append(f"Error updating {filename}: {str(e)}")
+            results["status"] = "partial_failure"
+    
+    return results
+
+def apply_html_operations(content: str, operations: list) -> str:
+    """Apply AST operations to HTML content"""
+    soup = BeautifulSoup(content, 'html.parser')
+    
+    for op in operations:
+        if op["type"] == "insert_before":
+            target = soup.select_one(op["selector"])
+            if target:
+                new_element = BeautifulSoup(op["content"], 'html.parser')
+                target.insert_before(new_element)
+                
+        elif op["type"] == "insert_after":
+            target = soup.select_one(op["selector"])
+            if target:
+                new_element = BeautifulSoup(op["content"], 'html.parser')
+                target.insert_after(new_element)
+                
+        elif op["type"] == "replace":
+            target = soup.select_one(op["selector"])
+            if target:
+                new_element = BeautifulSoup(op["content"], 'html.parser')
+                target.replace_with(new_element)
+                
+        elif op["type"] == "append_to":
+            target = soup.select_one(op["selector"])
+            if target:
+                new_element = BeautifulSoup(op["content"], 'html.parser')
+                target.append(new_element)
+    
+    return str(soup)
+
+def apply_css_operations(content: str, operations: list) -> str:
+    """Apply operations to CSS content"""
+    for op in operations:
+        if op["type"] == "add_rule":
+            content += f"\n{op['selector']} {{\n{op['properties']}\n}}\n"
+        elif op["type"] == "replace_rule":
+            # Simple regex replacement for now
+            pattern = rf"{re.escape(op['selector'])}\s*{{[^}}]*}}"
+            replacement = f"{op['selector']} {{\n{op['properties']}\n}}"
+            content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+    
+    return content
+
+def apply_js_operations(content: str, operations: list) -> str:
+    """Apply operations to JavaScript content"""
+    for op in operations:
+        if op["type"] == "append_function":
+            content += f"\n{op['function_code']}\n"
+        elif op["type"] == "replace_function":
+            # Simple regex replacement for function
+            pattern = rf"function\s+{re.escape(op['function_name'])}\s*\([^)]*\)\s*{{[^}}]*}}"
+            content = re.sub(pattern, op['function_code'], content, flags=re.DOTALL)
+    
+    return content
+
+async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default_session", inputs: dict = None, step_id: str = None, iteration: int = 1) -> dict:
     """
     Main execution function: handles direct files, Python code, or both
     
@@ -375,8 +423,6 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
         Combined results from file creation and/or code execution
     """
     start_time = time.perf_counter()
-
-    logger_step(logger, f"🚀 Runing user code - Executor starting for session {session_id} step {step_id}, iteration {iteration}", symbol="⚡")
     
     # 🚨 DEBUG: Print input data
     print(f"\n🚨 EXECUTOR RECEIVED:")
@@ -399,13 +445,26 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
     }
     
     log_step(f"🚀 Executor starting for session {session_id}", symbol="⚡")
+    logger_step(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration}")
+    logger_json_block(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration} - INPUTS", output_data)
+
+    if "code_variants" in output_data:
+        code_variants = output_data["code_variants"]
+        logger_step(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration} - CODE VARIANTS", code_variants)
+    elif "code" in output_data:
+        code_variants = output_data["code"]
+        logger_step(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration} - CODE", code_variants)
+    else:
+        code_variants = {}
+        logger_step(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration} - NO CODE VARIANTS")
     
     try:
         # Phase 1: Process Direct Files (if present)
         if "files" in output_data and output_data["files"]:
             log_step("📁 Phase 1: Direct file creation", symbol="🎯")
+            logger_json_block(logger, f"📁 Step {step_id}, iteration {iteration} - Phase 1: Direct file creation - INPUTS", output_data["files"])
             
-            file_results = await process_direct_files(output_data["files"], session_id)
+            file_results = await process_direct_files(output_data["files"], session_id, step_id, iteration)
             results["file_results"] = file_results
             results["operations"].append("direct_files")
             results["created_files"].extend(file_results["created_files"])
@@ -415,17 +474,22 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
                 results["error"] = f"File creation issues: {file_results.get('errors', [])}"
         
         # Phase 2: Execute Python Code (if present)
-        if "code_variants" in output_data and output_data["code_variants"]:
+        if "code_variants" in output_data or "code" in output_data:
             log_step("🐍 Phase 2: Python code execution", symbol="⚙️")
-
-            #logger_json_block(logger, f"Run User Code - Phase 2: Python code execution - Code Variants", output_data["code_variants"])
-            logger_json_block(logger, f"Run User Code - Phase 2: Python code execution - Inputs", inputs)
-            #logger_json_block(logger, f"Run User Code - Phase 2: Python code execution - Step ID", step_id)
-            #logger_json_block(logger, f"Run User Code - Phase 2: Python code execution - Iteration", iteration)
-
-            code_results = await execute_code_variants(
-                output_data["code_variants"], multi_mcp, session_id, inputs, step_id, iteration
-            )
+            
+            if "code_variants" in output_data:
+                executor_input = output_data["code_variants"]
+                logger_json_block(logger, f"🐍 Step {step_id}, iteration {iteration} - Phase 2: Python code execution, executor input:", executor_input)
+                code_results = await execute_code_variants(
+                    executor_input, multi_mcp, session_id, inputs, step_id, iteration
+                )
+            elif "code" in output_data:
+                executor_input = output_data["code"]
+                logger_json_block(logger, f"🐍 Step {step_id}, iteration {iteration} - Phase 2: Python code execution, executor input:", executor_input)
+                code_results = await execute_code_variants(
+                    executor_input, multi_mcp, session_id, inputs, step_id, iteration
+                )
+            
             results["code_results"] = code_results
             results["operations"].append("python_code")
             
@@ -437,6 +501,19 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
                     results["status"] = "partial_failure"
                 results["error"] = f"Code execution failed: {code_results['error']}"
         
+        # Phase 3: Process AST Updates (if present)
+        if "ast_updates" in output_data and output_data["ast_updates"]:
+            log_step("🌳 Phase 3: AST-based file updates", symbol="🔄")
+            logger_json_block(logger, f"🌳 Step {step_id}, iteration {iteration} - Phase 3: AST-based file updates - INPUTS", output_data["ast_updates"])
+            
+            ast_results = await process_ast_updates(output_data["ast_updates"], session_id)
+            results["ast_results"] = ast_results
+            results["operations"].append("ast_updates")
+            
+            if ast_results["status"] != "success":
+                results["status"] = "partial_failure"
+                results["error"] = f"AST update issues: {ast_results.get('errors', [])}"
+
         # Phase 3: Validate
         if not results["operations"]:
             results["status"] = "no_operation"
@@ -453,6 +530,7 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
             variant_info = f" ({results['code_results']['successful_variant']} succeeded)"
         
         log_step(f"🏁 Completed: {ops} | {file_count} files{variant_info} | {results['total_time']:.2f}s", symbol="✅")
+        logger_json_block(logger, f"🏁 Step {step_id}, iteration {iteration} - Executor Results", results)
         
         # 🚨 DEBUG: Print final executor result
         print(f"\n🚨 EXECUTOR FINAL RESULT:")

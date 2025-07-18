@@ -41,4 +41,29 @@
 ### Comprehensive Research and Reporting
 - **Mahindra has launched a new vehicle called xuv 3xo, I want to know feature details, digital features, safety features, price etc. Fetch information from multiple URLs. Compile a detailed report into a report which structured and formatted; then translate it into a beautiful well formatted webpage to view the report. Use single step for RetrieverAgent and CoderAgent unless you need another Agent in between.**
 
+- **Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle **
+- ** Find comprehensive flight options from Delhi to Tokyo, must use only a single step for retriever agent but you can use multiple iterations (call_self=true) to compile this data.
+- **Mahindra has launched a new vehicle called xuv 3xo, fetch details on the features for this vehicle, use a single step for Retriever Agent but use multiple iterations in a single step (call_Self=true) to fetch detailed information and then create a report. Suggested approach is to fetch the releavnt urls first and then look for data in those URLs**
+
+- I need a 7-day Japan itinerary for April 15-23 from Seattle, with a $2500-5000 budget for my fiancée and me. We love historical sites, hidden gems, and Japanese culture (kendo, tea ceremonies, Zen meditation). We want to see Nara's deer and explore cities on foot. I plan to propose during this trip and need a special location recommendation. Please provide a detailed itinerary and an exhaustive HTML travel handbook with maps, attraction descriptions, essential Japanese phrases, and travel tips we can reference throughout our journey.
+
+
+- **Mahindra has launched few new vehciles, I want to know more about the new launches, also fetch details on the features for the vehicle which looks like Tesla. Use a single step for Retriever Agent but use multiple iterations in a single step (call_Self=true) to compile the data and then create a report **
+
+
+- **I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle, use ONLY ONE step for Retriever Agent but you can use multiple iterations in the single step (call_Self=true) to fetch all information needed and then create a report.**
+
+- **I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information (using the pattern --> find sources → extract details) and then create a report. Suggested approach is to fetch the releavnt urls first and then look for data in those URLs**
+
+
+- **I want to know the details of features for Mahindra XUV 3XO, use a multiple steps for Retriever Agent OR use multiple iterations in a single step to fetch detailed information (using the pattern --> find sources → extract details) and then create a report. Suggested approach is to fetch the releavnt urls first and then look for data in those URLs**
+
+- Mahindra has launched a new vehicle called xuv 3xo, I want to know feature details, digital features, safety features, price etc. Use the following pattern -> find sources → extract details; You can use 2 only two steps for Retriever Agent OR use two itertations (using call_self=true) of Retriever Agent in a single step to fetch detailed information.
+
+- Create a visually appealing tic-tac-toe game 
+- Create a tic-tac-toe game 
+
+I want to know the features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations (call_self=true) in a single step to fetch detailed information, In the final iteration of the Retriever Agent combine outputs from current and previous iterations as final step output and then create a report.
+
+
 

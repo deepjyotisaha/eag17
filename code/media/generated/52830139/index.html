@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #status {
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        td {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #ddd;
+            text-align: center;
+            font-size: 32px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        td:hover {
+            background-color: #e9e9e9;
+        }
+        td:active {
+            background-color: #d5d5d5;
+        }
+        td:first-child { border-left: none; }
+        td:last-child { border-right: none; }
+        tr:first-child td { border-top: none; }
+        tr:last-child td { border-bottom: none; }
+    </style>
+
+</head>
+<body class="bg-gray-100">
+    <h1 class="text-2xl font-bold mb-4">Tic-Tac-Toe</h1>
+    <div id="status" class="mb-4">Player X's turn</div>
+    <table id="board">
+        <tr>
+            <td data-cell="0"></td>
+            <td data-cell="1"></td>
+            <td data-cell="2"></td>
+        </tr>
+        <tr>
+            <td data-cell="3"></td>
+            <td data-cell="4"></td>
+            <td data-cell="5"></td>
+        </tr>
+        <tr>
+            <td data-cell="6"></td>
+            <td data-cell="7"></td>
+            <td data-cell="8"></td>
+        </tr>
+    </table>
+    <script>
+        // JavaScript game logic will go here
+        document.addEventListener('DOMContentLoaded', () => {
+            const cells = document.querySelectorAll('td');
+            const status = document.getElementById('status');
+            let currentPlayer = 'X';
+
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    if (!cell.textContent) {
+                        cell.textContent = currentPlayer;
+                        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                        status.textContent = `Player ${currentPlayer}'s turn`;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+<script>
+  const board = document.getElementById('board');
+  const cells = document.querySelectorAll('.cell');
+  const message = document.getElementById('message');
+  const resetButton = document.getElementById('resetButton');
+  let currentPlayer = 'X';
+  let gameBoard = ['', '', '', '', '', '', '', '', ''];
+  let gameActive = true;
+
+  function checkWin() {
+    const winPatterns = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
+    ];
+
+    for (const pattern of winPatterns) {
+      const [a, b, c] = pattern;
+      if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+        return gameBoard[a];
+      }
+    }
+
+    if (!gameBoard.includes('')) {
+      return 'tie';
+    }
+
+    return null;
+  }
+
+  function handleCellClick(index) {
+    if (gameBoard[index] === '' && gameActive) {
+      gameBoard[index] = currentPlayer;
+      cells[index].textContent = currentPlayer;
+      cells[index].classList.add(currentPlayer === 'X' ? 'x-turn' : 'o-turn');
+
+      const winner = checkWin();
+      if (winner) {
+        if (winner === 'tie') {
+          message.textContent = 'It's a tie!';
+        } else {
+          message.textContent = `Player ${winner} wins!`;
+        }
+        gameActive = false;
+      } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        message.textContent = `Player ${currentPlayer}'s turn`;
+      }
+    }
+  }
+
+  function resetGame() {
+    currentPlayer = 'X';
+    gameBoard = ['', '', '', '', '', '', '', '', ''];
+    gameActive = true;
+    message.textContent = `Player X's turn`;
+    cells.forEach(cell => {
+      cell.textContent = '';
+      cell.classList.remove('x-turn', 'o-turn');
+    });
+  }
+
+  cells.forEach((cell, index) => {
+    cell.addEventListener('click', () => handleCellClick(index));
+  });
+
+  resetButton.addEventListener('click', resetGame);
+
+  //Initial message
+  message.textContent = `Player X's turn`;
+</script>

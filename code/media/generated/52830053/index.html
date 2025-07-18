@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin-top: 20px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+        .cell:hover {
+            background-color: #f0f0f0;
+        }
+        .winner-message {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .reset-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col items-center justify-center">
+    <h1 class="text-3xl font-bold mb-4">Tic Tac Toe</h1>
+
+    <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+
+    <div class="winner-message text-center" id="winner-message"></div>
+
+    <button class="reset-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reset-button">Reset Game</button>
+
+    <script>
+        lucide.createIcons();
+    </script>
+    <script>
+        // JavaScript code for Tic Tac Toe game
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        const winnerMessage = document.getElementById('winner-message');
+        const resetButton = document.getElementById('reset-button');
+
+        let currentPlayer = 'X';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+
+        // Function to handle cell click
+        function cellClick(index) {
+            if (gameBoard[index] === '' && gameActive) {
+                gameBoard[index] = currentPlayer;
+                cells[index].textContent = currentPlayer;
+                checkWin();
+                switchPlayer();
+            }
+        }
+
+        // Function to switch player
+        function switchPlayer() {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+
+        // Function to check win
+        function checkWin() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                    winnerMessage.textContent = `Player ${currentPlayer} wins!`;
+                    gameActive = false;
+                    return;
+                }
+            }
+
+            // Check for a draw
+            if (!gameBoard.includes('')) {
+                winnerMessage.textContent = 'It\'s a draw!';
+                gameActive = false;
+            }
+        }
+
+        // Add click listeners to cells
+        cells.forEach((cell, index) => {
+            cell.addEventListener('click', () => cellClick(index));
+        });
+
+        // Reset game function
+        function resetGame() {
+            currentPlayer = 'X';
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            winnerMessage.textContent = '';
+            cells.forEach(cell => cell.textContent = '');
+        }
+
+        // Add reset button listener
+        resetButton.addEventListener('click', resetGame);
+
+    </script>
+</body>
+</html>

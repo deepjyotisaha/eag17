@@ -7,9 +7,10 @@ from utils.json_parser import parse_llm_json
 from utils.utils import log_step, log_error
 from PIL import Image
 import os
-from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block , logger_error
+import time
+from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
 
-logger = get_logger(__name__)   
+logger = get_logger(__name__)
 
 class AgentRunner:
     def __init__(self, multi_mcp):
@@ -155,7 +156,7 @@ class AgentRunner:
         
         return all_files
 
-    async def run_agent(self, agent_type, input_data):
+    async def run_agent(self, agent_type, input_data, step_id, iteration):
         """Run a specific agent with the given input data"""
         try:
             # Get agent config
@@ -209,7 +210,10 @@ class AgentRunner:
             # Build the full prompt
             full_prompt = self._build_prompt(system_prompt, input_data)
 
-            logger_prompt(logger, f"Agent Runner: {agent_type} - FULL PROMPT", full_prompt)
+            time.sleep(15)
+
+
+            logger_prompt(logger, f"🤖 Agent Runner: {agent_type} - Step {step_id} - Iteration {iteration} - FULL PROMPT", full_prompt)
             
             # ✅ TRACK RESPONSE AND METADATA
             if file_contents:
@@ -221,9 +225,8 @@ class AgentRunner:
                 log_step(f"💬 {agent_type} (text only)")
                 response = await model_manager.generate_text(full_prompt)
 
-            
-            logger_prompt(logger, f"Agent Runner: {agent_type} - RESPONSE", response)
-            
+            logger_prompt(logger, f"🤖 Agent Runner: {agent_type} - Step {step_id} - Iteration {iteration} - RESPONSE", response)
+
             # ✅ PARSE JSON AND INCLUDE METADATA (like original)
             try:
                 # Try to parse as JSON first

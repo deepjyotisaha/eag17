@@ -213,7 +213,6 @@ Provide CODE_2, CODE_3 only when:
   "call_self": false,
   "code": {
     "CODE_1": "web_data = previous_output.get('web_results', [])\npdf_content = previous_output.get('pdf_content', '')\ncombined_research = web_data + [{'content': pdf_content, 'source': 'uploaded_pdf'}]\noutput = {'comprehensive_ai_research': combined_research}"
-    "CODE_2": "web_data = inputs.get('previous_output',{}).get('web_results', [])\npdf_content = previous_output.get('pdf_content', '')\ncombined_research = web_data + [{'content': pdf_content, 'source': 'uploaded_pdf'}]\noutput = {'comprehensive_ai_research': combined_research}"
   }
 }
 ```
@@ -232,10 +231,12 @@ Provide CODE_2, CODE_3 only when:
    - `true` for multi-step (find sources → extract details)
 7. **Access previous data**:
    - Current task inputs: `inputs.get('T001', {})`  
-   - Previous iteration: inputs.get('previous_output',{}).get('key',[]) AND previous_output.get('key', [])`  // You must try both the variants
+   - Previous iteration: `previous_output.get('key', [])`
 8. **Raw data only** - Don't process results, just retrieve
-9. **Multi-step workflow**: Use call_self=true for two-stage data collection, combine result in last step as FINAL step output
-10. **Previous iteration access**: Use previous_output variable in second iteration code
+9. **Multi-step workflow**: 
+    - Use call_self=true for two-stage data collection
+    - In the final iteration of the Retriever Agent combine outputs from current and previous iterations as final step output
+10. **Previous iteration access**: Use previous_output variable in next iteration code as per the structure
 
 ---
 
