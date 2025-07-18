@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahindra XUV 3XO</title>
+  <style>
+    /* Base styles */
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0a0a0a;
+      --text-light: #111111;
+      --text-dark: #f1f1f1;
+      --border-light: #000000;
+      --border-dark: #ffffff;
+      --font-sans: 'Inter', 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'EB Garamond', 'New York', 'Georgia', serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: 18px;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s, font-family 0.3s;
+    }
+    
+    html.dark, body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background-color: var(--bg-light);
+      transition: background-color 0.3s;
+    }
+    html.dark .container, body.dark .container {
+      background-color: var(--bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 2.5em;
+      margin-bottom: 0.8em;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      border-bottom: 0.5px solid var(--border-light);
+      padding-bottom: 0.2em;
+    }
+    html.dark h1, body.dark h1 {
+      border-color: var(--border-dark);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+      z-index: 999;
+    }
+
+    .controls button {
+      all: unset;
+      cursor: pointer;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-weight: 500;
+      color: inherit;
+      opacity: 0.6;
+      transition: opacity 0.3s, background-color 0.3s;
+    }
+    .controls button:hover {
+      opacity: 1;
+    }
+    html.dark .controls button, body.dark .controls button {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer {
+      font-size: 0.55rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #aaa;
+    }
+
+    @media print {
+      .controls { display: none; }
+    }
+
+    
+        /* Image Carousel Styles */
+        .image-carousel {
+            margin: 2rem 0;
+        }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+        
+        .carousel-slides {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .carousel-slide.active {
+            display: flex;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .carousel-caption {
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        
+        .carousel-caption p {
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+        
+        .carousel-caption small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        html.dark .carousel-caption small, body.dark .carousel-caption small {
+            color: #aaa;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-size: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.9);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-btn.prev {
+            left: 0;
+        }
+        
+        .carousel-btn.next {
+            right: 0;
+        }
+        
+        .carousel-dots {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .carousel-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active, .carousel-dot:hover {
+            background-color: #333;
+            transform: scale(1.2);
+        }
+        html.dark .carousel-dot {
+            background-color: #666;
+        }
+        html.dark .carousel-dot.active, body.dark .carousel-dot.active,
+        html.dark .carousel-dot:hover, body.dark .carousel-dot:hover {
+            background-color: #ccc;
+        }
+        
+        /* Content Images Styling */
+        .container img:not(.carousel-slide img) {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        html.dark .container img:not(.carousel-slide img), 
+        body.dark .container img:not(.carousel-slide img) {
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+        
+        /* Remove any remaining inline width/height styles */
+        .container img[style*="width"] {
+            width: auto !important;
+            max-width: 100% !important;
+        }
+        .container img[style*="height"] {
+            height: auto !important;
+        }
+        
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="toggleDark()">Th</button>
+    <button onclick="toggleFont()">Aa</button>
+    <button onclick="toggleEmojis()">Em</button>
+  </div>
+  <div class="container" id="main-container">
+    <h1><b>Mahindra XUV 3XO</b></h1>
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+        
+                    <div class="carousel-slide active">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw95797f68/images/SCRC/large/ScorpioClassic_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc6625064/images/NEOP/large/BoleroNeoPlus_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/on/demandware.static/Sites-amc-Site/-/default/dwbe1329bd/images/placeholder-image.png" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/XUV-3XO/10184/1751288551835/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/Thar-ROXX/8438/1751288658241/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/Scorpio-N/10818/1749626691069/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/XUV700/11736/1749631327264/front-left-side-47.jpg" alt="Mahindra XUV 3XO" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://stimg.cardekho.com/images/carexteriorimages/320x224/Mahindra/BE-6/9263/1739189295831/front-left-side-47.jpg" alt="Mahindra Thar ROXX" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra Thar ROXX</strong></p>
+                            <small><a href="//stimg.cardekho.com" target="_blank" rel="noopener noreferrer">Source: stimg.cardekho.com</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://img.autocarindia.com/model/uploads/modelimages/Mahindra-XUV-3XO-290420241902.jpg" alt="Mahindra XUV 3XO review - Feature and power packed compact SUV" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra XUV 3XO review - Feature and power packed compact SUV</strong></p>
+                            <small><a href="//img.autocarindia.com" target="_blank" rel="noopener noreferrer">Source: img.autocarindia.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.newznew.com/wp-content/uploads/2025/07/XUV-3XOs-Safety-Features.webp" alt="Image 13" />
+                        <div class="carousel-caption">
+                            <p><strong>Image 13</strong></p>
+                            <small><a href="//www.newznew.com" target="_blank" rel="noopener noreferrer">Source: newznew.com</a> | Confidence: 1.00</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-01.png?ID=003dce24-f37f-4d6f-949f-07f9ee8f7cc6" alt="DMCA.com Protection Status" />
+                        <div class="carousel-caption">
+                            <p><strong>DMCA.com Protection Status</strong></p>
+                            <small><a href="//images.dmca.com" target="_blank" rel="noopener noreferrer">Source: images.dmca.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://businessnewstips.com/wp-content/uploads/2025/07/4-20240821183355752.png" alt="DMCA.com Protection Status" />
+                        <div class="carousel-caption">
+                            <p><strong>DMCA.com Protection Status</strong></p>
+                            <small><a href="//businessnewstips.com" target="_blank" rel="noopener noreferrer">Source: businessnewstips.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                </div>
+                
+                <button class="carousel-btn prev" onclick="changeSlide(-1)">&lt;</button>
+                <button class="carousel-btn next" onclick="changeSlide(1)">&gt;</button>
+            
+            </div>
+        <div class="carousel-dots"><button class="carousel-dot active" onclick="currentSlide(1)"></button><button class="carousel-dot " onclick="currentSlide(2)"></button><button class="carousel-dot " onclick="currentSlide(3)"></button><button class="carousel-dot " onclick="currentSlide(4)"></button><button class="carousel-dot " onclick="currentSlide(5)"></button><button class="carousel-dot " onclick="currentSlide(6)"></button><button class="carousel-dot " onclick="currentSlide(7)"></button><button class="carousel-dot " onclick="currentSlide(8)"></button><button class="carousel-dot " onclick="currentSlide(9)"></button><button class="carousel-dot " onclick="currentSlide(10)"></button><button class="carousel-dot " onclick="currentSlide(11)"></button><button class="carousel-dot " onclick="currentSlide(12)"></button></div>
+        </div>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Mahindra XUV 3XO Report</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()">Close Menu</a>
+  <div>
+    <h3><b>Mahindra<br>XUV 3XO</b></h3>
+  </div>
+  <div>
+    <a href="#home" onclick="w3_close()">Home</a> 
+    <a href="#general" onclick="w3_close()">General Features</a> 
+    <a href="#luxury" onclick="w3_close()">Luxury Features</a> 
+    <a href="#safety" onclick="w3_close()">Safety Features</a> 
+    <a href="#tables" onclick="w3_close()">Tables</a>
+    <a href="#recommendations" onclick="w3_close()">Recommendations</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header>
+  <a href="javascript:void(0)" onclick="w3_open()">☰</a>
+  <span>Mahindra XUV 3XO</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+
+
+<!-- !PAGE CONTENT! -->
+<div>
+
+  <!-- Header -->
+  <div id="home">
+    <h1><b>Report.</b></h1>
+    <hr>
+  </div>
+  
+  <!-- General Features -->
+  <div id="general">
+    <h1><b>General Features.</b></h1>
+    <hr>
+    <p>The Mahindra XUV 3XO is a compact SUV designed with a modern and robust exterior. It offers both petrol and diesel engine options, providing a blend of performance and efficiency. The vehicle comfortably seats five passengers and has a boot capacity of 364 litres.</p>
+    <ul>
+      <li><b>Design and Styling:</b> Dynamic and robust exterior design.</li>
+      <li><b>Engine and Performance:</b> Petrol and diesel engine options.</li>
+      <li><b>Dimensions and Capacity:</b> Length of 3990 mm, a width of 1821 mm.</li>
+      <li><b>Fuel Efficiency:</b> Petrol variants range from 17.96 kmpl to 20.1 kmpl.</li>
+    </ul>
+  </div>
+  
+  <!-- Luxury Features -->
+  <div id="luxury">
+    <h1><b>Luxury Features.</b></h1>
+    <hr>
+    <p>The Mahindra XUV 3XO is designed to provide a luxurious and comfortable experience with premium materials and advanced technology.</p>
+    <ul>
+      <li><b>Interior Design:</b> Soft-touch leatherette, premium seats.</li>
+      <li><b>Infotainment System:</b> High-definition touchscreen, Amazon Alexa, Harman Kardon audio.</li>
+      <li><b>Comfort and Convenience:</b> Panoramic sunroof, cooled glovebox, keyless entry.</li>
+      <li><b>Advanced Technology:</b> Smart steering modes, automatic wipers, digital instrument cluster.</li>
+    </ul>
+  </div>
+
+  <!-- Safety Features -->
+  <div id="safety">
+    <h1><b>Safety Features.</b></h1>
+    <hr>
+    <p>Mahindra has prioritized safety in the XUV 3XO, equipping it with active and passive safety features, including ADAS and a robust build, achieving a 5-star Bharat NCAP rating.</p>
+    <ul>
+      <li><b>Active Safety Features:</b> ABS with EBD and BA.</li>
+      <li><b>Passive Safety Features:</b> Up to 6 airbags, robust build.</li>
+      <li><b>Advanced Driver Assistance Systems (ADAS):</b> Level 2 ADAS.</li>
+    </ul>
+  </div>
+
+  <!-- Tables -->
+  <div id="tables">
+    <h1><b>Tables.</b></h1>
+    <hr>
+
+    <h2>Engine Specifications</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Engine Type</th>
+          <th>Displacement</th>
+          <th>Max Power</th>
+          <th>Max Torque</th>
+          <th>Transmission</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.2-liter Turbo Petrol (MPFI)</td>
+          <td>1197 cc</td>
+          <td>110 PS</td>
+          <td>200 Nm</td>
+          <td>Manual</td>
+        </tr>
+        <tr>
+          <td>1.2-liter Turbo Petrol (TGDi)</td>
+          <td>1197 cc</td>
+          <td>130 PS</td>
+          <td>230 Nm</td>
+          <td>Manual/Automatic</td>
+        </tr>
+        <tr>
+          <td>1.5-liter Diesel</td>
+          <td>1498 cc</td>
+          <td>117 PS</td>
+          <td>300 Nm</td>
+          <td>Manual/AMT</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Safety Features</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Airbags</td>
+          <td>Up to 6 airbags</td>
+        </tr>
+        <tr>
+          <td>ABS with EBD and BA</td>
+          <td>Maintains control during braking</td>
+        </tr>
+        <tr>
+          <td>ESC</td>
+          <td>Prevents skidding</td>
+        </tr>
+        <tr>
+          <td>ADAS Level 2</td>
+          <td>Includes Forward Collision Warning, Adaptive Cruise Control, Lane Keeping Assist</td>
+        </tr>
+        <tr>
+          <td>Bharat NCAP Rating</td>
+          <td>5-star</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Luxury Features</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Interior</td>
+          <td>Soft-touch leatherette, premium seats</td>
+        </tr>
+        <tr>
+          <td>Infotainment</td>
+          <td>High-definition touchscreen, Amazon Alexa, Harman Kardon audio</td>
+        </tr>
+        <tr>
+          <td>Comfort</td>
+          <td>Panoramic sunroof, cooled glovebox, keyless entry</td>
+        </tr>
+        <tr>
+          <td>Technology</td>
+          <td>Smart steering modes, automatic wipers, digital instrument cluster</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Recommendations -->
+  <div id="recommendations">
+    <h1><b>Recommendations.</b></h1>
+    <hr>
+    <p>Based on the analysis, consider the following recommendations:</p>
+    <ul>
+      <li>Consider the TGDi petrol engine for the best performance.</li>
+      <li>Opt for variants with Level 2 ADAS for enhanced safety.</li>
+      <li>Explore the top-end variants for a more luxurious interior experience.</li>
+    </ul>
+  </div>
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div><p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank">w3.css</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>
+    <div class="footer">
+      <p>Generated by Seraphine on 2025-07-18 23:49:41 · Session ID: 52862603</p>
+    </div>
+  </div>
+  <script>
+    let emojisHidden = true; /* Start with emojis hidden */
+    let originalContent = '';
+
+    function toggleDark() {
+      /* Toggle dark class on BOTH html and body elements */
+      document.documentElement.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+    }
+
+    function toggleFont() {
+      const current = getComputedStyle(document.body).fontFamily;
+      const isSerif = current.includes("Georgia");
+      document.body.style.fontFamily = isSerif ? 'var(--font-sans)' : 'var(--font-serif)';
+    }
+
+    function toggleEmojis() {
+      const container = document.getElementById('main-container');
+      
+      if (emojisHidden) {
+        /* Restore original content (show emojis) */
+        if (originalContent) {
+          container.innerHTML = originalContent;
+        }
+        emojisHidden = false;
+      } else {
+        /* Store original content and remove emojis */
+        if (!originalContent) {
+          originalContent = container.innerHTML;
+        }
+        /* ✅ FIXED: Comprehensive emoji regex that includes ALL emoji ranges */
+        const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+        container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+        emojisHidden = true;
+      }
+    }
+
+    /* Initialize with emojis hidden on page load */
+    window.addEventListener('load', function() {
+      const container = document.getElementById('main-container');
+      /* Store original content first */
+      originalContent = container.innerHTML;
+      /* Then remove emojis by default */
+      /* ✅ FIXED: Same comprehensive emoji regex */
+      const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+      container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+    });
+
+    
+        // Image Carousel JavaScript
+        let currentSlideIndex = 0;
+        let slides = [];
+        let dots = [];
+        
+        function initializeCarousel() {
+            slides = document.querySelectorAll('.carousel-slide');
+            dots = document.querySelectorAll('.carousel-dot');
+            currentSlideIndex = 0;
+            
+            if (slides.length > 0) {
+                showSlide(0);
+            }
+        }
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show selected slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                if (dots[index]) {
+                    dots[index].classList.add('active');
+                }
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        function currentSlide(index) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCarousel();
+        });
+        
+        // Re-initialize if content changes (for emoji toggle)
+        window.addEventListener('load', function() {
+            setTimeout(initializeCarousel, 100);
+        });
+        
+  </script>
+</body>
+</html>

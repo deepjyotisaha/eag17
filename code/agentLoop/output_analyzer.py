@@ -13,6 +13,9 @@ import asyncio
 import aiohttp
 from typing import List, Dict, Optional
 import time
+from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
+
+logger = get_logger(__name__)
 
 # Fix imports for standalone usage
 if __name__ == "__main__":
@@ -232,19 +235,26 @@ class OutputAnalyzer:
             if not self.graph:
                 self.console.print("\n⚠️  No graph data available")
                 return None
+            
+
                 
             session_id = self.graph.graph['session_id']
+
+            logger_step(logger, "Extracting HTML report from session")
             
             # Find the HTML report in the graph
             html_content = self._find_html_report()
+
+            logger_code_block(logger, "HTML report found in session data", html_content)
             
             if html_content:
                 # Create proper HTML structure
-                full_html = self._create_proper_html(html_content, session_id, self.context.get_session_data())
+                #full_html = self._create_proper_html(html_content, session_id, self.context.get_session_data())
                 
                 # Save to file
                 output_path = Path(f"memory/session_{session_id}_report.html")
-                output_path.write_text(full_html, encoding='utf-8')
+                #output_path.write_text(full_html, encoding='utf-8')
+                output_path.write_text(html_content, encoding='utf-8')
                 
                 self.console.print(f"\n📄 **Seraphine Report Generated:** {output_path}")
                 return str(output_path)
@@ -1256,9 +1266,10 @@ def extract_html_report_from_session_file(session_file_path):
             # Save to file
             output_path = session_path.parent / f"session_{session_id}_report.html"
             output_path.write_text(full_html, encoding='utf-8')
+            #output_path.write_text(html_content, encoding='utf-8')
             
             console.print(f"✅ HTML Report Generated: {output_path}")
-            console.print(f"📊 Report size: {len(full_html):,} characters")
+            console.print(f"📊 Report size: {len(html_content):,} characters")
             return str(output_path)
         else:
             console.print("⚠️  No HTML report found in session file")

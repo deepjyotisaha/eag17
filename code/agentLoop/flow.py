@@ -20,7 +20,7 @@ class AgentLoop4:
         self.agent_runner = AgentRunner(multi_mcp)
         self.max_self_iter = max_self_iter
 
-    async def run(self, query, file_manifest, uploaded_files):
+    async def run(self, query, file_manifest, uploaded_files, template_content):
         # Phase 1: File Profiling (if files exist)
         file_profiles = {}
         if uploaded_files:
@@ -84,7 +84,8 @@ Profile each file separately and return details."""
             plan_graph,
             session_id=None,
             original_query=query,
-            file_manifest=file_manifest
+            file_manifest=file_manifest,
+            template_content=template_content
         )
         
         context.set_multi_mcp(self.multi_mcp)
@@ -173,27 +174,50 @@ Profile each file separately and return details."""
         logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Inputs", inputs)
         
         # Build agent input
-        def build_agent_input(instruction=None, previous_output=None):
-            return {
-                "step_id": step_id,
-                "agent_prompt": instruction or step_data.get("agent_prompt", step_data["description"]),
-                "reads": step_data.get("reads", []),
-                "writes": step_data.get("writes", []),
-                "inputs": inputs,  # Direct output passing!
-                "original_query": context.plan_graph.graph['original_query'],
-                "session_context": {
-                    "session_id": context.plan_graph.graph['session_id'],
-                    "file_manifest": context.plan_graph.graph['file_manifest']
-                },
-                **({"previous_output": previous_output} if previous_output else {})
-            }
+        def build_agent_input(agent_type,instruction=None, previous_output=None):
+
+            if agent_type == "FormatterAgent":
+                output_chain = context.plan_graph.graph['output_chain'].copy()
+                return {
+                    "step_id": step_id,
+                    "agent_prompt": instruction or step_data.get("agent_prompt", step_data["description"]),
+                    "reads": step_data.get("reads", []),
+                    "writes": step_data.get("writes", []),
+                    "inputs": inputs,  # Direct output passing!
+                    "output_chain": output_chain,
+                    "original_query": context.plan_graph.graph['original_query'],
+                    "session_context": {
+                        "session_id": context.plan_graph.graph['session_id'],
+                        "file_manifest": context.plan_graph.graph['file_manifest']
+                    },
+                    **({"previous_output": previous_output} if previous_output else {})
+                }
+
+            else:
+                return {
+                    "step_id": step_id,
+                    "agent_prompt": instruction or step_data.get("agent_prompt", step_data["description"]),
+                    "reads": step_data.get("reads", []),
+                    "writes": step_data.get("writes", []),
+                    "inputs": inputs,  # Direct output passing!
+                    "original_query": context.plan_graph.graph['original_query'],
+                    "session_context": {
+                        "session_id": context.plan_graph.graph['session_id'],
+                        "file_manifest": context.plan_graph.graph['file_manifest']
+                    },
+                    **({"previous_output": previous_output} if previous_output else {})
+                }
+        
 
         # Execute first iteration
-        agent_input = build_agent_input()
+        agent_input = build_agent_input(agent_type)
 
         logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Input", agent_input)
-        
-        result = await self.agent_runner.run_agent(agent_type, agent_input, step_id, iteration)
+
+        if agent_type == "FormatterAgent":
+            result = await self.agent_runner.run_agent(agent_type, agent_input, step_id, iteration, context.template_content)
+        else:
+            result = await self.agent_runner.run_agent(agent_type, agent_input, step_id, iteration)
         
         logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Result", result)
         
@@ -292,13 +316,17 @@ Profile each file separately and return details."""
 
                 # Second iteration with previous output
                 agent_iteration_input = build_agent_input(
+                    agent_type,
                     instruction=previous_iteration_output["output"].get("next_instruction", "Continue"),
                     previous_output=iterations_data
                 )
 
                 logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Input", agent_iteration_input)
-            
-                current_iteration_output = await self.agent_runner.run_agent(agent_type, agent_iteration_input, step_id, iteration)
+
+                if agent_type == "FormatterAgent":
+                    current_iteration_output = await self.agent_runner.run_agent(agent_type, agent_iteration_input, step_id, iteration, context.template_content)
+                else:
+                    current_iteration_output = await self.agent_runner.run_agent(agent_type, agent_iteration_input, step_id, iteration)
             
                 logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Result", current_iteration_output)
 

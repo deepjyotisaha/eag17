@@ -63,7 +63,7 @@
 - Create a visually appealing tic-tac-toe game 
 - Create a tic-tac-toe game 
 
-I want to know the features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations (call_self=true) in a single step to fetch detailed information, In the final iteration of the Retriever Agent combine outputs from current and previous iterations as final step output and then create a report.
+I want a comprehensive report on the features for Mahindra XUV 3XO, and I also want a detailed analysis of the luxury and safety features. Use a single step for Retriever Agent but use multiple iterations (call_self=true) in a single step to fetch detailed information, In the final iteration of the Retriever Agent combine outputs from current and previous iterations as final step output which will be then used  then create a report.
 
 
 

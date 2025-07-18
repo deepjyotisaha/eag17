@@ -16,9 +16,10 @@ from config.log_config import get_logger, logger_step, logger_json_block, logger
 logger = get_logger(__name__)
 
 class ExecutionContextManager:
-    def __init__(self, plan_graph: dict, session_id: str = None, original_query: str = None, file_manifest: list = None, debug_mode: bool = False):
+    def __init__(self, plan_graph: dict, session_id: str = None, original_query: str = None, file_manifest: list = None, debug_mode: bool = False, template_content: str = None):
         # Build NetworkX graph
         self.plan_graph = nx.DiGraph()
+        self.template_content = template_content
         
         # Store metadata
         self.plan_graph.graph['session_id'] = session_id or str(int(time.time()))[-8:]

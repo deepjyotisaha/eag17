@@ -156,7 +156,7 @@ class AgentRunner:
         
         return all_files
 
-    async def run_agent(self, agent_type, input_data, step_id, iteration):
+    async def run_agent(self, agent_type, input_data, step_id, iteration, template_content=None):
         """Run a specific agent with the given input data"""
         try:
             # Get agent config
@@ -207,8 +207,11 @@ class AgentRunner:
             with open(system_prompt_path, "r", encoding="utf-8") as f:
                 system_prompt = f.read()
 
-            # Build the full prompt
-            full_prompt = self._build_prompt(system_prompt, input_data)
+            if template_content:
+                # Build the full prompt
+                full_prompt = self._build_prompt(system_prompt, input_data, template_content)
+            else:
+                full_prompt = self._build_prompt(system_prompt, input_data)
 
             time.sleep(15)
 
@@ -256,7 +259,7 @@ class AgentRunner:
             log_error(f"Agent {agent_type} failed: {e}")
             return {"success": False, "error": str(e)}
 
-    def _build_prompt(self, system_prompt, input_data):
+    def _build_prompt(self, system_prompt, input_data, template_content=None):
         """Build the complete prompt from system prompt and input data"""
         # Start with system prompt
         prompt_parts = [system_prompt]
@@ -275,5 +278,8 @@ class AgentRunner:
                             prompt_parts.append(f"{input_key}: {input_value}")
                 elif key not in ['files', 'image']:  # Only exclude file-related data
                     prompt_parts.append(f"{key}: {value}")
+        if template_content:
+            prompt_parts.append("\n###### You must follow the following THEME ######")
+            prompt_parts.append(template_content)
         
         return "\n".join(prompt_parts)
