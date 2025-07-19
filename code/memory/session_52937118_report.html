@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Mahindra XUV 3XO Analysis Report</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Professional styling */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3">
+            <h1 class="text-xl font-semibold">Mahindra XUV 3XO Analysis</h1>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Executive Summary -->
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Executive Summary</h2>
+            <p class="text-gray-700">The Mahindra XUV 3XO is a compelling sub-compact SUV with competitive pricing, extensive features, bold styling, and strong safety credentials, including a 5-star BNCAP rating. It offers multiple powertrain options and aims to deliver a luxurious experience within its segment. Sales data shows a mix of performance, with YoY growth driven by the model refresh but recent MoM declines. Key competitors include Kia Sonet, Hyundai Venue, and Tata Nexon. This report provides a comprehensive analysis of its features, safety, luxury, and sales performance.</p>
+        </section>
+
+        <!-- Key Selling Points -->
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Key Selling Points</h2>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>Competitive Pricing</li>
+                <li>Extensive Feature List</li>
+                <li>Bold and Modern Styling</li>
+                <li>Strong Safety Credentials (5-star BNCAP)</li>
+                <li>Multiple Powertrain Options</li>
+            </ul>
+        </section>
+        
+        <!-- Sales Trends Chart -->
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Sales Trends</h2>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <canvas id="sales-chart"></canvas>
+            </div>
+        </section>
+
+         <!-- Safety Rating Chart -->
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Safety Rating</h2>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <canvas id="safety-chart"></canvas>
+            </div>
+        </section>
+        
+        <!-- Safety Features Table -->
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Safety Features</h2>
+            <div class="overflow-x-auto shadow-lg rounded-lg">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Availability</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Airbags</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Standard (6 airbags)</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Provides cushioning and protection to occupants.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">ESC</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Standard</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Enhances vehicle stability and control.</td>
+                        </tr>
+                         <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">ABS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Standard</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Prevents wheel lock-up during braking.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Seat Belt Reminders</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Standard</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Reminds occupants to fasten their seat belts.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Level 2 ADAS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Higher-end variants</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Includes adaptive cruise control, lane-keeping assist, and autonomous emergency braking.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Monthly Sales Table -->
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Monthly Sales (Jan-Jun 2025)</h2>
+            <div class="overflow-x-auto shadow-lg rounded-lg">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Month</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sales No.</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Jan 2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">8,454</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Feb 2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7,861</td>
+                        </tr>
+                         <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Mar 2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7,055</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Apr 2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7,568</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">May 2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7,952</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Jun 2025</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7,089</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Interactive Charts -->
+    <script>
+        // Sales Trends Chart
+        const salesCtx = document.getElementById('sales-chart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan 2025', 'Feb 2025', 'Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025'],
+                datasets: [{
+                    label: 'Monthly Sales',
+                    data: [8454, 7861, 7055, 7568, 7952, 7089],
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Mahindra XUV 3XO Monthly Sales (Jan-Jun 2025)'
+                    }
+                }
+            }
+        });
+
+        // Safety Rating Chart
+        const safetyCtx = document.getElementById('safety-chart').getContext('2d');
+        const safetyChart = new Chart(safetyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Adult Occupant Protection', 'Child Occupant Protection'],
+                datasets: [{
+                    label: 'Score',
+                    data: [29.36, 43],
+                    backgroundColor: ['rgba(59, 130, 246, 0.7)', 'rgba(74, 222, 128, 0.7)'],
+                    borderColor: ['rgb(59, 130, 246)', 'rgb(74, 222, 128)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Bharat NCAP Rating'
+                    }
+                },
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Score'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

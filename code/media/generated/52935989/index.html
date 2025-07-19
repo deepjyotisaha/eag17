@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India GDP Growth Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .chart-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .axis-label {
+            font-size: 12px;
+            color: #666;
+        }
+        .axis-value {
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="chart-container">
+        <h2 class="chart-title">India GDP Growth Rate (Last 5 Years)</h2>
+        <canvas id="gdpChart" width="600" height="400"></canvas>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gdpData = [
+                {
+                    year: 2019,
+                    growthRate: -5.78
+                },
+                {
+                    year: 2020,
+                    growthRate: 9.69
+                },
+                {
+                    year: 2021,
+                    growthRate: 6.99
+                },
+                {
+                    year: 2022,
+                    growthRate: 8.15
+                },
+                {
+                    year: 2023,
+                    growthRate: 6.5
+                }
+            ];
+
+            const canvas = document.getElementById('gdpChart');
+            const ctx = canvas.getContext('2d');
+
+            const chartWidth = canvas.width;
+            const chartHeight = canvas.height;
+            const padding = 40;
+
+            const years = gdpData.map(item => item.year);
+            const growthRates = gdpData.map(item => item.growthRate);
+
+            const minGrowthRate = Math.min(...growthRates);
+            const maxGrowthRate = Math.max(...growthRates);
+
+            // Function to draw the chart
+            function drawChart() {
+                // Clear previous chart
+                ctx.clearRect(0, 0, chartWidth, chartHeight);
+
+                // Draw axes
+                ctx.beginPath();
+                ctx.moveTo(padding, padding);
+                ctx.lineTo(padding, chartHeight - padding);
+                ctx.lineTo(chartWidth - padding, chartHeight - padding);
+                ctx.strokeStyle = '#999';
+                ctx.stroke();
+
+                // Draw labels for years
+                const yearInterval = (chartWidth - 2 * padding) / (years.length - 1);
+                for (let i = 0; i < years.length; i++) {
+                    const x = padding + i * yearInterval;
+                    ctx.font = '12px sans-serif';
+                    ctx.fillStyle = '#666';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(years[i], x, chartHeight - padding + 15);
+                }
+
+                // Draw labels for growth rates
+                const growthRateInterval = (chartHeight - 2 * padding) / (maxGrowthRate - minGrowthRate);
+
+                // Draw bars
+                const barWidth = yearInterval / 2;
+                for (let i = 0; i < growthRates.length; i++) {
+                    const x = padding + i * yearInterval - barWidth / 2;
+                    const barHeight = (growthRates[i] - minGrowthRate) * growthRateInterval;
+                    const y = chartHeight - padding - barHeight;
+
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.fillRect(x, y, barWidth, barHeight);
+                }
+
+                 // Draw growth rate values on top of bars
+                ctx.font = '12px sans-serif';
+                ctx.fillStyle = '#333';
+                ctx.textAlign = 'center';
+
+                for (let i = 0; i < growthRates.length; i++) {
+                    const x = padding + i * yearInterval;
+                    const barHeight = (growthRates[i] - minGrowthRate) * growthRateInterval;
+                    const y = chartHeight - padding - barHeight;
+                    ctx.fillText(growthRates[i].toFixed(2) + '%', x, y - 5);
+                }
+            }
+            drawChart();
+        });
+    </script>
+</body>
+</html>
