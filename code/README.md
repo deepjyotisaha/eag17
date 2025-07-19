@@ -79,4 +79,7 @@ Create a new tictactoe game that two people can play, it should have a timer of 
 Create a new tictactoe game that two people can play, it should have a timer of 10 seconds to make the play and when one user wins, they get a point. User should be able to reset and play another game. Maintain and display points tally. Whoever gets 3 points first wins. Have multiple files for HTML, JS and CSS. Use ONLY ONE step of CoderAgent but use MULTIPLE ITERATIONS (call_self=True) of the same step to enrich the game logic, visual or layout! You dont need any clarifications. You dont need to build reports. Use beautiful theme and colour schemes, layout etc. You get extra money for making this visually appealing!
 
 
+Create a new tictactoe game that two people can play and when one user wins, they get a point. User should be able to reset and play another game. Maintain and display points tally which is visually appealing. Whoever gets 3 points first wins. Have multiple files for HTML, JS and CSS. Use ONLY ONE step of CoderAgent but use MULTIPLE ITERATIONS (call_self=True) of the same step to enrich the game logic, visual or layout! You dont need any clarifications. You dont need to build reports. Use beautiful theme and colour schemes, layout etc. You get extra money for making this visually appealing!
+
+
 
