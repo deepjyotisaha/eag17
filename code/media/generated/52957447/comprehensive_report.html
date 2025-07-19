@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Mahindra XUV 3XO Report</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+
+/* Chart container */
+.chart-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Table container */
+.table-container {
+    overflow-x: auto;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Image container */
+.image-container {
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.image-caption {
+    font-style: italic;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* References section */
+.references-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-top: 3rem;
+}
+
+.reference-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.25rem;
+    border-left: 4px solid #007bff;
+}
+
+.reference-title {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.reference-url {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.reference-description {
+    margin-top: 0.5rem;
+    color: #333;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Mahindra<br>XUV 3XO Report</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#executive_summary" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Executive Summary</a>
+    <a href="#market_analysis" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Market Analysis</a>
+    <a href="#features" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Features</a>
+    <a href="#safety" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Safety</a>
+    <a href="#sales_data" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Sales Data</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Mahindra XUV 3XO Report</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Executive Summary -->
+  <div class="w3-container" style="margin-top:80px" id="executive_summary">
+    <h1 class="w3-jumbo"><b>Executive Summary</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>The SUV market has shown robust growth in recent years, driven by increasing consumer preference for versatility, safety, and comfort. The Mahindra XUV 3XO is a significant player in the sub-compact SUV segment, offering a compelling combination of features, performance, and safety. Recent sales data indicates strong demand for the XUV 3XO, supported by its competitive pricing and positive reviews.</p>
+    <p>This section provides a high-level overview of the SUV market and the Mahindra XUV 3XO's position within it. Key insights and strategic implications are highlighted to provide a concise summary.</p>
+    <ul>
+      <li>SUV market continues to expand with electric and hybrid models.</li>
+      <li>Mahindra XUV 3XO offers a fresh look to the segment.</li>
+      <li>XUV 3XO sales are robust, driven by competitive pricing.</li>
+      <li>Mahindra focuses on integrating advanced technology into SUVs.</li>
+    </ul>
+
+    <div class="chart-container">
+      <canvas id="suv_market_growth_chart"></canvas>
+    </div>
+
+    <div class="table-container">
+      <table class="w3-table w3-bordered">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Sales No.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan 2025</td><td>8,454</td></tr>
+          <tr><td>Feb 2025</td><td>7,861</td></tr>
+          <tr><td>Mar 2025</td><td>7,055</td></tr>
+          <tr><td>Apr 2025</td><td>7,568</td></tr>
+          <tr><td>May 2025</td><td>7,952</td></tr>
+          <tr><td>Jun 2025</td><td>7,089</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="image-container">
+      <img src="https://stimg.cardekho.com/images/expert-review/mahindra-xuv-3xo/1714475519871/original/Mahindra-XUV-3XO-0.jpg" alt="Mahindra XUV 3XO Soft touch material on dashboard and door pads.">
+      <div class="image-caption">Mahindra XUV 3XO Soft touch material on dashboard and door pads.</div>
+    </div>
+  </div>
+
+  <!-- Market Analysis -->
+  <div class="w3-container" id="market_analysis" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Market Analysis</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>The SUV market is segmented by type (Compact SUVs, Mid-Size SUVs, Full-Size SUVs, Luxury SUVs, Electric SUVs, Hybrid SUVs), by fuel type (Gasoline SUVs, Diesel SUVs, Electric SUVs, Hybrid SUVs), by drivetrain, by seating capacity, and by application (Personal Use SUVs, Commercial Use SUVs, Off-Road SUVs). The global SUV market was valued at USD 1.36 Trillion in 2024 and is projected to reach a value of USD 2.2 Trillion by 2032, expanding at a compound annual growth rate (CAGR) of 6% during the forecast period.</p>
+    <p>This section analyzes the overall SUV market dynamics, including size, growth, segmentation, and key trends.</p>
+    <ul>
+      <li>Global SUV market valued at USD 1.36 Trillion in 2024.</li>
+      <li>Projected to reach USD 2.2 Trillion by 2032.</li>
+      <li>Expanding at a CAGR of 6% during the forecast period.</li>
+      <li>Market driven by urbanization and rising disposable income.</li>
+    </ul>
+  </div>
+
+  <!-- Features -->
+  <div class="w3-container" id="features" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Features</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>The Mahindra XUV 3XO has 1 Diesel Engine and 1 Petrol Engine on offer. The Diesel engine is 1498 cc while the Petrol engine is 1197 cc . It is available with Manual & Automatic transmission.Depending upon the variant and fuel type the XUV 3XO has a mileage of 17.96 to 20.6 kmpl. The XUV 3XO is a 5 seater 3 cylinder car and has length of 3990 mm, width of 1821 mm and a wheelbase of 2600.</p>
+    <ul>
+      <li>Soft touch material on dashboard and door pads.</li>
+      <li>Panoramic sunroof - largest in the segment.</li>
+      <li>Level 2 ADAS with features such as forward collision warning, adaptive cruise control.</li>
+      <li>1.2-litre turbo-petrol engine makes 130PS/230Nm most powerful in its class.</li>
+    </ul>
+  </div>
+
+  <!-- Safety -->
+  <div class="w3-container" id="safety" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Safety</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>The Mahindra XUV 3XO has secured a 5-star safety rating from Bharat NCAP. The SUV was crash-tested by Bharat NCAP in October 2024. The XUV 3XO scored 29.36 points out of 32 in adult occupant protection and 43 points out of 49 in child occupant protection.</p>
+    <ul>
+      <li>5-star rating for adult occupant protection.</li>
+      <li>Child occupant protection receives 5-star rating.</li>
+      <li>Standard safety features include 6 airbags, ESC, reverse parking sensors, & more.</li>
+      <li>Level 2 ADAS available.</li>
+    </ul>
+  </div>
+  
+  <!-- Sales Data -->
+  <div class="w3-container" id="sales_data" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Sales Data</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>In June 2025, the total sales figure of XUV 3XO was 7,089 units, which is a 10.85 percent MoM decline. In December 2024, XUV3XO witnessed a staggering growth of 97.18%, with sales of 7,000 units in December 2024 compared to 3,550 units in December 2023.</p>
+    <ul>
+      <li>XUV 3XO sales: 7,089 units in June 2025.</li>
+      <li>December 2024 sales up 97.18% YoY.</li>
+      <li>High demand for the model.</li>
+      <li>Sales impacted by market conditions.</li>
+    </ul>
+  </div>
+  
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Chart implementation
+new Chart(document.getElementById('suv_market_growth_chart'), {
+    type: 'bar',
+    data: {
+        labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+        datasets: [{
+            label: 'Market Size ($B)',
+            data: [1.36, 1.45, 1.55, 1.66, 1.77, 1.89, 2.2],
+            backgroundColor: 'rgba(34, 197, 94, 0.8)'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'SUV Market Growth Projection'
+            }
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>

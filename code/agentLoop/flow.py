@@ -323,7 +323,7 @@ Profile each file separately and return details."""
 
                 logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Input", agent_iteration_input)
 
-                if agent_type == "FormatterAgent":
+                if agent_type == "FormatterAgent" or agent_type == "ReportGeneratorAgent":
                     current_iteration_output = await self.agent_runner.run_agent(agent_type, agent_iteration_input, step_id, iteration, context.template_content)
                 else:
                     current_iteration_output = await self.agent_runner.run_agent(agent_type, agent_iteration_input, step_id, iteration)

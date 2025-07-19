@@ -266,21 +266,125 @@ Each section MUST include:
 
 ---
 
-## 🎨 CHART AND TABLE SPECIFICATIONS
+## 🎨 CHART, TABLE, AND IMAGE SPECIFICATIONS
 
-### **🔹 CHART TYPES AND USE CASES:**
-- **Line Charts**: Trends over time (funding, growth, adoption)
-- **Bar Charts**: Comparisons between categories (geographic, technology)
-- **Doughnut/Pie Charts**: Distribution and proportions (funding by stage, technology mix)
-- **Scatter Plots**: Correlations and relationships (funding vs. age, size vs. growth)
-- **Heatmaps**: Geographic or matrix data (regional funding, technology adoption)
+### **🔹 CHART REQUIREMENTS:**
+- **Limited Size**: All charts must be contained within divs with `max-width: 800px` and centered
+- **Responsive**: Charts should maintain aspect ratio and be mobile-friendly
+- **Interactive**: Include hover effects and tooltips
+- **Types**: Line, bar, doughnut/pie, scatter plots, heatmaps
+- **Use Cases**: Trends over time, comparisons, distributions, correlations
 
-### ** TABLE REQUIREMENTS:**
+### **🔹 TABLE REQUIREMENTS:**
+- **Limited Size**: All tables must be contained within divs with `max-width: 800px` and centered
 - **Clear headers** with descriptive column names
 - **Consistent formatting** with proper alignment
 - **Data validation** - no empty cells without explanation
 - **Sorting capabilities** where appropriate
-- **Responsive design** for mobile viewing
+- **Responsive design** for mobile viewing with horizontal scroll
+
+### **🔹 IMAGE REQUIREMENTS:**
+- **Limited Size**: All images must be contained within divs with `max-width: 600px` and centered
+- **High Quality**: Use high-resolution images when available
+- **Alt Text**: Always include descriptive alt text for accessibility
+- **Captions**: Include informative captions explaining the image content
+- **Responsive**: Images should scale properly on different screen sizes
+- **Sources**: Include proper attribution for images when required
+
+### **🔹 REFERENCE REQUIREMENTS:**
+- **URLs**: Include direct links to source materials
+- **Titles**: Provide descriptive titles for each reference
+- **Descriptions**: Include brief descriptions of what each reference contains
+- **Formatting**: Present references in a clean, organized format
+- **Accessibility**: Make all links open in new tabs for better user experience
+
+### **🔹 HTML LAYOUT SPECIFICATIONS:**
+```css
+/* Chart Container */
+.chart-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Table Container */
+.table-container {
+    overflow-x: auto;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Image Container */
+.image-container {
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.image-caption {
+    font-style: italic;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* References Section */
+.references-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-top: 3rem;
+}
+
+.reference-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.25rem;
+    border-left: 4px solid #007bff;
+}
+
+.reference-title {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.reference-url {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.reference-description {
+    margin-top: 0.5rem;
+    color: #333;
+}
+```
+
+### **🔹 CHART.JS CONFIGURATION:**
+```javascript
+// Ensure charts are responsive and maintain aspect ratio
+options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        title: {
+            display: true,
+            text: 'Chart Title'
+        }
+    }
+}
+```
 
 ---
 
