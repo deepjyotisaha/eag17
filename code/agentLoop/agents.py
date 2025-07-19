@@ -301,16 +301,19 @@ class AgentRunner:
             for key, value in input_data.items():
                 if key == 'inputs' and isinstance(value, dict):
                     # ✅ HANDLE GRAPH INPUTS - Include the actual data from previous nodes
-                    prompt_parts.append("\n--- Context from Previous Steps ---")
+                    prompt_parts.append("\n--- CONTEXT FROM PREVIOUS STEPS ---")
                     for input_key, input_value in value.items():
                         if isinstance(input_value, (dict, list)):
                             prompt_parts.append(f"{input_key}: {json.dumps(input_value, indent=2)}")
                         else:
                             prompt_parts.append(f"{input_key}: {input_value}")
+                elif key == 'output_chain':
+                    prompt_parts.append("\n--- HERE IS THE ENTIRE OUTPUT CHAIN ---")
+                    prompt_parts.append(f"{key}: {json.dumps(value, indent=2)}")
                 elif key not in ['files', 'image']:  # Only exclude file-related data
                     prompt_parts.append(f"{key}: {value}")
         if template_content:
-            prompt_parts.append("\n###### You must follow the following THEME ######")
+            prompt_parts.append("\n###### HERE IS THE TEMPLATE CONTENT ######")
             prompt_parts.append(template_content)
         
         return "\n".join(prompt_parts)

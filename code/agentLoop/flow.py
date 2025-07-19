@@ -176,7 +176,7 @@ Profile each file separately and return details."""
         # Build agent input
         def build_agent_input(agent_type,instruction=None, previous_output=None):
 
-            if agent_type == "FormatterAgent":
+            if agent_type == "FormatterAgent" or agent_type == "ReportGeneratorAgent":
                 output_chain = context.plan_graph.graph['output_chain'].copy()
                 return {
                     "step_id": step_id,
@@ -214,7 +214,7 @@ Profile each file separately and return details."""
 
         logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Input", agent_input)
 
-        if agent_type == "FormatterAgent":
+        if agent_type == "FormatterAgent" or agent_type == "ReportGeneratorAgent":
             result = await self.agent_runner.run_agent(agent_type, agent_input, step_id, iteration, context.template_content)
         else:
             result = await self.agent_runner.run_agent(agent_type, agent_input, step_id, iteration)
