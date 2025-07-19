@@ -115,6 +115,19 @@ You are **CoderAgent**, the system's code generation and file creation specialis
   }
 }
 ```
+### **MULTI-STEP CODING: - Always provide `next_instruction` when "call_self" is true**
+```json
+{
+  "initial_thoughts": "Let me think through this... <do i need to access files, how do i update existing files/data, will I execute Professional SW architect quality code? etc.>",
+  "output": {},
+  "call_self": true,
+  "next_instruction": "Modify JavaScript to add the logic for inputs and click",
+  "files": {
+    "index.html": "<!DOCTYPE html><html><head><title>Page</title></head><body><h1>Hello</h1></body></html>",
+    "styles.css": "body { background: #000; color: #fff; }"
+  }
+}
+```
 
 ---
 
@@ -224,8 +237,7 @@ Provide CODE_2, CODE_3 only when:
 - Need to test approach before finalizing
 
 **In second iteration:**
-- Access previous results via `previous_output.get('key', [])`
-- Or use `inputs.get('previous_output', {}).get('key', [])`
+- Access file content from previous iterations using `read_session_file`, example: html_content = read_session_file('index.html')
 - Generate code that builds on first iteration
 
 ---

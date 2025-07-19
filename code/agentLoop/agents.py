@@ -8,6 +8,15 @@ from utils.utils import log_step, log_error
 from PIL import Image
 import os
 import time
+
+import time
+import asyncio
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
+from rich.live import Live
+from rich.panel import Panel
+from rich.text import Text
+
 from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
 
 logger = get_logger(__name__)
@@ -20,6 +29,25 @@ class AgentRunner:
         config_path = Path("config/agent_config.yaml")
         with open(config_path, "r", encoding="utf-8") as f:
             self.agent_configs = yaml.safe_load(f)["agents"]
+        self.console = Console()
+
+
+    async def _show_timer_animation(self, duration=30, message="Processing"):
+            """Show an animated timer for the specified duration"""
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                BarColumn(),
+                TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+                TimeElapsedColumn(),
+                console=self.console,
+                transient=True
+            ) as progress:
+                task = progress.add_task(f"[cyan]{message}...", total=duration)
+                
+                for i in range(duration):
+                    progress.update(task, advance=1)
+                    await asyncio.sleep(1)
 
     def _analyze_file_strategy(self, uploaded_files):
         """Analyze files to determine best upload strategy"""
@@ -213,7 +241,10 @@ class AgentRunner:
             else:
                 full_prompt = self._build_prompt(system_prompt, input_data)
 
-            time.sleep(30)
+            #time.sleep(30)
+
+            # Replace the simple sleep with animated timer
+            await self._show_timer_animation(30, f"🤖 {agent_type} Waiting before calling Gemini")
 
 
             logger_prompt(logger, f"🤖 Agent Runner: {agent_type} - Step {step_id} - Iteration {iteration} - FULL PROMPT", full_prompt)

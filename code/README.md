@@ -63,7 +63,18 @@
 - Create a visually appealing tic-tac-toe game 
 - Create a tic-tac-toe game 
 
-I want a comprehensive report on the features for Mahindra XUV 3XO, and I also want a detailed analysis of the luxury and safety features. Use a single step for Retriever Agent but use multiple iterations (call_self=true) in a single step to fetch detailed information, In the final iteration of the Retriever Agent combine outputs from current and previous iterations as final step output which will be then used  then create a report.
+I want a comprehensive report on the features for Mahindra XUV 3XO, and you must also include a detailed analysis of the luxury and safety features. Use a single step for Retriever Agent but use multiple iterations (call_self=true) in a single step to fetch detailed information, In the final iteration of the Retriever Agent combine outputs from current and previous iterations as final step output which will be then used  then create a report.
+
+I want a very comprehensive report on the features for Mahindra XUV 3XO, and you must also include a detailed analysis of the luxury and safety features.
+
+You are a stock researcher, prepare a very detailed and comprehensive report on Asian Paints. You must include graphs, tables, comparisons. Finally you must share a well formatted and polished HTML report (use Formatter Agent as last step to generate HTML report). Hint: For graphs, and tables, you must first collect relevant data sources (revenue trend, market share etc.), and then use Coder Agent to generate the graphs
+
+
+Create a visually appealing tic-tac-toe game, use multiple iterations of Coder Agent to enhance visual appeal!
+
+Create a visually appealing tic-tac-toe game, use a single step of Coder Agent but use multiple iterations to enhance visual appeal! You must have seperate files for HTML, JS and CSS
+
+Create a new tictactoe game that two people can play, it should have a timer of 10 seconds to make the play and when one user wins, they get a point. User should be able to reset and play another game. Maintain and display points tally. Whoever gets 3 points first wins. Use ONLY ONE step of CoderAgent but use multiple iterations (call_self=True) to enhance visual appeal! You dont need any clarifications. Use beautiful theme and colour schemes, layout etc. You get extra money for making this visually appealing!
 
 
 
