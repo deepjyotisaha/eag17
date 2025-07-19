@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📊 COMPREHENSIVE MAHINDRA CAR ANALYSIS REPORT</title>
+  <style>
+    /* Base styles */
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0a0a0a;
+      --text-light: #111111;
+      --text-dark: #f1f1f1;
+      --border-light: #000000;
+      --border-dark: #ffffff;
+      --font-sans: 'Inter', 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'EB Garamond', 'New York', 'Georgia', serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: 18px;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s, font-family 0.3s;
+    }
+    
+    html.dark, body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background-color: var(--bg-light);
+      transition: background-color 0.3s;
+    }
+    html.dark .container, body.dark .container {
+      background-color: var(--bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 2.5em;
+      margin-bottom: 0.8em;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      border-bottom: 0.5px solid var(--border-light);
+      padding-bottom: 0.2em;
+    }
+    html.dark h1, body.dark h1 {
+      border-color: var(--border-dark);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+      z-index: 999;
+    }
+
+    .controls button {
+      all: unset;
+      cursor: pointer;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-weight: 500;
+      color: inherit;
+      opacity: 0.6;
+      transition: opacity 0.3s, background-color 0.3s;
+    }
+    .controls button:hover {
+      opacity: 1;
+    }
+    html.dark .controls button, body.dark .controls button {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer {
+      font-size: 0.55rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #aaa;
+    }
+
+    @media print {
+      .controls { display: none; }
+    }
+
+    
+        /* Image Carousel Styles */
+        .image-carousel {
+            margin: 2rem 0;
+        }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+        
+        .carousel-slides {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .carousel-slide.active {
+            display: flex;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .carousel-caption {
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        
+        .carousel-caption p {
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+        
+        .carousel-caption small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        html.dark .carousel-caption small, body.dark .carousel-caption small {
+            color: #aaa;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-size: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.9);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-btn.prev {
+            left: 0;
+        }
+        
+        .carousel-btn.next {
+            right: 0;
+        }
+        
+        .carousel-dots {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .carousel-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active, .carousel-dot:hover {
+            background-color: #333;
+            transform: scale(1.2);
+        }
+        html.dark .carousel-dot {
+            background-color: #666;
+        }
+        html.dark .carousel-dot.active, body.dark .carousel-dot.active,
+        html.dark .carousel-dot:hover, body.dark .carousel-dot:hover {
+            background-color: #ccc;
+        }
+        
+        /* Content Images Styling */
+        .container img:not(.carousel-slide img) {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        html.dark .container img:not(.carousel-slide img), 
+        body.dark .container img:not(.carousel-slide img) {
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+        
+        /* Remove any remaining inline width/height styles */
+        .container img[style*="width"] {
+            width: auto !important;
+            max-width: 100% !important;
+        }
+        .container img[style*="height"] {
+            height: auto !important;
+        }
+        
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="toggleDark()">Th</button>
+    <button onclick="toggleFont()">Aa</button>
+    <button onclick="toggleEmojis()">Em</button>
+  </div>
+  <div class="container" id="main-container">
+    <h1>📊 COMPREHENSIVE MAHINDRA CAR ANALYSIS REPORT</h1>
+        <div class="image-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+        
+                    <div class="carousel-slide active">
+                        <img src="https://www.financialexpress.com/wp-content/themes/ie-network-theme/assets/src/img/default-ie.jpg" alt="upcoming mahindra launches" />
+                        <div class="carousel-caption">
+                            <p><strong>upcoming mahindra launches</strong></p>
+                            <small><a href="//www.financialexpress.com" target="_blank" rel="noopener noreferrer">Source: financialexpress.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.financialexpress.com/wp-content/uploads/2023/02/Mahindra-Thar-5-Door-2.jpg?w=620" alt="upcoming mahindra launches" />
+                        <div class="carousel-caption">
+                            <p><strong>upcoming mahindra launches</strong></p>
+                            <small><a href="//www.financialexpress.com" target="_blank" rel="noopener noreferrer">Source: financialexpress.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.financialexpress.com/wp-content/uploads/2023/02/mahindra-bolero-neo-plus-2.jpg?w=620" alt="upcoming mahindra launches" />
+                        <div class="carousel-caption">
+                            <p><strong>upcoming mahindra launches</strong></p>
+                            <small><a href="//www.financialexpress.com" target="_blank" rel="noopener noreferrer">Source: financialexpress.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://acko-cms.ackoassets.com/seo_non_core_app_qr_31b2a00881.png" alt="seo_non_core_app_qr" />
+                        <div class="carousel-caption">
+                            <p><strong>seo_non_core_app_qr</strong></p>
+                            <small><a href="//acko-cms.ackoassets.com" target="_blank" rel="noopener noreferrer">Source: acko-cms.ackoassets.com</a> | Confidence: 0.70</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://media.zigcdn.com/media/content/2023/Dec/6581758c9390a.jpg?tr=w-420" alt="Upcoming Mahindra Cars In 2024" />
+                        <div class="carousel-caption">
+                            <p><strong>Upcoming Mahindra Cars In 2024</strong></p>
+                            <small><a href="//media.zigcdn.com" target="_blank" rel="noopener noreferrer">Source: media.zigcdn.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2023/02/Mahindra-BE.07.jpg" alt="Mahindra BE.07" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra BE.07</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2023/02/mahindra-bolero-neo-plus-7-seater.jpg" alt="Mahindra BE.07" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra BE.07</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2022/12/5-Door-Mahindra-Thar-Launch.jpg" alt="Mahindra BE.07" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra BE.07</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2023/03/Mahindra-Bolero-Diesel.jpg" alt="Mahindra bolero neo plus 7 seater" />
+                        <div class="carousel-caption">
+                            <p><strong>Mahindra bolero neo plus 7 seater</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://www.indiacarnews.com/wp-content/uploads/2021/05/Mahindra-Design-Sketch-1.jpg" alt="5-Door Mahindra Thar Launch" />
+                        <div class="carousel-caption">
+                            <p><strong>5-Door Mahindra Thar Launch</strong></p>
+                            <small><a href="//www.indiacarnews.com" target="_blank" rel="noopener noreferrer">Source: indiacarnews.com</a> | Confidence: 0.90</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw95797f68/images/SCRC/large/ScorpioClassic_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                    <div class="carousel-slide ">
+                        <img src="https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc6625064/images/NEOP/large/BoleroNeoPlus_602x339.png?sw=360&sh=202" alt="SCORPIO CLASSIC" />
+                        <div class="carousel-caption">
+                            <p><strong>SCORPIO CLASSIC</strong></p>
+                            <small><a href="//auto.mahindra.com" target="_blank" rel="noopener noreferrer">Source: auto.mahindra.com</a> | Confidence: 0.80</small>
+                        </div>
+                    </div>
+            
+                </div>
+                
+                <button class="carousel-btn prev" onclick="changeSlide(-1)">&lt;</button>
+                <button class="carousel-btn next" onclick="changeSlide(1)">&gt;</button>
+            
+            </div>
+        <div class="carousel-dots"><button class="carousel-dot active" onclick="currentSlide(1)"></button><button class="carousel-dot " onclick="currentSlide(2)"></button><button class="carousel-dot " onclick="currentSlide(3)"></button><button class="carousel-dot " onclick="currentSlide(4)"></button><button class="carousel-dot " onclick="currentSlide(5)"></button><button class="carousel-dot " onclick="currentSlide(6)"></button><button class="carousel-dot " onclick="currentSlide(7)"></button><button class="carousel-dot " onclick="currentSlide(8)"></button><button class="carousel-dot " onclick="currentSlide(9)"></button><button class="carousel-dot " onclick="currentSlide(10)"></button><button class="carousel-dot " onclick="currentSlide(11)"></button><button class="carousel-dot " onclick="currentSlide(12)"></button></div>
+        </div>
+        <div><h2 id="executive-summary">🎯 Executive Summary</h2><p>This report provides a detailed analysis of Mahindra's recent car launches, with a focus on the Mahindra Thar 5-door, the recommended vehicle. The analysis includes an overview of the market landscape, key features, specifications, and potential risks. The Thar 5-door stands out for its blend of practicality, off-road capability, and broad consumer appeal.</p></div><h2 id="market-landscape">🔍 Market Landscape Overview</h2><p>Mahindra has been actively launching new vehicles and revamping existing models to maintain its position in the competitive Indian automotive market. Recent launches include the XUV700, Scorpio-N, XUV400, and Bolero Neo Plus. The company is also planning to launch several new SUVs and electric vehicles in the coming years.</p><img src="https://www.financialexpress.com/wp-content/uploads/2023/02/Mahindra-Thar-5-Door-2.jpg?w=620" alt="thar 5 door"><h2 id="recent-launches">🚗 Recent Mahindra Car Launches (2022-2024)</h2><ul><li><b>Mahindra Bolero Neo Plus (Expected December 2022):</b> An extended version of the Bolero Neo, offering increased seating capacity.</li><li><b>Mahindra XUV400 EV (January 2023):</b> Mahindra's entry into the electric SUV segment.</li><li><b>Mahindra Thar 5-door (Expected June 2023/Early 2024):</b> A long-wheelbase version of the popular Thar, offering improved practicality.</li><li><b>Mahindra New XUV500 (July 2024):</b> A revamped version of the XUV500, positioned between the XUV300 and XUV700.</li><li><b>Mahindra XUV.e8 (End of 2024):</b> An all-electric version of the XUV700.</li></ul><img src="https://acko-cms.ackoassets.com/seo_non_core_app_qr_31b2a00881.png" alt="seo_non_core_app_qr"><h2 id="recommended-vehicle">⭐ Recommended Vehicle: Mahindra Thar 5-Door</h2><p>The Mahindra Thar 5-door is recommended for its blend of practicality, off-road capability, and broad appeal. It combines the ruggedness of the Thar with the convenience of a 5-door configuration, making it suitable for both adventurous individuals and families.</p><h2 id="thar-5door-features">🛠️ Mahindra Thar 5-Door Key Features (Expected)</h2><ul><li><b>Larger Footprint:</b> Compared to the 3-door model, offering more cabin space and a larger boot.</li><li><b>Infotainment System:</b> Expected to feature a bigger infotainment system.</li><li><b>Sunroof:</b> Likely to include a sunroof.</li><li><b>Engine Options:</b> Petrol and diesel engine options are expected.</li><li><b>Drive Configurations:</b> Available in 4-wheel-drive (4WD) and rear-wheel-drive (RWD) configurations.</li><li><b>Expected Price:</b> Around Rs 15 lakh (as indicated by Zigwheels.com)</li></ul><img src="https://media.zigcdn.com/media/content/2023/Dec/6581758c9390a.jpg?tr=w-420" alt="Upcoming Mahindra Cars In 2024"><h2 id="technology-breakdown">⚙️ Technology Breakdown</h2><p>The Thar 5-door is expected to incorporate modern technology to enhance comfort, convenience, and safety. Key technological features include:</p><ul><li><b>Infotainment System:</b> A touchscreen infotainment system with support for Android Auto and Apple CarPlay.</li><li><b>Driver Display:</b> Higher variants may feature a 10.25-inch digital driver display.</li><li><b>Connectivity Features:</b> The latest Adrenox software with over-the-air (OTA) updates.</li><li><b>Safety Features:</b> Six airbags, advanced driver assistance systems (ADAS), and a dashcam with front and rear monitoring functions.</li></ul><h2 id="risk-uncertainties">⚠️ Risk Factors and Uncertainties</h2><p>Purchasing a new vehicle always comes with risks and uncertainties. For the Mahindra Thar 5-door, these may include:</p><ul><li><b>Launch Delays:</b> Production or supply chain issues could delay the launch date.</li><li><b>Feature Availability:</b> The actual features and specifications of the Thar 5-door may vary from the expected features listed in the report.</li><li><b>Pricing:</b> The final price may differ from the initial estimates, depending on market conditions and government regulations.</li><li><b>Market Reception:</b> The vehicle's success depends on consumer demand and acceptance.</li></ul><p>It's essential to stay informed and verify details with Mahindra before making a purchase.</p><p>Data discrepancies exist across different sources regarding launch dates and specifications. Verify information directly from Mahindra.</p><img src="https://www.indiacarnews.com/wp-content/uploads/2023/02/Mahindra-BE.07.jpg" alt="Mahindra BE.07"><h2 id="hidden-signals">🕵️ Hidden Signals and Meta Observations</h2><blockquote>The increasing focus on electric vehicles suggests a shift toward sustainable mobility solutions. Mahindra's entry into the EV segment with the XUV400 and the upcoming XUV.e8 indicates a commitment to electrification.</blockquote><blockquote>The Thar 5-door's broad appeal may indicate a growing demand for versatile SUVs that can handle both urban commutes and off-road adventures.</blockquote><img src="https://www.spinny.com/blog/wp-content/uploads/2023/03/file-ezgif.com-resize-1-1160x653-1-800x450.webp" alt="Black Hyundai Verna"><h2 id="recommendations">🎯 Strategic Recommendations</h2><ol><li><b>Monitor Launch Dates:</b> Stay updated on the official launch date of the Thar 5-door.</li><li><b>Verify Features:</b> Confirm the specifications and features with Mahindra.</li><li><b>Consider EV Options:</b> Explore Mahindra's electric vehicle offerings if sustainability is a priority.</li><li><b>Assess Market Demand:</b> Keep an eye on market trends and consumer preferences.</li></ol><h2 id="source-citations">📜 Source Citations</h2><ol><li><a href="https://www.financialexpress.com/auto/car-news/top-5-upcoming-mahindra-vehicle-launches/2991432/" target="_blank" rel="noopener noreferrer">Financial Express: Top 5 upcoming Mahindra vehicle launches</a></li><li><a href="https://www.acko.com/car-guide/upcoming-mahindra-cars-in-india/" target="_blank" rel="noopener noreferrer">ACKO: Upcoming Mahindra Cars in India 2022-2025</a></li><li><a href="https://www.zigwheels.com/news-features/general-news/4-upcoming-mahindra-cars-worth-keeping-an-eye-on-in-2024/51747/?is_amp=1&onlyStory=6" target="_blank" rel="noopener noreferrer">ZigWheels: 4 Upcoming Mahindra Cars Worth Keeping An Eye On In 2024</a></li><li><a href="https://www.indiacarnews.com/news/upcoming-mahindra-cars-20433/" target="_blank" rel="noopener noreferrer">India Car News: Upcoming Mahindra Cars in India in the Next Two Years</a></li><li><a href="https://www.spinny.com/blog/upcoming-mahindra-cars-in-india/" target="_blank" rel="noopener noreferrer">Spinny: Upcoming Mahindra Cars in India 2023-2024</a></li><li><a href="https://auto.mahindra.com/suv/thar-roxx/TH5D.html" target="_blank" rel="noopener noreferrer">Mahindra Thar ROXX official website</a></li><li><a href="https://suvtale.com/mahindra-thar-5-door-a-comprehensive-review/" target="_blank" rel="noopener noreferrer">SUV Tale: Mahindra Thar 5 Door: A Comprehensive Review</a></li><li><a href="https://carsinfo.in/7-seater-mahindra-thar/" target="_blank" rel="noopener noreferrer">CarsInfo: Mahindra 5 Door Thar Price in India and Specifications</a></li><li><a href="https://www.cars24.com/new-cars/mahindra/thar/specifications/" target="_blank" rel="noopener noreferrer">Cars24: Mahindra Thar 2025 specifications</a></li><li><a href="https://www.indiacarnews.com/news/5-door-mahindra-thar-suv-10-key-features-explained-61770/" target="_blank" rel="noopener noreferrer">India Car News: 5-Door Mahindra Thar SUV 10 Key Features Explained</a></li></ol>
+    <div class="footer">
+      <p>Generated by Seraphine on 2025-07-16 22:53:26 · Session ID: 52686484</p>
+    </div>
+  </div>
+  <script>
+    let emojisHidden = true; /* Start with emojis hidden */
+    let originalContent = '';
+
+    function toggleDark() {
+      /* Toggle dark class on BOTH html and body elements */
+      document.documentElement.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+    }
+
+    function toggleFont() {
+      const current = getComputedStyle(document.body).fontFamily;
+      const isSerif = current.includes("Georgia");
+      document.body.style.fontFamily = isSerif ? 'var(--font-sans)' : 'var(--font-serif)';
+    }
+
+    function toggleEmojis() {
+      const container = document.getElementById('main-container');
+      
+      if (emojisHidden) {
+        /* Restore original content (show emojis) */
+        if (originalContent) {
+          container.innerHTML = originalContent;
+        }
+        emojisHidden = false;
+      } else {
+        /* Store original content and remove emojis */
+        if (!originalContent) {
+          originalContent = container.innerHTML;
+        }
+        /* ✅ FIXED: Comprehensive emoji regex that includes ALL emoji ranges */
+        const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+        container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+        emojisHidden = true;
+      }
+    }
+
+    /* Initialize with emojis hidden on page load */
+    window.addEventListener('load', function() {
+      const container = document.getElementById('main-container');
+      /* Store original content first */
+      originalContent = container.innerHTML;
+      /* Then remove emojis by default */
+      /* ✅ FIXED: Same comprehensive emoji regex */
+      const emojiRegex = /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{2100}-\u{214F}]|[\u{1F000}-\u{1F02F}]|[\u{1F0A0}-\u{1F0FF}]|[\u{1F100}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F910}-\u{1F96B}]|[\u{1F980}-\u{1F9E0}]/gu;
+      container.innerHTML = container.innerHTML.replace(emojiRegex, '');
+    });
+
+    
+        // Image Carousel JavaScript
+        let currentSlideIndex = 0;
+        let slides = [];
+        let dots = [];
+        
+        function initializeCarousel() {
+            slides = document.querySelectorAll('.carousel-slide');
+            dots = document.querySelectorAll('.carousel-dot');
+            currentSlideIndex = 0;
+            
+            if (slides.length > 0) {
+                showSlide(0);
+            }
+        }
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show selected slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                if (dots[index]) {
+                    dots[index].classList.add('active');
+                }
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        function currentSlide(index) {
+            if (slides.length === 0) return;
+            
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+        
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCarousel();
+        });
+        
+        // Re-initialize if content changes (for emoji toggle)
+        window.addEventListener('load', function() {
+            setTimeout(initializeCarousel, 100);
+        });
+        
+  </script>
+</body>
+</html>

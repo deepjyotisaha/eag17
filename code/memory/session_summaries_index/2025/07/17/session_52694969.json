@@ -1,0 +1,102 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52694969",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle, use ONLY ONE step for Retriever Agent but you can use multiple iterations in the single step (call_Self=true) to fetch all information needed and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-16T19:42:49.568815",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch information about recent Mahindra car launches using the RetrieverAgent. This step will call itself recursively to collect all the details needed.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Exhaustively research the most recent Mahindra car launches, including model names, release dates, key features, specifications, pricing, and available variants. Continue to refine your search until a comprehensive understanding of the current Mahindra lineup is achieved. Ensure the results contain enough information to provide a well-informed recommendation. call_Self=true; Do not output anything else.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: the JSON object must be str, bytes or bytearray, not dict",
+      "cost": 0.0,
+      "start_time": "2025-07-16T19:42:49.577828",
+      "end_time": "2025-07-16T19:42:53.534324",
+      "execution_time": 3.956496
+    },
+    {
+      "id": "T002",
+      "description": "Analyze the retrieved information to identify the latest Mahindra vehicle and extract its key features, specifications, and pricing.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the information retrieved in the previous step (T001) about recent Mahindra car launches. Identify the absolute latest vehicle launch (the newest release). Extract and summarize the key features, full specifications, and pricing details for this specific vehicle. Present a concise overview highlighting what makes this vehicle the newest model, and include a comparative analysis of its features against previous Mahindra models if available to demonstrate the advancements.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Create a detailed report summarizing the latest Mahindra vehicle's features, specifications, and pricing in a user-friendly format.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Using the analyzed information from the previous step (T002), generate a comprehensive and visually appealing report detailing the latest Mahindra vehicle. Include sections for key features, full specifications, pricing (across different variants if available), and high-quality images. Format the report in a clear, organized manner to ensure readability and easy understanding for the user. The report should resemble a professional car review or buyer's guide, including all the vital information a prospective buyer would need.  Include a summary of why this vehicle was recommended in the beginning of the report.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

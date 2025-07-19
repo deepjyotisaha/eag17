@@ -1,0 +1,209 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52900243",
+    "original_query": "You are a stock researcher, prepare a very detailed and comprehensive report on Asian Paints. You must include graphs, tables, comparisons. Finally you must share a well formatted and polished HTML report (use Formatter Agent as last step to generate HTML report). Hint: For graphs, and tables, you must first collect relevant data sources (revenue trend, market share etc.), and then use Coder Agent to generate the graphs",
+    "file_manifest": [],
+    "created_at": "2025-07-19T04:44:03.059433",
+    "status": "running",
+    "output_chain": {
+      "T001": {
+        "iterations": [
+          {
+            "iteration": 1,
+            "output": {
+              "asian_paints_info": [
+                {
+                  "type": "text",
+                  "text": "[error] No search results found",
+                  "annotations": null
+                }
+              ]
+            }
+          }
+        ],
+        "final_output": null,
+        "iteration_count": 1
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T005"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Gather comprehensive data on Asian Paints, including revenue trends, market share, and financial performance.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Gather comprehensive financial data, market share information, revenue trends, competitor analysis, and recent news articles related to Asian Paints.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-19T04:44:03.070775",
+      "end_time": null,
+      "execution_time": 0.0,
+      "execution_result": {
+        "status": "success",
+        "session_id": "52900243",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "success",
+          "result": {
+            "asian_paints_info": [
+              {
+                "type": "text",
+                "text": "[error] No search results found",
+                "annotations": null
+              }
+            ]
+          },
+          "created_files": [],
+          "execution_time": 39.81797949998872,
+          "error": null,
+          "successful_variant": "CODE_1",
+          "total_variants_tried": 1,
+          "all_errors": []
+        },
+        "total_time": 39.82224639999913,
+        "error": null
+      }
+    },
+    {
+      "id": "T002",
+      "description": "Generate revenue trend graph for Asian Paints using the data gathered in the previous step.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Using the data from T001, generate a revenue trend graph for Asian Paints. The graph should be interactive, with proper labels for axes and title for the graph. Save the graph as revenue_trend.html. Provide options to download the graph as SVG, PNG, and JPG. Give comprehensive analysis of the graph. Use Python, HTML, Javascript and CSS",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Generate a table displaying the market share of Asian Paints compared to its competitors using the data gathered in T001.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Using the data from T001, generate an HTML table showing the market share of Asian Paints and its major competitors. Ensure the table is sortable and includes a column for market share percentage. Save the table as market_share_table.html. Give comprehensive analysis of the table. Use Python, HTML, Javascript and CSS",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Analyze the data and graphs to provide a comparative analysis of Asian Paints and its competitors. This includes market position, financial performance, and future growth prospects.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the revenue trend graph (T002) and the market share table (T003) along with the data gathered in T001 to provide a comparative analysis of Asian Paints and its competitors. Focus on market position, financial performance, and future growth prospects. Include key insights and recommendations.",
+      "reads": [
+        "T001",
+        "T002",
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Compile all the analyzed data, graphs, and tables into a well-formatted and polished HTML report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Compile the data from T001, the revenue trend graph from T002, the market share table from T003, and the comparative analysis from T004 into a comprehensive and well-formatted HTML report. The report should include an executive summary, detailed analysis, visualizations, and key findings. Ensure the report is visually appealing and easy to navigate.",
+      "reads": [
+        "T001",
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T002",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    }
+  ]
+}

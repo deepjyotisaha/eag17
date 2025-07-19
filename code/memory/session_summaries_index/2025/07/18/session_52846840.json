@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52846840",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-18T13:54:00.434157",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve detailed information about the features of Mahindra XUV 3XO using multiple iterations within a single step.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch comprehensive details about the features of Mahindra XUV 3XO. Use iterative search queries to gather information about engine specifications, safety features, infotainment system, interior and exterior design, dimensions, fuel efficiency, and any available user reviews. Focus on extracting factual data and specifications.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "'output'",
+      "cost": 0.0,
+      "start_time": "2025-07-18T13:54:00.445152",
+      "end_time": "2025-07-18T13:54:17.506853",
+      "execution_time": 17.061701
+    },
+    {
+      "id": "T002",
+      "description": "Create a detailed report summarizing the features of Mahindra XUV 3XO based on the information retrieved.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Generate a comprehensive report on Mahindra XUV 3XO based on the data provided. The report should include sections on engine specifications, safety features, infotainment system, interior and exterior design, dimensions, fuel efficiency, and user reviews. Present the information in a well-structured and easy-to-read format, suitable for executive review. Include tables and lists as needed to enhance clarity and visual appeal. The output should be HTML.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

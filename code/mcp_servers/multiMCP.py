@@ -9,16 +9,6 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 import ast
 
-# Force UTF-8 encoding for stdout and stderr on Windows
-if sys.platform == "win32":
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-        sys.stderr.reconfigure(encoding='utf-8')
-    except AttributeError:
-        import codecs
-        sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-        sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
-
 try:
     from mcp.client.sse import sse_client
     SSE_SUPPORTED = True
@@ -46,17 +36,10 @@ class MCP:
             return self.session
 
         if self.transport == "stdio":
-            # Set environment variables for UTF-8 encoding
-            env = os.environ.copy()
-            if sys.platform == "win32":
-                env["PYTHONIOENCODING"] = "utf-8"
-                env["PYTHONLEGACYWINDOWSSTDIO"] = "utf-8"
-            
             params = StdioServerParameters(
                 command=self.server_command,
                 args=[self.server_script],
-                cwd=self.working_dir,
-                env=env  # Pass the environment with UTF-8 settings
+                cwd=self.working_dir
             )
             self.session_context = stdio_client(params)
         elif self.transport == "sse":

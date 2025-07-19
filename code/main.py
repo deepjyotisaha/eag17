@@ -62,6 +62,85 @@ def get_file_input():
     
     return uploaded_files, file_manifest
 
+
+def get_template_input():
+    """Get template selection from user and return template content"""
+    log_step("📝 Template Selection (optional):", symbol="")
+    print("Choose a template to use, or press Enter for default (the_report.html):")
+    
+    # Get available templates from templates folder
+    templates_dir = Path("templates")
+    available_templates = []
+    
+    if templates_dir.exists():
+        # Get all files in templates folder
+        for item in templates_dir.iterdir():
+            if item.is_file():
+                available_templates.append(item.name)
+    
+    if not available_templates:
+        print("❌ No templates found in templates/ directory")
+        return None
+    
+    # Display available templates
+    print("\nAvailable templates:")
+    for i, template in enumerate(available_templates, 1):
+        # Mark the default template
+        if template == "the_report.html":
+            print(f"  {i}. {template} (default)")
+        else:
+            print(f"  {i}. {template}")
+    
+    # Get user selection
+    while True:
+        try:
+            choice = input(f"\nEnter template number (1-{len(available_templates)}) or press Enter for default: ").strip()
+            
+            if not choice:  # User pressed Enter - use default
+                selected_template = "the_report.html"
+                print(f"✅ Using default template: {selected_template}")
+            else:
+                choice_num = int(choice)
+                if 1 <= choice_num <= len(available_templates):
+                    selected_template = available_templates[choice_num - 1]
+                    print(f"✅ Selected template: {selected_template}")
+                else:
+                    print(f"❌ Please enter a number between 1 and {len(available_templates)}")
+                    continue
+            
+            # Read the template file content
+            template_path = templates_dir / selected_template
+            try:
+                template_content = template_path.read_text(encoding='utf-8')
+                print(f"📄 Template loaded successfully ({len(template_content)} characters)")
+                return template_content
+            except Exception as e:
+                print(f"❌ Error reading selected template '{selected_template}': {e}")
+                print("🔄 Falling back to default template...")
+                # Try to read default template
+                try:
+                    default_path = templates_dir / "the_report.html"
+                    template_content = default_path.read_text(encoding='utf-8')
+                    print(f"✅ Default template loaded successfully ({len(template_content)} characters)")
+                    return template_content
+                except Exception as default_error:
+                    print(f"❌ Error reading default template: {default_error}")
+                    return None
+                
+        except ValueError:
+            print("❌ Please enter a valid number")
+        except KeyboardInterrupt:
+            print("\n⏭️  Template selection cancelled, using default...")
+            # Try to return default template on cancellation
+            try:
+                default_path = templates_dir / "the_report.html"
+                template_content = default_path.read_text(encoding='utf-8')
+                print(f"✅ Default template loaded successfully ({len(template_content)} characters)")
+                return template_content
+            except Exception as default_error:
+                print(f"❌ Error reading default template: {default_error}")
+                return None
+
 def get_user_query():
     """Get query from user"""
     log_step("📝 Your Question:", symbol="")
@@ -84,6 +163,9 @@ async def main():
         try:
             # Get file input first
             uploaded_files, file_manifest = get_file_input()
+
+            # Get template input
+            template_content = get_template_input()
             
             # Get user query
             query = get_user_query()
@@ -92,7 +174,7 @@ async def main():
             
             # Process with AgentLoop4 - returns ExecutionContextManager object
             log_step("🔄 Processing with AgentLoop4...")
-            execution_context = await agent_loop.run(query, file_manifest, uploaded_files)
+            execution_context = await agent_loop.run(query, file_manifest, uploaded_files, template_content)
             
             # Analyze results directly from NetworkX graph
             print("\n" + "="*60)

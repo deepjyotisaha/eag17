@@ -11,14 +11,15 @@ from agentLoop.session_serializer import SessionSerializer
 from agentLoop.graph_validator import GraphValidator
 from utils.utils import log_step, log_error
 import pdb
-from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block , logger_error
+from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
 
 logger = get_logger(__name__)
 
 class ExecutionContextManager:
-    def __init__(self, plan_graph: dict, session_id: str = None, original_query: str = None, file_manifest: list = None, debug_mode: bool = False):
+    def __init__(self, plan_graph: dict, session_id: str = None, original_query: str = None, file_manifest: list = None, debug_mode: bool = False, template_content: str = None):
         # Build NetworkX graph
         self.plan_graph = nx.DiGraph()
+        self.template_content = template_content
         
         # Store metadata
         self.plan_graph.graph['session_id'] = session_id or str(int(time.time()))[-8:]
@@ -80,15 +81,71 @@ class ExecutionContextManager:
         self.plan_graph.nodes[step_id]['start_time'] = datetime.utcnow().isoformat()
         self._auto_save()
 
-    def _has_executable_code(self, output):
+    def _has_executable_code_or_files(self, step_id, iteration, output):
         """Check if output contains executable code"""
         if not isinstance(output, dict):
             return False
-        return ("files" in output or "code_variants" in output or 
+        is_code_or_files = ("files" in output or "code_variants" in output or "code" in output or
                 any(k.startswith("CODE_") for k in output.keys()) or
                 any(key in output for key in ["tool_calls", "schedule_tool", "browser_commands", "python_code"]))
+        
+        logger_step(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Executable code or files found: {is_code_or_files}", symbol="🔍")
+        return is_code_or_files
     
-    async def _auto_execute_code(self, step_id, output):
+    
+    def update_iterations_in_output_chain(self, step_id, iteration_number, iteration_output):
+        """
+        Update iterations in the output chain for a specific step
+        
+        Args:
+            step_id: The step identifier (e.g., "T001")
+            iteration_number: The iteration number (1, 2, 3, etc.)
+            iteration_output: The output from this iteration
+        """
+        # Get current output chain entry for this step
+        current_output = self.plan_graph.graph['output_chain'].get(step_id, {})
+        
+        # Initialize iterations structure if it doesn't exist
+        if not isinstance(current_output, dict) or "iterations" not in current_output:
+            current_output = {
+                "iterations": [],
+                "final_output": None,
+                "iteration_count": 0
+            }
+        
+        # Find if this iteration already exists
+        iteration_found = False
+        for i, iteration in enumerate(current_output["iterations"]):
+            if iteration.get("iteration") == iteration_number:
+                # Update existing iteration
+                current_output["iterations"][i]["output"] = iteration_output
+                iteration_found = True
+                logger_step(logger, f"🔄 Updated iteration {iteration_number} for step {step_id}", symbol="📝")
+                break
+        
+        if not iteration_found:
+            # Add new iteration
+            current_output["iterations"].append({
+                "iteration": iteration_number,
+                "output": iteration_output
+            })
+            current_output["iteration_count"] = len(current_output["iterations"])
+            logger_step(logger, f"🔄 Added iteration {iteration_number} for step {step_id}", symbol="➕")
+        
+        # Update the output chain
+        self.plan_graph.graph['output_chain'][step_id] = current_output
+        
+        logger_json_block(logger, f"🔄 Updated output chain for step {step_id} - Iteration {iteration_number}", {
+            "step_id": step_id,
+            "iteration_number": iteration_number,
+            "total_iterations": current_output["iteration_count"],
+            "iteration_output_keys": list(iteration_output.keys()) if isinstance(iteration_output, dict) else "non_dict"
+        })
+        
+        # Auto-save the updated state
+        self._auto_save()
+
+    async def _auto_execute_code_or_files(self, step_id, iteration, output, previous_iteration_output=None):
         """Execute code - ESSENTIAL functionality"""
         node_data = self.plan_graph.nodes[step_id]
         reads = node_data.get("reads", [])
@@ -100,16 +157,41 @@ class ExecutionContextManager:
             if read_key in output_chain:
                 reads_data[read_key] = output_chain[read_key]
 
-        logger_json_block(logger, f"Auto Execute Code: {step_id} - OUTPUT", output)
-        logger_json_block(logger, f"Auto Execute Code: {step_id} - OUTPUT CHAIN", self.plan_graph.graph['output_chain'])
-        logger_json_block(logger, f"Auto Execute Code: {step_id} - READS DATA", reads_data)
-        
+        if previous_iteration_output:
+            reads_data.update({"previous_output": previous_iteration_output})
+        '''
+        # NEW STEP: Add all iteration outputs from output chain
+        for step_key, step_output in output_chain.items():
+            if step_key != step_id:  # Don't include current step's own output
+                if isinstance(step_output, dict) and "iterations" in step_output:
+                    # This step has iterations - add all iteration outputs
+                    iterations = step_output.get("iterations", [])
+                    for i, iteration_data in enumerate(iterations):
+                        iteration_num = iteration_data.get("iteration", i + 1)
+                        iteration_output = iteration_data.get("output", {})
+                        
+                        if isinstance(iteration_output, dict):
+                            # Add each iteration output with a clear prefix
+                            for key, value in iteration_output.items():
+                                if key not in ["call_self", "reasoning", "execution_result", "initial_thoughts",
+                                            "next_instruction", "output", "files", "code_variants", "code",
+                                            "cost", "input_tokens", "output_tokens", "session_id", "operations",
+                                            "status", "total_tokens", "created_files", "file_results", "code_results"]:
+                                    iteration_key = f"{step_key}_iter_{iteration_num}_{key}"
+                                    reads_data[iteration_key] = value
+                                    logger_step(logger, f"🔄 Auto Execute Code Step [{step_id}] - Iteration {iteration} - Added iteration output: {iteration_key}", symbol="��")
+        '''
+
+        logger_json_block(logger, f"🔄 Auto Execute Code Step [{step_id}] - Iteration {iteration} - Reads Data", reads_data)
+
         try:
             result = await run_user_code(
                 output_data=output,
                 multi_mcp=getattr(self, 'multi_mcp', None),
                 session_id=self.plan_graph.graph['session_id'],
-                inputs=reads_data  # ONLY pass inputs - no globals_schema
+                inputs=reads_data,  # ONLY pass inputs - no globals_schema
+                step_id=step_id,
+                iteration=iteration
             )
             
             # 🚨 PRINT EXECUTOR RESULT HERE
@@ -126,26 +208,17 @@ class ExecutionContextManager:
             log_error(error_msg)
             return {"status": "failed", "error": error_msg}
 
-    async def merge_execution_results(self, step_id, output, execution_result):
-        """Merge execution results"""
-        final_output = output.copy()
-        final_output["execution_result"] = execution_result
-        
-        return final_output
-
-
     async def mark_done(self, step_id, output=None, cost=None, input_tokens=None, output_tokens=None):
         """SIMPLE: Store output directly - NO COMPLEX EXTRACTION!"""
         
         # Execute code if present
         final_output = output
-        execution_result = None
-
-        logger_json_block(logger, f"Mark Done: {step_id} - output", output)
+        execution_result = output.get("execution_result", None)
         
-        if output and self._has_executable_code(output):
-            log_step(f"🔧 Mark Done: {step_id} - Executing code", symbol="⚙️")
-            execution_result = await self._auto_execute_code(step_id, output)
+        '''
+        if output and self._has_executable_code_or_files(output):
+            log_step(f"🔧 Executing code for {step_id}", symbol="⚙️")
+            execution_result = await self._auto_execute_code_or_files(step_id, output)
             
             # Merge execution results properly
             if isinstance(output, dict) and execution_result.get("status") == "success":
@@ -164,14 +237,29 @@ class ExecutionContextManager:
                 # Also include any tool outputs or files
                 if execution_result.get("created_files"):
                     final_output["created_files"] = execution_result["created_files"]
-        else:
-            log_step(f"🔧 Mark Done: {step_id} - No code to execute", symbol="⚙️")
+        '''
 
-        #logger_json_block(logger, f"Mark Done: {step_id} - OUTPUT RECEIVED", output)
-        #logger_json_block(logger, f"Mark Done: {step_id} - FINAL OUTPUT CHAIN", final_output)
+        logger_json_block(logger, f"✅ Mark Done Step [{step_id}] - Execution Result", execution_result)
+        logger_json_block(logger, f"✅✅ Mark Done Step [{step_id}] - Final Output", final_output)
+
+         # Get existing iterations from node data
+        node_data = self.plan_graph.nodes[step_id]
+        existing_iterations = node_data.get('iterations', [])
+
+        # Create structured output for the output chain
+        if existing_iterations:
+            structured_output = {
+                "iterations": existing_iterations,
+                "final_output": final_output,
+                "iteration_count": len(existing_iterations)
+            }
         
-        # SIMPLE: Store the output directly in chain
-        self.plan_graph.graph['output_chain'][step_id] = final_output
+            self.plan_graph.graph['output_chain'][step_id] = structured_output
+        
+            logger_json_block(logger, f"✅ Mark Done Step [{step_id}] - Stored {len(existing_iterations)} existing iterations + final output", structured_output)
+        else:
+            # No iterations, store output normally
+            self.plan_graph.graph['output_chain'][step_id] = final_output
         
         # Update node status
         node_data = self.plan_graph.nodes[step_id]
@@ -207,10 +295,8 @@ class ExecutionContextManager:
                 print(f"   Output chain: {self.plan_graph.graph['output_chain'].get(step_id, 'NOT_FOUND')}")
                 print(f"   Starting PDB debugger...")
 
-        logger_json_block(logger, f"✅ Mark Done: {step_id} - FINAL OUTPUT CHAIN", self.plan_graph.graph['output_chain'][step_id])
-        logger_json_block(logger, f"✅Mark Done: {step_id} - NODE DATA", node_data)
-        
         log_step(f"✅ {step_id} completed - output stored in chain", symbol="📦")
+        logger_step(logger, f"✅ {step_id} completed - output stored in chain", symbol="📦")
         self._auto_save()
 
     def mark_failed(self, step_id, error=None):

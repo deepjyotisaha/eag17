@@ -1,0 +1,126 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52766629",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-17T15:37:09.317522",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T004"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve a list of recent Mahindra car launches (within the last 12 months)",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find a list of Mahindra car launches in the last 12 months. Provide launch dates and brief overviews.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:37:09.323537",
+      "end_time": "2025-07-17T15:37:13.667660",
+      "execution_time": 4.344123
+    },
+    {
+      "id": "T002",
+      "description": "Analyze the recent Mahindra car launches and recommend the most suitable latest vehicle based on overall market reviews and feature set.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the Mahindra car launches data and recommend the latest vehicle. Explain your rationale and highlight key features that makes the vehicle a strong contender.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Retrieve comprehensive details of the recommended vehicle, including all key features, specifications, and variants.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Gather detailed information about the recommended vehicle, including engine specifications, dimensions, safety features, technology features, and available variants.",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Format the information about the recommended vehicle into a comprehensive and well-structured HTML report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a HTML report detailing the recommended Mahindra vehicle. Structure it to clearly present the vehicle's features, specifications, available variants, and key highlights. The report should be well-organized and easy to read. Incorporate the information from the analysis.",
+      "reads": [
+        "T002",
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    }
+  ]
+}

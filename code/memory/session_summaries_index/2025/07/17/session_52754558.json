@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52754558",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information (using the pattern --> find sources → extract details) and then create a report. Suggested approach is to fetch the releavnt urls first and then look for data in those URLs",
+    "file_manifest": [],
+    "created_at": "2025-07-17T12:15:58.070465",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch detailed information about the features of Mahindra XUV 3XO using iterative refinement. First, find relevant URLs about the vehicle, then extract detailed feature information from those URLs.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "You are an expert automotive researcher. Your task is to find and extract comprehensive details about the features of the Mahindra XUV 3XO. \n\nFirst, identify a set of relevant URLs that provide detailed information about the vehicle's features, specifications, and reviews. Use search queries targeting official Mahindra sources, reputable automotive review sites, and user forums.\n\nIteratively refine your search. Start with broad queries like 'Mahindra XUV 3XO features' and 'Mahindra XUV 3XO specifications'. Then, use more specific queries to target specific features and aspects such as 'Mahindra XUV 3XO safety features', 'Mahindra XUV 3XO technology', 'Mahindra XUV 3XO interior features', and 'Mahindra XUV 3XO mileage'. For each feature, try to find at least 3 distinct and reliable sources.\n\nFrom the identified URLs, extract detailed information about each feature. Include specifications, performance metrics, available options, and customer reviews. Organize the extracted data into a structured format with clear headings and subheadings for each feature. For each feature, please extract the following information: description, specifications, variants available, images/videos, reviews. If the exact information is not found, mention that information is not available. \n\nOutput a JSON object where the keys are major feature categories (e.g., 'Engine', 'Safety', 'Technology', 'Interior', 'Exterior') and the values are lists of feature details. Each feature detail should include the source URL, feature description, specs, variants, and available images/videos.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T12:15:58.082801",
+      "end_time": "2025-07-17T12:16:00.441452",
+      "execution_time": 2.358651
+    },
+    {
+      "id": "T002",
+      "description": "Create a detailed report about the features of Mahindra XUV 3XO, using the information gathered by RetrieverAgent.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "You are an expert report writer. Your task is to create a well-structured and comprehensive report detailing the features of the Mahindra XUV 3XO, based on the information provided. The report should be easily readable and should present all the researched information in an organized way. Use HTML to create the report, with a header for each feature.\n\nInput is a JSON object where keys are feature categories (e.g., 'Engine', 'Safety', 'Technology', 'Interior', 'Exterior') and values are lists of feature details.\n\nCreate an HTML report that includes the following sections:\n\n1.  Introduction: A brief overview of the Mahindra XUV 3XO.\n2.  Detailed Feature Sections: For each feature category (Engine, Safety, Technology, Interior, Exterior), create a separate section with the following structure:\n    *   Category Header: A clear and descriptive header for the category.\n    *   Feature Subsections: For each feature detail within the category, create a subsection that includes:\n        *   Feature Name: A concise name for the feature.\n        *   Description: A detailed description of the feature.\n        *   Specifications: Key specifications or metrics associated with the feature.\n        *   Variants: Information on which variants of the XUV 3XO the feature is available.\n        *   Sources: List the URLs where the information was sourced.\n        *   Images/Videos: Include relevant images or videos (if available).\n\nEnsure the report is well-formatted, visually appealing, and easy to navigate. Use appropriate headings, subheadings, lists, and tables to present the information clearly.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

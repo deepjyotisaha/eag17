@@ -1,0 +1,131 @@
+
+/* Enhanced Styling for Tic Tac Toe */
+
+body {
+    font-family: 'Hedvig Letters Serif', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: scale(1.03);
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.scores {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 1.2em;
+}
+
+.player-1, .player-2 {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: rgba(240, 240, 240, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.cell {
+    width: 100%;
+    height: 120px;
+    font-size: 3em;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: #444;
+    font-family: 'Tilt Neon', sans-serif;
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+.winning-cell {
+    color: #fff;
+    background-color: #4CAF50 !important;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.5) !important;
+}
+
+.reset-button-container {
+    margin-top: 30px;
+}
+
+#reset-button {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    cursor: pointer;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#reset-button:hover {
+    background-color: #f44336;
+    transform: scale(1.1);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .scores {
+        font-size: 1em;
+    }
+    .cell {
+        height: 80px;
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .cell {
+        font-size: 1.5em;
+    }
+    #reset-button {
+        font-size: 1em;
+    }
+}

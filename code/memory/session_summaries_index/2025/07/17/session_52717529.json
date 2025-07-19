@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52717529",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information (using the pattern --> find sources → extract details) and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-17T01:58:49.873719",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Find reliable sources containing detailed information about Mahindra XUV 3XO features, iterate and extract data.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Find reliable sources containing detailed information about Mahindra XUV 3XO features using iterative search and extraction. First, broadly search for websites, articles, and reviews that comprehensively list features of the Mahindra XUV 3XO. Then, extract specific details about each feature, focusing on technical specifications, functionality, and user benefits. Sources can include but not limited to: Mahindra's official website, automobile news websites, car review websites, and automotive forums. Continuously refine search queries and extraction methods to maximize the depth and accuracy of the collected information. Save all the information in JSON format",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-17T01:58:49.885836",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T002",
+      "description": "Create a detailed report summarizing the features of Mahindra XUV 3XO using the information gathered in the previous step.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Using the information gathered from the previous step, create a detailed report summarizing the features of the Mahindra XUV 3XO. Organize the information in a structured format, including sections for each major feature category (e.g., safety, performance, technology, design). For each feature, provide a detailed description, technical specifications, and user benefits. The report should be comprehensive, well-organized, and easy to read. Include relevant images and diagrams to enhance the presentation. Format the report in HTML.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52836790",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-18T11:06:30.008749",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch details of Mahindra XUV 3XO features using multiple iterations within a single RetrieverAgent step.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch comprehensive details of features of Mahindra XUV 3XO car, including engine specifications, safety features, interior features, exterior features, technology features and dimensions, using multiple search iterations to ensure exhaustive information gathering.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: 'code_variants'",
+      "cost": 0.0,
+      "start_time": "2025-07-18T11:06:30.017755",
+      "end_time": "2025-07-18T11:06:44.252673",
+      "execution_time": 14.234918,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "52836790",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.002896999998483807,
+        "error": "'code_variants'"
+      }
+    },
+    {
+      "id": "T002",
+      "description": "Format the fetched data into a comprehensive report.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a detailed report that comprehensively describes all the features of Mahindra XUV 3XO including Engine Specifications, Safety Features, Interior Features, Exterior Features, Technology Features and Dimensions. Use the data retrieved in the previous step to create the report in a readable format.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

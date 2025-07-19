@@ -1,0 +1,89 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52837725",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-18T11:22:05.681525",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch detailed features of Mahindra XUV 3XO using multiple iterative searches and consolidate all gathered information into a single output.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed features of Mahindra XUV 3XO using multiple iterative searches. Perform comprehensive searches on reputable automotive websites and sources. Consolidate all gathered information into a single, well-structured output. Specifically, focus on aspects such as engine specifications, safety features, interior and exterior design elements, technological advancements, pricing, available variants, and customer reviews. Your output should be a single JSON object containing a structured compilation of all the information gathered during the multiple iterations.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: 'code_variants'",
+      "cost": 0.0,
+      "start_time": "2025-07-18T11:22:05.690531",
+      "end_time": "2025-07-18T11:22:19.552188",
+      "execution_time": 13.861657,
+      "execution_result": {
+        "status": "failed",
+        "session_id": "52837725",
+        "operations": [],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {},
+        "total_time": 0.0042835999629460275,
+        "error": "'code_variants'"
+      }
+    },
+    {
+      "id": "T002",
+      "description": "Create a comprehensive report detailing the features of Mahindra XUV 3XO, using the information gathered in the previous step.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a comprehensive and well-structured report detailing the features of Mahindra XUV 3XO. Use the data gathered from T001. This report should include a detailed description of the engine specifications, safety features, interior and exterior design elements, technological advancements, pricing, available variants, and customer reviews. Format the report in a clear and visually appealing manner, suitable for presentation to a client. The report should be formatted in markdown.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

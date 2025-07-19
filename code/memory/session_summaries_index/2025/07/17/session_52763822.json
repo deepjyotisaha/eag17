@@ -1,0 +1,199 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52763822",
+    "original_query": "I am looking to buy a car in the SUV segment, give me a report on what are the options, based on recent launches, and comparison of the features along with the price for each. Also recommend one.",
+    "file_manifest": [],
+    "created_at": "2025-07-17T14:50:22.619855",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T006"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve a list of recently launched SUVs in the market.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Gather information about the SUVs that have been launched recently (within the last 6 months) in the market, including their names and brief overviews.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T14:50:22.639085",
+      "end_time": "2025-07-17T14:50:26.337744",
+      "execution_time": 3.698659
+    },
+    {
+      "id": "T002",
+      "description": "For each SUV, retrieve detailed information about its features and specifications.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "For each SUV identified in the previous step, retrieve detailed specifications, including engine type, horsepower, dimensions, safety features, and technology features. Present the information in a structured format.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Retrieve the price range for each SUV model.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "For each SUV model, gather information on its price range (base price to top-end price) in the market. Consider different trim levels and packages.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Compare the features and prices of all the SUVs to identify strengths and weaknesses of each model.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Compare the features and prices of the SUVs. Identify the strengths and weaknesses of each SUV. Focus on key aspects such as performance, safety, technology, comfort, and value for money. Also create a table with SUVs as rows, and their price, performance score, safety score, comfort score and features score as columns.",
+      "reads": [
+        "T002",
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Based on the comparison, recommend an SUV that best fits the user's request, considering a balance of features, price, and recent launch.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on the comparison of features and prices, recommend the best SUV option. Justify the recommendation based on the identified strengths and weaknesses, and how it balances features, price, and its recent launch status. Also provide 2 runner up options.",
+      "reads": [
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Compile all the retrieved and synthesized information into a well-structured report that compares the SUVs and provides a recommendation.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a final report in HTML format summarizing all the information about the SUV comparison, features, pricing, pros and cons. Add the recommendation in the end. Make the report well structured using headings, subheadings, tables, bullet points etc. Report should be comprehensive and detailed.",
+      "reads": [
+        "T002",
+        "T003",
+        "T004",
+        "T005"
+      ],
+      "writes": [
+        "T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T004"
+    },
+    {
+      "source": "T002",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T006"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    },
+    {
+      "source": "T004",
+      "target": "T006"
+    },
+    {
+      "source": "T005",
+      "target": "T006"
+    }
+  ]
+}

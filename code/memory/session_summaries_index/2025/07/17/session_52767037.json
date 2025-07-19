@@ -1,0 +1,193 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52767037",
+    "original_query": "I want to buy a Mahindra Car, help me understand what are the recent launches, recommend a latest vehichle. I want to know the details on the features for your recommended vehicle",
+    "file_manifest": [],
+    "created_at": "2025-07-17T15:43:57.045785",
+    "status": "running",
+    "output_chain": {
+      "T003": {
+        "initial_thoughts": "The user wants a Mahindra car and details on recent launches. To provide a tailored recommendation, I need more information about their preferences. I will ask about car type, budget, and desired features.",
+        "clarification_request": {
+          "message": "To recommend the best Mahindra car for you, could you please share your preferences on the following?",
+          "options": [
+            "Desired car type (SUV, Sedan, Hatchback, etc.)",
+            "Budget range",
+            "Must-have features (fuel efficiency, safety, technology, seating capacity, etc.)"
+          ],
+          "input_type": "choice"
+        },
+        "call_self": false,
+        "cost": 0.00025965,
+        "input_tokens": 1227.0,
+        "output_tokens": 126.0,
+        "total_tokens": 1353.0
+      }
+    },
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T005"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve information on recent Mahindra car launches, including model names, launch dates, and brief overviews.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve information on recent Mahindra car launches in the last 2 years, including model names, launch dates, and brief overviews. Focus on official Mahindra sources or reputable automotive news websites.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:43:57.056785",
+      "end_time": "2025-07-17T15:43:58.647090",
+      "execution_time": 1.590305
+    },
+    {
+      "id": "T002",
+      "description": "Analyze the features of each recently launched Mahindra car and create a comparison table.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the features of each Mahindra car launched recently (output of T001). Create a comparison table outlining key features such as engine specifications, safety features, technology features, price range, and fuel efficiency.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Ask the user for their preferences regarding car type (e.g., SUV, sedan, hatchback), budget, and desired features to refine the vehicle recommendation.",
+      "agent": "ClarificationAgent",
+      "agent_prompt": "Ask the user about their preferences regarding the car type they are looking for (SUV, sedan, hatchback, etc.), their budget, and any specific features they desire (e.g., fuel efficiency, safety features, technology features, seating capacity) to help refine the vehicle recommendation.",
+      "reads": [],
+      "writes": [
+        "T003"
+      ],
+      "status": "completed",
+      "output": {
+        "initial_thoughts": "The user wants a Mahindra car and details on recent launches. To provide a tailored recommendation, I need more information about their preferences. I will ask about car type, budget, and desired features.",
+        "clarification_request": {
+          "message": "To recommend the best Mahindra car for you, could you please share your preferences on the following?",
+          "options": [
+            "Desired car type (SUV, Sedan, Hatchback, etc.)",
+            "Budget range",
+            "Must-have features (fuel efficiency, safety, technology, seating capacity, etc.)"
+          ],
+          "input_type": "choice"
+        },
+        "call_self": false,
+        "cost": 0.00025965,
+        "input_tokens": 1227.0,
+        "output_tokens": 126.0,
+        "total_tokens": 1353.0
+      },
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-17T15:43:59.680667",
+      "end_time": "2025-07-17T15:44:02.536364",
+      "execution_time": 2.855697,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "execution_result": null
+    },
+    {
+      "id": "T004",
+      "description": "Based on the user's preferences and the analyzed features, recommend a latest Mahindra vehicle and explain why it aligns with their needs.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Based on the user's preferences (output of T003) and the analyzed features of recent Mahindra launches (output of T002), recommend a specific Mahindra vehicle. Explain why this vehicle is the most suitable option based on their stated needs and preferences. Include a summary of its key features and benefits.",
+      "reads": [
+        "T002",
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Prepare a final report summarizing the recent Mahindra launches, the recommended vehicle, and its key features, formatted for readability.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Prepare a final report summarizing the recent Mahindra launches (output of T001), the recommended vehicle (output of T004), and its key features. Format the report for readability, using headings, bullet points, and a comparison table of the recent launches. Make it a user-friendly, concise report.",
+      "reads": [
+        "T001",
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T002",
+      "target": "T004"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    }
+  ]
+}

@@ -7,9 +7,19 @@ from utils.json_parser import parse_llm_json
 from utils.utils import log_step, log_error
 from PIL import Image
 import os
-from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block , logger_error
+import time
 
-logger = get_logger(__name__)   
+import time
+import asyncio
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
+from rich.live import Live
+from rich.panel import Panel
+from rich.text import Text
+
+from config.log_config import get_logger, logger_step, logger_json_block, logger_prompt, logger_code_block, logger_error
+
+logger = get_logger(__name__)
 
 class AgentRunner:
     def __init__(self, multi_mcp):
@@ -19,6 +29,25 @@ class AgentRunner:
         config_path = Path("config/agent_config.yaml")
         with open(config_path, "r", encoding="utf-8") as f:
             self.agent_configs = yaml.safe_load(f)["agents"]
+        self.console = Console()
+
+
+    async def _show_timer_animation(self, duration=30, message="Processing"):
+            """Show an animated timer for the specified duration"""
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                BarColumn(),
+                TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+                TimeElapsedColumn(),
+                console=self.console,
+                transient=True
+            ) as progress:
+                task = progress.add_task(f"[cyan]{message}...", total=duration)
+                
+                for i in range(duration):
+                    progress.update(task, advance=1)
+                    await asyncio.sleep(1)
 
     def _analyze_file_strategy(self, uploaded_files):
         """Analyze files to determine best upload strategy"""
@@ -155,7 +184,7 @@ class AgentRunner:
         
         return all_files
 
-    async def run_agent(self, agent_type, input_data):
+    async def run_agent(self, agent_type, input_data, step_id, iteration, template_content=None):
         """Run a specific agent with the given input data"""
         try:
             # Get agent config
@@ -206,10 +235,19 @@ class AgentRunner:
             with open(system_prompt_path, "r", encoding="utf-8") as f:
                 system_prompt = f.read()
 
-            # Build the full prompt
-            full_prompt = self._build_prompt(system_prompt, input_data)
+            if template_content:
+                # Build the full prompt
+                full_prompt = self._build_prompt(system_prompt, input_data, template_content)
+            else:
+                full_prompt = self._build_prompt(system_prompt, input_data)
 
-            logger_prompt(logger, f"Agent Runner: {agent_type} - FULL PROMPT", full_prompt)
+            #time.sleep(30)
+
+            # Replace the simple sleep with animated timer
+            await self._show_timer_animation(30, f"🤖 {agent_type} Waiting before calling Gemini")
+
+
+            logger_prompt(logger, f"🤖 Agent Runner: {agent_type} - Step {step_id} - Iteration {iteration} - FULL PROMPT", full_prompt)
             
             # ✅ TRACK RESPONSE AND METADATA
             if file_contents:
@@ -221,9 +259,8 @@ class AgentRunner:
                 log_step(f"💬 {agent_type} (text only)")
                 response = await model_manager.generate_text(full_prompt)
 
-            
-            logger_prompt(logger, f"Agent Runner: {agent_type} - RESPONSE", response)
-            
+            logger_prompt(logger, f"🤖 Agent Runner: {agent_type} - Step {step_id} - Iteration {iteration} - RESPONSE", response)
+
             # ✅ PARSE JSON AND INCLUDE METADATA (like original)
             try:
                 # Try to parse as JSON first
@@ -253,7 +290,7 @@ class AgentRunner:
             log_error(f"Agent {agent_type} failed: {e}")
             return {"success": False, "error": str(e)}
 
-    def _build_prompt(self, system_prompt, input_data):
+    def _build_prompt(self, system_prompt, input_data, template_content=None):
         """Build the complete prompt from system prompt and input data"""
         # Start with system prompt
         prompt_parts = [system_prompt]
@@ -272,5 +309,8 @@ class AgentRunner:
                             prompt_parts.append(f"{input_key}: {input_value}")
                 elif key not in ['files', 'image']:  # Only exclude file-related data
                     prompt_parts.append(f"{key}: {value}")
+        if template_content:
+            prompt_parts.append("\n###### You must follow the following THEME ######")
+            prompt_parts.append(template_content)
         
         return "\n".join(prompt_parts)

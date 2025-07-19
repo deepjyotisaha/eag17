@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52843727",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information, In the final iteration of the Retriever Agent combine outputs from current and previous iterations as final step output and then create a report.",
+    "file_manifest": [],
+    "created_at": "2025-07-18T13:02:07.595968",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch detailed features of Mahindra XUV 3XO in multiple iterations and combine the outputs in the final iteration.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch detailed information about the features of Mahindra XUV 3XO in multiple iterations. Combine the output from the current iteration with the output from the previous iterations. Ensure that the final output contains all information gathered during all iterations. Return a single cohesive output that is a combination of the information extracted from all previous iterations and the current iteration.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "'output'",
+      "cost": 0.0,
+      "start_time": "2025-07-18T13:02:07.605488",
+      "end_time": "2025-07-18T13:02:24.927811",
+      "execution_time": 17.322323
+    },
+    {
+      "id": "T002",
+      "description": "Create a detailed report of Mahindra XUV 3XO features using the combined information from the RetrieverAgent.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a comprehensive and well-structured report detailing all the features of Mahindra XUV 3XO. Use the information provided in the input to create a detailed and easy-to-understand report. Use proper headings, subheadings, bullet points, and tables as required to enhance readability. Make sure to include details about all key features.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

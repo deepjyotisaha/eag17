@@ -1,0 +1,101 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52838750",
+    "original_query": "I want to know the details of features for Mahindra XUV 3XO, use a single step for Retriever Agent but use multiple iterations in a single step to fetch detailed information and then create a report",
+    "file_manifest": [],
+    "created_at": "2025-07-18T11:39:10.033594",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T002"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Fetch detailed features of Mahindra XUV 3XO using multiple iterations within a single RetrieverAgent call.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve comprehensive details about the features of the Mahindra XUV 3XO, including engine specifications, safety features, interior and exterior design elements, technology and infotainment systems, and any available customization options. Focus on official sources and reputable automotive news outlets. Use multiple iterative searches within a single agent call to get very detailed information. Store everything in output['features'].",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "Code execution failed: Code execution failed: All code variants failed. Errors: code: TypeError: compile() arg 1 must be a string, bytes or AST object",
+      "cost": 0.0,
+      "start_time": "2025-07-18T11:39:10.043436",
+      "end_time": "2025-07-18T11:39:24.718762",
+      "execution_time": 14.675326,
+      "execution_result": {
+        "status": "partial_failure",
+        "session_id": "52838750",
+        "operations": [
+          "python_code"
+        ],
+        "created_files": [],
+        "file_results": {},
+        "code_results": {
+          "status": "failed",
+          "result": {},
+          "created_files": [],
+          "execution_time": 0.040181700023822486,
+          "error": "All code variants failed. Errors: code: TypeError: compile() arg 1 must be a string, bytes or AST object",
+          "failed_variants": 1,
+          "all_errors": [
+            "code: TypeError: compile() arg 1 must be a string, bytes or AST object"
+          ]
+        },
+        "total_time": 0.04325579997384921,
+        "error": "Code execution failed: All code variants failed. Errors: code: TypeError: compile() arg 1 must be a string, bytes or AST object"
+      }
+    },
+    {
+      "id": "T002",
+      "description": "Create a detailed report summarizing all the features of the Mahindra XUV 3XO fetched in the previous step.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Create a comprehensive report summarizing all the features of the Mahindra XUV 3XO based on the information provided in the input. Structure the report into sections such as Engine and Performance, Safety Features, Interior Design, Exterior Design, Technology and Infotainment. Ensure to clearly present all details and specifications in a well-organized manner. Output the report in HTML format and save it into a file named 'xuv_3xo_features_report.html'.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "52866703",
+    "original_query": "I want you to behave like a stock analyst, prepare a very detailed and comprehensive report on Asian Paints. You must include charts, tables, comparisons. Your report must be very well polished.",
+    "file_manifest": [],
+    "created_at": "2025-07-18T19:25:03.500659",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T009"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve Asian Paints' historical stock prices from a reliable financial data source.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Fetch Asian Paints' (ASIANPAINT.NS) daily stock prices for the last 5 years, including open, high, low, close, and volume. Use a reliable financial data API or source.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "AgentLoop4._execute_step.<locals>.build_agent_input() missing 1 required positional argument: 'agent_type'",
+      "cost": 0.0,
+      "start_time": "2025-07-18T19:25:03.520162",
+      "end_time": "2025-07-18T19:25:03.524189",
+      "execution_time": 0.004027
+    },
+    {
+      "id": "T002",
+      "description": "Retrieve Asian Paints' financial statements (balance sheet, income statement, cash flow statement) for the last 5 years.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Obtain Asian Paints' (ASIANPAINT.NS) annual financial statements (balance sheet, income statement, cash flow statement) for the past 5 years from a reliable financial data provider or the company's investor relations website.",
+      "reads": [],
+      "writes": [
+        "T002"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "AgentLoop4._execute_step.<locals>.build_agent_input() missing 1 required positional argument: 'agent_type'",
+      "cost": 0.0,
+      "start_time": "2025-07-18T19:25:08.551521",
+      "end_time": "2025-07-18T19:25:08.555522",
+      "execution_time": 0.004001
+    },
+    {
+      "id": "T003",
+      "description": "Research Asian Paints' main competitors in the Asian market.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Identify Asian Paints' (ASIANPAINT.NS) top 3-5 competitors in the Asian paints and coatings market. Focus on companies with significant market share or similar product portfolios.",
+      "reads": [],
+      "writes": [
+        "T003"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "AgentLoop4._execute_step.<locals>.build_agent_input() missing 1 required positional argument: 'agent_type'",
+      "cost": 0.0,
+      "start_time": "2025-07-18T19:25:13.573492",
+      "end_time": "2025-07-18T19:25:13.575492",
+      "execution_time": 0.002
+    },
+    {
+      "id": "T004",
+      "description": "Retrieve financial data for Asian Paints' main competitors.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Obtain the annual financial statements (balance sheet, income statement, cash flow statement) for the past 5 years for each of Asian Paints' main competitors identified in the previous step. Use a reliable financial data provider or the companies' investor relations websites.",
+      "reads": [
+        "T003"
+      ],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Analyze Asian Paints' stock price trends and volatility.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze Asian Paints' (ASIANPAINT.NS) historical stock prices retrieved in T001. Calculate key metrics such as moving averages, volatility, and identify any significant trends or patterns. Prepare a summary of the findings.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T006",
+      "description": "Calculate key financial ratios for Asian Paints.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Calculate key financial ratios for Asian Paints (ASIANPAINT.NS) using the financial statements retrieved in T002. Include profitability ratios (e.g., gross profit margin, net profit margin, return on equity), liquidity ratios (e.g., current ratio, quick ratio), and solvency ratios (e.g., debt-to-equity ratio).",
+      "reads": [
+        "T002"
+      ],
+      "writes": [
+        "T006"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T007",
+      "description": "Compare Asian Paints' financial ratios with those of its competitors.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Compare Asian Paints' (ASIANPAINT.NS) financial ratios calculated in T006 with the financial ratios of its competitors retrieved in T004. Identify any significant differences or trends.",
+      "reads": [
+        "T004",
+        "T006"
+      ],
+      "writes": [
+        "T007"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T008",
+      "description": "Create charts and tables to visualize Asian Paints' stock price trends and financial performance.",
+      "agent": "CoderAgent",
+      "agent_prompt": "Using the stock price data from T001 and the financial ratios from T006, create the following visualizations using Python and matplotlib/seaborn: 1. Line chart of Asian Paints' stock price over the past 5 years. 2. Bar chart comparing Asian Paints' key financial ratios with its competitors. 3. Table summarizing Asian Paints' key financial data for the past 5 years. Save the visualizations as image files (PNG format). The code should be able to run with the outputs of T001 and T006 directly.",
+      "reads": [
+        "T001",
+        "T006",
+        "T004"
+      ],
+      "writes": [
+        "T008"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T009",
+      "description": "Prepare a comprehensive stock analysis report on Asian Paints, including charts, tables, and comparisons.",
+      "agent": "FormatterAgent",
+      "agent_prompt": "Compile a comprehensive stock analysis report on Asian Paints (ASIANPAINT.NS) using the analysis from T005, T006, T007, and the visualizations from T008. The report should include: 1. An overview of Asian Paints' business and market position. 2. An analysis of its stock price trends and volatility. 3. A comparison of its financial performance with its competitors. 4. Charts and tables to visualize the data. Structure the report in a well-organized and visually appealing manner, ready for presentation to a client.",
+      "reads": [
+        "T005",
+        "T006",
+        "T007",
+        "T008"
+      ],
+      "writes": [
+        "T009"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T001",
+      "target": "T008"
+    },
+    {
+      "source": "T002",
+      "target": "T006"
+    },
+    {
+      "source": "T003",
+      "target": "T004"
+    },
+    {
+      "source": "T004",
+      "target": "T007"
+    },
+    {
+      "source": "T004",
+      "target": "T008"
+    },
+    {
+      "source": "T005",
+      "target": "T009"
+    },
+    {
+      "source": "T006",
+      "target": "T007"
+    },
+    {
+      "source": "T006",
+      "target": "T008"
+    },
+    {
+      "source": "T006",
+      "target": "T009"
+    },
+    {
+      "source": "T007",
+      "target": "T009"
+    },
+    {
+      "source": "T008",
+      "target": "T009"
+    }
+  ]
+}
