@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <header class="bg-white shadow-md p-4">
+        <h1 class="text-2xl font-bold text-center">Tic Tac Toe</h1>
+    </header>
+
+    <main class="container mx-auto p-8 flex-grow">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="mb-4 md:mb-0">
+                <div class="flex items-center">
+                    <span class="mr-2">Player X:</span>
+                    <span id="playerXScore" class="font-semibold">0</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-2">Player O:</span>
+                    <span id="playerOScore" class="font-semibold">0</span>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <span id="timer" class="font-semibold">00:00</span>
+            </div>
+
+            <div>
+                <button id="resetButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Reset Game</button>
+            </div>
+        </div>
+
+        <div id="gameBoard" class="grid grid-cols-3 gap-4 mt-8">
+            <!-- Game board cells will be generated here -->
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="winnerModal" class="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 hidden">
+        <div class="bg-white w-96 mx-auto mt-64 p-8 rounded shadow-lg">
+            <h2 id="winnerMessage" class="text-2xl font-bold text-center mb-4"></h2>
+            <div class="text-center">
+                <button id="closeModalButton" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white shadow-md p-4 text-center">
+        <p>&copy; 2024 Tic Tac Toe Game</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
