@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional
 import traceback
 import matplotlib
+import pandas
 from bs4 import BeautifulSoup
 import ast
 import re
@@ -27,6 +28,7 @@ SAFE_BUILTINS = {
         'Exception': Exception, 'min': min, 'max': max, 'sum': sum,
         'open': open, 'json': json, 'os': os, 'Path': Path,
         'matplotlib': matplotlib,
+        'pandas': pandas,
         '__import__': __import__
     }
 }

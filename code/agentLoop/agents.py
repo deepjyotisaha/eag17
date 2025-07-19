@@ -213,7 +213,7 @@ class AgentRunner:
             else:
                 full_prompt = self._build_prompt(system_prompt, input_data)
 
-            time.sleep(15)
+            time.sleep(30)
 
 
             logger_prompt(logger, f"🤖 Agent Runner: {agent_type} - Step {step_id} - Iteration {iteration} - FULL PROMPT", full_prompt)
