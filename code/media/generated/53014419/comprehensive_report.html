@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Asian Paints Analysis Report</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body, h1, h2, h3, h4, h5 {font-family: "Poppins", sans-serif}
+        body {font-size:16px;}
+        .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+        .w3-half img:hover{opacity:1}
+        /* Chart Container */
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+        /* Table Container */
+        .table-container {
+            overflow-x: auto;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+        /* Image Container */
+        .image-container {
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* References Section */
+        .references-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .reference-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 0.25rem;
+            border-left: 4px solid #007bff;
+        }
+
+        .reference-title {
+            font-weight: 600;
+            color: #007bff;
+        }
+
+        .reference-url {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .reference-description {
+            margin-top: 0.5rem;
+            color: #333;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Asian Paints<br>Analysis</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#introduction" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Introduction</a>
+    <a href="#business_segments" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Business Segments</a>
+    <a href="#financial_performance_analysis" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Financials</a>
+    <a href="#competitor_analysis" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Competitors</a>
+    <a href="#conclusion" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Conclusion</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Asian Paints Analysis</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Introduction -->
+  <div class="w3-container" style="margin-top:80px" id="introduction">
+    <h1 class="w3-jumbo"><b>Asian Paints</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Introduction.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Asian Paints is a leading Indian paint and decor company, established in 1942. It has grown from a small garage operation to become one of Asia\'s largest paint manufacturers, with a significant global presence. The company\'s success is rooted in its commitment to innovation, customer satisfaction, and sustainable practices. Asian Paints offers a wide range of products, including decorative paints, industrial coatings, and home decor solutions, catering to diverse customer needs. The company has a robust distribution network, serving customers in over 60 countries. Asian Paints also actively invests in research and development, introducing innovative products and solutions to stay ahead of the competition. The Indian paint industry is expected to grow significantly. Asian paints commands nearly 50% market share in the domestic paint market.</p>
+    <p><b>Key Highlights:</b></p>
+    <ul>
+        <li>Founded in 1942</li>
+        <li>One of Asia\'s largest paint manufacturers</li>
+        <li>Operates in 15 countries with 26 manufacturing plants</li>
+        <li>Commands nearly 50% market share in the domestic paint market</li>
+    </ul>
+  </div>
+
+  <!-- Business Segments -->
+  <div class="w3-container" id="business_segments" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Business Segments.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Asian Paints operates through four main business segments: Decorative, International, Industrial, and Home Decor. The Decorative business accounts for the majority of the company\'s revenue, driven by its wide range of products and services for homes and buildings. The International business caters to a wide cross-section of customers across geographies, bringing delight to millions of households. The Industrial business operates through joint ventures with PPG, serving the automotive, marine, packaging, protective coatings, powder coatings, floor coatings, and road marking coatings markets. The Home Decor business offers a complete one-stop solution to customers\' home decor needs, and includes revenue from white teak (Obgenix Software Private Limited). For the period ending March 31, 2024, the Decorative business accounted for 88.2% of revenue, while the International business accounted for a 9% share. The Industrial business accounted for 2.8% of the revenue. The Home Decor business accounted for 4% of revenue for the period.</p>
+    <p>Asian Paints product portfolio spans a wide array of offerings, including decorative paints, industrial paints, coatings, powder coatings, and car refinish coatings. This diversified range serves varied customer needs, solidifying the company\'s reputation as a global leader in the paint industry.</p>
+    <p><b>Key Highlights:</b></p>
+    <ul>
+        <li>Decorative: 88.2% of revenue</li>
+        <li>International: 9% of revenue</li>
+        <li>Industrial: 2.8% of revenue</li>
+        <li>Home Decor: 4% of revenue</li>
+    </ul>
+  </div>
+
+  <!-- Financial Performance Analysis -->
+  <div class="w3-container" id="financial_performance_analysis" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Financial Performance Analysis.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Asian Paints has demonstrated strong financial performance over the past years, with consistent revenue growth and healthy profitability margins. The company has maintained its market leadership position despite increasing competition and economic challenges. In 2024, Asian Paints projected market share is over 53%. Asian Paints\' revenue trend will be illustrated through a line chart. The Market Share of Major Paint Companies in India (2024) will be illustrated using a bar chart. These financial trends demonstrate Asian Paints\' ability to sustain growth. Asian paints revenue for 2024 was INR 36,183 Crores. Asian Paints financial strength is also reflected in the promoter shareholding, which is approximately 53%.</p>
+    <p><b>Key Financial Metrics:</b></p>
+    <ul>
+        <li>Consistent revenue growth</li>
+        <li>Healthy profitability margins</li>
+        <li>Strong market leadership</li>
+        <li>53% market share in 2024</li>
+        <li>2024 revenue = INR 36,183 Crores</li>
+        <li>Promoter shareholding: 53%</li>
+    </ul>
+        <div class="chart-container">
+        <img src="revenue_trend.png" alt="Asian Paints Revenue Trend (2019-2024)">
+    </div>
+    <div class="chart-container">
+        <img src="market_share.png" alt="Market Share of Major Paint Companies in India (2024)">
+    </div>
+    <div class="table-container">
+       No revenue data available.
+    </div>
+        <div class="table-container">
+       No market share data available.
+    </div>
+  </div>
+
+  <!-- Competitor Analysis -->
+  <div class="w3-container" id="competitor_analysis" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Competitor Analysis.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Asian Paints faces competition from several key players in the Indian paint industry. These competitors constantly strive to gain market share and establish themselves as key players in the industry. Berger Paints is the second-largest decorative paint company in India, with a significant market share of 12%. Kansai Nerolac focuses on automotive and powder coating paints, with a substantial presence in the industrial sector (7% Market Share). Akzo Nobel India is a global player with a diverse range of coatings. However, recent reports suggest that AkzoNobel is considering exiting the Indian paints business. Indigo Paints has emerged as a popular brand in recent years, specializing in decorative paints.</p>
+    <p><b>Key Competitors:</b></p>
+    <ul>
+        <li>Berger Paints</li>
+        <li>Kansai Nerolac</li>
+        <li>Akzo Nobel India</li>
+        <li>Indigo Paints</li>
+    </ul>
+        <div class="chart-container">
+        <img src="competitor_comparison.png" alt="Competitor Comparison">
+    </div>
+       <div class="table-container">
+        <p>No competitor data available.</p>
+    </div>
+  </div>
+
+  <!-- Conclusion -->
+  <div class="w3-container" id="conclusion" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Conclusion.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Asian Paints is the dominant player in the Indian paint industry, with a strong brand reputation, extensive distribution network, and diverse product portfolio. However, the company faces increasing competition from new entrants and existing players, as well as challenges related to rising raw material costs and changing consumer preferences. To maintain its market leadership, Asian Paints needs to focus on strengthening its brand image, highlighting premium offerings, expanding its distribution network, focusing on innovation and sustainability, managing raw material costs effectively, monitoring competitor activities, and exploring strategic alliances and acquisitions.</p>
+    <p><b>Recommendations:</b></p>
+    <ul>
+        <li>Strengthen brand image</li>
+        <li>Highlight premium offerings</li>
+        <li>Expand distribution network</li>
+        <li>Focus on innovation and sustainability</li>
+        <li>Manage raw material costs effectively</li>
+        <li>Monitor competitor activities</li>
+        <li>Explore strategic alliances and acquisitions</li>
+    </ul>
+  </div>
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>
