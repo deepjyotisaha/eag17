@@ -149,7 +149,7 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
     """
     start_time = time.perf_counter()
 
-    logger_json_block(logger, f"🐍 Execute Python Code Variant - Step {step_id}, iteration {iteration} - INPUTS", inputs)
+    #logger_json_block(logger, f"🐍 Execute Python Code Variant - Step {step_id}, iteration {iteration} - INPUTS", inputs)
     
     # Setup execution environment
     output_dir = Path(f"media/generated/{session_id}")
@@ -177,7 +177,7 @@ async def execute_python_code_variant(code: str, multi_mcp, session_id: str, inp
     if inputs:
         safe_globals.update(inputs)
     
-    logger_json_block(logger, f"⚡ Execute Python Code Variant - Step {step_id}, iteration {iteration} - SAFE GLOBALS", safe_globals)
+    #logger_json_block(logger, f"⚡ Execute Python Code Variant - Step {step_id}, iteration {iteration} - SAFE GLOBALS", safe_globals)
     
     try:
         # Handle async execution properly
@@ -448,7 +448,7 @@ async def run_user_code(output_data: dict, multi_mcp, session_id: str = "default
     
     log_step(f"🚀 Executor starting for session {session_id}", symbol="⚡")
     logger_step(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration}")
-    logger_json_block(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration} - INPUTS", output_data)
+    #logger_json_block(logger, f"🚀 Executor starting for session {session_id}, step {step_id}, iteration {iteration} - INPUTS", output_data)
 
     if "code_variants" in output_data:
         code_variants = output_data["code_variants"]

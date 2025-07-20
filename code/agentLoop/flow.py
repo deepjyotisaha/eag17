@@ -224,7 +224,7 @@ Profile each file separately and return details."""
         # This is where the agent output is successfully returned
         if result["success"]:
             step_output = result["output"]
-            logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Output Successful, Executing...", step_output)
+            #logger_json_block(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent Output Successful, Executing...", step_output)
 
             if context._has_executable_code_or_files(step_id, iteration, step_output):
                 logger_step(logger, f"🔄 Executing Step [{step_id}] - Iteration {iteration} - Agent returned executable code or files, executing...")

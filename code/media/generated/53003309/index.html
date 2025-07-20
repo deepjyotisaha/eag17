@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+
+<body class="bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-4">Tic Tac Toe</h1>
+        <div class="score-board flex justify-around mb-4">
+            <div class="player-1">
+                Player 1: <span id="player1-score" class="font-bold">0</span>
+            </div>
+            <div class="player-2">
+                Player 2: <span id="player2-score" class="font-bold">0</span>
+            </div>
+        </div>
+        <div class="game-board grid grid-cols-3 gap-4">
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="0"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="1"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="2"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="3"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="4"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="5"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="6"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="7"></div>
+            <div class="cell text-5xl font-bold text-center text-gray-800 hover:bg-gray-200 focus:outline-none" data-cell-index="8"></div>
+        </div>
+        <div class="reset-button text-center mt-4">
+            <button id="reset-btn" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none">Reset Game</button>
+        </div>
+        <div id="winning-message" class="modal">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="winning-message-text">Player X Wins!</p>
+          </div>
+        </div>
+    </div>
+</body>
+
+</html>
