@@ -41,15 +41,30 @@ def parse_llm_json(text: str, required_keys: list[str] = None, debug: bool = Fal
     Tries:
       1. fenced JSON
       2. balanced braces
-      3. repaired JSON
+      3. enhanced markdown cleaning
+      4. repaired JSON
     """
+    # Enhanced markdown cleaning for responses wrapped in markdown
+    cleaned_text = text.strip()
+    
+    # Remove markdown code blocks more aggressively
+    if cleaned_text.startswith("```json"):
+        cleaned_text = cleaned_text[7:]  # Remove ```json
+    elif cleaned_text.startswith("```"):
+        cleaned_text = cleaned_text[3:]  # Remove ```
+    
+    if cleaned_text.endswith("```"):
+        cleaned_text = cleaned_text[:-3]  # Remove trailing ```
+    
+    cleaned_text = cleaned_text.strip()
+    
     extractors = [
         ("fenced", extract_json_block_fenced),
         ("balanced", extract_json_block_balanced)
     ]
 
     for name, extractor in extractors:
-        raw_json = extractor(text)
+        raw_json = extractor(cleaned_text)
         if raw_json:
             try:
                 if debug: print(f"[DEBUG] Attempting {name} extraction...")
@@ -60,8 +75,22 @@ def parse_llm_json(text: str, required_keys: list[str] = None, debug: bool = Fal
             except JsonParsingError:
                 raise  # Required key missing
 
+    # Enhanced extraction: try to find JSON content between the first { and last }
+    start = cleaned_text.find("{")
+    end = cleaned_text.rfind("}")
+    
+    if start != -1 and end > start:
+        json_content = cleaned_text[start:end+1]
+        try:
+            if debug: print(f"[DEBUG] Attempting enhanced JSON extraction...")
+            return _parse_and_validate(json_content, required_keys)
+        except json.JSONDecodeError:
+            if debug: print(f"[DEBUG] Enhanced extraction failed.")
+        except JsonParsingError:
+            raise  # Required key missing
+
     # Final attempt: repair
-    raw_json = extract_json_block_balanced(text)
+    raw_json = extract_json_block_balanced(cleaned_text)
     if raw_json:
         try:
             if debug: print(f"[DEBUG] Attempting auto-repair...")

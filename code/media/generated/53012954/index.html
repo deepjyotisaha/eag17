@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="container">
+        
+<div class="grid grid-cols-3 gap-4 w-64">
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="0"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="1"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="2"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="3"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="4"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="5"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="6"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="7"></div>
+    <div class="cell border-2 border-gray-300 h-20 flex items-center justify-center text-5xl font-bold cursor-pointer" data-cell-index="8"></div>
+</div>
+
+        <div id="game-board">
+            <!-- Cells will be generated here -->
+        </div>
+
+        
+<div id="score-tracker" class="flex justify-between items-center mb-4">
+    <div class="player-x">
+        Player X: <span id="player-x-score">0</span>
+    </div>
+    <div class="player-o">
+        Player O: <span id="player-o-score">0</span>
+    </div>
+</div>
+
+        <div id="score-tracker">
+            <!-- Score will be displayed here -->
+        </div>
+
+        
+<button id="reset-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Reset Game
+</button>
+
+        <button id="reset-button">Reset Game</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<div id="winner-modal" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md">
+        <h2 id="winner-message" class="text-2xl font-bold mb-4"></h2>
+        <button id="close-modal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Close</button>
+    </div>
+</div>

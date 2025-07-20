@@ -412,9 +412,9 @@ Profile each file separately and return details."""
                 result = current_iteration_output
                 
                 # Log the iteration result
-                logger_json_block(logger, f"Execute Step: {step_id} - Iteration {iteration} Final Result", current_iteration_output)
+                #logger_json_block(logger, f"Execute Step: {step_id} - Iteration {iteration} Final Result", current_iteration_output)
             
-            logger_json_block(logger, f"✅ {step_id} Completed with {iteration} interations, Iterations Data:", iterations_data)
+            #logger_json_block(logger, f"✅ {step_id} Completed with {iteration} interations, Iterations Data:", iterations_data)
             
             # Store final iteration data
             step_data['iterations'] = iterations_data
