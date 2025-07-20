@@ -1,4 +1,3 @@
-// script.js
 
 // Game logic
 const cells = document.querySelectorAll('.cell');
@@ -13,22 +12,64 @@ let scoreO = 0;
 
 // Function to handle a cell click
 function cellClick(index) {
-    // Placeholder for cell click logic
+    if (gameBoard[index] === '' && gameActive) {
+        gameBoard[index] = currentPlayer;
+        cells[index].textContent = currentPlayer;
+        cells[index].classList.add(currentPlayer === 'X' ? 'text-blue-500' : 'text-green-500');
+        checkWinner();
+        if (gameActive) {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+    }
 }
 
 // Function to check for a winner
 function checkWinner() {
-    // Placeholder for win checking logic
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ];
+
+    for (let pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+            winner = gameBoard[a];
+            gameActive = false;
+            updateScore();
+            openModal();
+            return;
+        }
+    }
+
+    if (!gameBoard.includes('')) {
+        winner = 'draw';
+        gameActive = false;
+        openModal();
+    }
 }
 
 // Function to update the score
 function updateScore() {
-    // Placeholder for score updating logic
+    if (winner === 'X') {
+        scoreX++;
+        document.getElementById('score-x').textContent = scoreX;
+    } else if (winner === 'O') {
+        scoreO++;
+        document.getElementById('score-o').textContent = scoreO;
+    }
 }
 
 // Function to reset the game
 function resetGame() {
-    // Placeholder for game reset logic
+    currentPlayer = 'X';
+    gameBoard = ['', '', '', '', '', '', '', '', ''];
+    gameActive = true;
+    winner = null;
+    cells.forEach(cell => {
+        cell.textContent = '';
+        cell.classList.remove('text-blue-500', 'text-green-500');
+    });
 }
 
 // Add event listeners to cells
@@ -45,6 +86,11 @@ const winnerMessage = document.getElementById('winner-message');
 const closeButton = document.getElementsByClassName('close-button')[0];
 
 function openModal() {
+    if (winner === 'draw') {
+        winnerMessage.textContent = 'It\'s a draw!';
+    } else {
+        winnerMessage.textContent = `Player ${winner} wins!`;
+    }
     modal.style.display = "block";
 }
 

@@ -99,7 +99,7 @@ const winnerMessage = document.getElementById('winner-message');
 const closeModalButton = document.getElementById('close-modal');
 
 function showWinnerModal(winner) {
-    winnerMessage.textContent = winner ? winner + ' wins!' : 'It's a draw!';
+    winnerMessage.textContent = winner ? winner + ' wins!' : 'Its a draw!';
     winnerModal.classList.remove('hidden');
 }
 
