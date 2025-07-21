@@ -282,9 +282,32 @@ class AgentRunner:
                 return {"success": True, "output": result_with_metadata}
                 
             except Exception as e:
+                log_error(f"Enhanced JSON parsing failed for {agent_type}: {e}")
+                # Fallback: try to extract JSON from the response manually
+                try:
+                    # Remove markdown wrapper if present
+                    cleaned_response = response.strip()
+                    if cleaned_response.startswith("```json"):
+                        cleaned_response = cleaned_response[7:]
+                    if cleaned_response.endswith("```"):
+                        cleaned_response = cleaned_response[:-3]
+                    cleaned_response = cleaned_response.strip()
+                    
+                    # Try to find JSON content
+                    start = cleaned_response.find("{")
+                    end = cleaned_response.rfind("}")
+                    if start != -1 and end > start:
+                        json_content = cleaned_response[start:end+1]
+                        parsed_output = json.loads(json_content)
+                    else:
+                        raise Exception("No JSON content found")
+                except Exception as fallback_error:
+                    log_error(f"Fallback parsing also failed: {fallback_error}")
+                    return {"success": True, "output": {"response": response}}
+
                 # If JSON parsing fails, return raw response
-                log_error(f"JSON parsing failed for {agent_type}: {e}")
-                return {"success": True, "output": {"response": response}}
+                #log_error(f"JSON parsing failed for {agent_type}: {e}")
+                #return {"success": True, "output": {"response": response}}
             
         except Exception as e:
             log_error(f"Agent {agent_type} failed: {e}")

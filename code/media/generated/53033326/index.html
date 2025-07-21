@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <!-- CSS Styles -->
+    <!-- Add the required meta tags for SEO -->
+</head>
+<body class="bg-gray-100 font-poppins">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-4">Tic Tac Toe</h1>
+
+        <div class="score-board flex justify-around mb-4">
+            <div class="player-x">
+                Player X: <span id="player-x-score">0</span>
+            </div>
+            <div class="player-o">
+                Player O: <span id="player-o-score">0</span>
+            </div>
+        </div>
+
+        <div class="game-board grid grid-cols-3 gap-4">
+            <!-- Each cell will have an id like 'cell-0', 'cell-1', etc. -->
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-0"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-1"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-2"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-3"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-4"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-5"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-6"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-7"></div>
+            <div class="cell bg-white rounded-lg shadow-md flex items-center justify-center text-5xl font-bold" id="cell-8"></div>
+        </div>
+
+        <button id="reset-button" class="block mx-auto mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Reset Game</button>
+    </div>
+    
+    <!-- Modal for displaying the winner -->
+    <div id="winner-modal" class="modal hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center">
+        <div class="modal-content bg-white p-8 rounded-lg shadow-lg">
+            <h2 id="winner-message" class="text-2xl font-bold text-center mb-4"></h2>
+            <button id="close-modal" class="block mx-auto mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Close</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

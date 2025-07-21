@@ -1,0 +1,107 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "53115819",
+    "original_query": "I want a comprehensive report on the features for Mahindra XUV 3XO, and you must also include a detailed analysis of the luxury and safety features. Use the Report Generator Agent directly to generate charts, tables and the HTML report",
+    "file_manifest": [],
+    "created_at": "2025-07-21T16:36:59.189696",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T003"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve comprehensive information about Mahindra XUV 3XO features from the internet.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Retrieve exhaustive information about the features of the Mahindra XUV 3XO, including specifications, performance, dimensions, and any available reviews.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "'output'",
+      "cost": 0.0,
+      "start_time": "2025-07-21T16:36:59.210699",
+      "end_time": "2025-07-21T16:37:32.951722",
+      "execution_time": 33.741023
+    },
+    {
+      "id": "T002",
+      "description": "Analyze the luxury and safety features of the Mahindra XUV 3XO.",
+      "agent": "ThinkerAgent",
+      "agent_prompt": "Analyze the luxury and safety features of the Mahindra XUV 3XO based on the information retrieved in T001. Provide a detailed breakdown of each feature and its benefits, and rate them in terms of usefulness and innovation. Also describe their market value. Provide the analysis in terms of tables, bulletpoints and detailed paragraphs.",
+      "reads": [
+        "T001"
+      ],
+      "writes": [
+        "T002"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Generate a comprehensive HTML report with charts and tables for the Mahindra XUV 3XO, integrating information from T001 and the luxury/safety analysis from T002.",
+      "agent": "ReportGeneratorAgent",
+      "agent_prompt": "Generate an exhaustive HTML report detailing all the features of the Mahindra XUV 3XO. Include details from T001 about all the specifications and integrate the luxury and safety feature analysis from T002, incorporating charts and tables. Make it look professional.",
+      "reads": [
+        "T001",
+        "T002"
+      ],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "T001",
+      "target": "T002"
+    },
+    {
+      "source": "T001",
+      "target": "T003"
+    },
+    {
+      "source": "T002",
+      "target": "T003"
+    }
+  ]
+}

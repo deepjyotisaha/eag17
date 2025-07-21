@@ -1,0 +1,138 @@
+/* tictactoe.css */
+
+/* General styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px; /* Added a max-width to prevent excessive stretching on large screens */
+}
+
+/* Game board styling */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 30%); /* Changed to percentages */
+    grid-gap: 1%; /* Changed to percentage */
+    margin-top: 20px;
+    width: 100%; /* Ensure the board takes up the container's width */
+}
+
+.cell {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    padding-bottom: 100%; /* Create a square aspect ratio */
+    background-color: #fff;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+}
+
+/* Score display styling */
+.score {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.score-item {
+    font-size: 1.2em;
+}
+
+/* Reset button styling */
+.reset-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+    background-color: #367c39;
+}
+
+/* Winner modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* Show modal class */
+.show-modal {
+    display: flex;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .board {
+        grid-template-columns: repeat(3, 32%); /* Adjusted for smaller screens */
+    }
+
+    .cell {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .board {
+        grid-template-columns: repeat(3, 100px);
+    }
+
+    .cell {
+        width: 100px;
+        height: 100px;
+        font-size: 1.5em;
+        padding-bottom: 0;
+    }
+
+    .score-item {
+        font-size: 1em;
+    }
+}

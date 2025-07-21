@@ -1,0 +1,157 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "session_id": "53115250",
+    "original_query": "I want a very comprehensive report the SUV segment, sales trends, market size etc. Then details on the features for Mahindra XUV 3XO, and you must also include a detailed analysis of the luxury and safety features. Also include sales data, sales trend etc. Make sure you have tables and charts in your final HTML report. Use the Report Generator agent to egenrate the final HTML report. You dont need to use Formatter Agent. Use only Retriever and Report Generator. You are being paid $100,000, be detailed and comprehensive, as well as visually appealing",
+    "file_manifest": [],
+    "created_at": "2025-07-21T16:27:30.959457",
+    "status": "running",
+    "output_chain": {},
+    "validation_results": {
+      "is_valid": true,
+      "is_dag": true,
+      "cycles": [],
+      "disconnected_components": [],
+      "orphaned_nodes": [],
+      "root_nodes": [],
+      "leaf_nodes": [
+        "T005"
+      ],
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "nodes": [
+    {
+      "description": "Initial Query",
+      "agent": "System",
+      "status": "completed",
+      "id": "ROOT"
+    },
+    {
+      "id": "T001",
+      "description": "Retrieve comprehensive data on the overall SUV market size, sales trends (historical and projected), and key market drivers.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct an exhaustive search to gather detailed data and reports on the SUV market. Focus on market size (in terms of volume and value), historical sales trends over the past 5-10 years, projected sales trends for the next 5 years, and the key market drivers and factors influencing these trends. The output should include specific numbers, statistics, and relevant market analysis reports.",
+      "reads": [],
+      "writes": [
+        "T001"
+      ],
+      "status": "failed",
+      "output": null,
+      "error": "'output'",
+      "cost": 0.0,
+      "start_time": "2025-07-21T16:27:30.971475",
+      "end_time": "2025-07-21T16:28:03.692363",
+      "execution_time": 32.720888
+    },
+    {
+      "id": "T002",
+      "description": "Gather specific details on the Mahindra XUV 3XO, including its specifications, features, variants, and pricing.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct a detailed search to gather information on the Mahindra XUV 3XO. This should include complete specifications for all variants, a comprehensive list of features (both standard and optional), available variants, pricing information for each variant, and any available marketing materials or brochures.",
+      "reads": [],
+      "writes": [
+        "T002"
+      ],
+      "status": "running",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": "2025-07-21T16:28:08.713606",
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T003",
+      "description": "Analyze and document the luxury features of the Mahindra XUV 3XO in detail.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct a comprehensive analysis of the luxury features offered in the Mahindra XUV 3XO. Detail each luxury feature, its functionality, and its perceived value to the customer. Compare these features to those offered by competitors in the same segment. The output should be a structured report with a detailed description of each feature and comparative analysis.",
+      "reads": [],
+      "writes": [
+        "T003"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T004",
+      "description": "Analyze and document the safety features of the Mahindra XUV 3XO, including safety ratings from relevant agencies.",
+      "agent": "RetrieverAgent",
+      "agent_prompt": "Conduct a comprehensive analysis of the safety features incorporated in the Mahindra XUV 3XO. Detail each safety feature (active and passive), its functionality, and its contribution to overall vehicle safety. Include any available safety ratings from reputable agencies (e.g., Global NCAP, Euro NCAP). The output should be a structured report detailing each feature, its functionality, and any relevant safety ratings.",
+      "reads": [],
+      "writes": [
+        "T004"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    },
+    {
+      "id": "T005",
+      "description": "Generate a visually appealing and comprehensive HTML report integrating all the gathered information.",
+      "agent": "ReportGeneratorAgent",
+      "agent_prompt": "Using the data gathered from T001, T002, T003, and T004, generate a comprehensive and visually appealing HTML report. The report should include: \n1.  An overview of the SUV market, including market size, sales trends (historical and projected), and key market drivers (from T001). \n2.  Detailed information on the Mahindra XUV 3XO, including specifications, features, variants, and pricing (from T002). \n3.  A detailed analysis of the luxury features of the Mahindra XUV 3XO (from T003). \n4.  A detailed analysis of the safety features of the Mahindra XUV 3XO, including safety ratings (from T004). \n5.  Tables and charts to present sales data, market trends, and feature comparisons. The HTML should be well-structured, formatted, and optimized for readability. Make sure to add charts and tables for a visually appealing report.",
+      "reads": [
+        "T001",
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "writes": [
+        "T005"
+      ],
+      "status": "pending",
+      "output": null,
+      "error": null,
+      "cost": 0.0,
+      "start_time": null,
+      "end_time": null,
+      "execution_time": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "ROOT",
+      "target": "T001"
+    },
+    {
+      "source": "ROOT",
+      "target": "T002"
+    },
+    {
+      "source": "ROOT",
+      "target": "T003"
+    },
+    {
+      "source": "ROOT",
+      "target": "T004"
+    },
+    {
+      "source": "T001",
+      "target": "T005"
+    },
+    {
+      "source": "T002",
+      "target": "T005"
+    },
+    {
+      "source": "T003",
+      "target": "T005"
+    },
+    {
+      "source": "T004",
+      "target": "T005"
+    }
+  ]
+}

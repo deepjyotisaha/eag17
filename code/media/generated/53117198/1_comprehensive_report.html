@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Mahindra XUV 3XO Report</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+.chart-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+.table-container {
+    overflow-x: auto;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-theme-l1">Mahindra XUV 3XO Report</a>
+    <a href="#executive_summary" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Executive Summary</a>
+    <a href="#market_analysis" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Market Analysis</a>
+    <a href="#features_overview" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Features Overview</a>
+    <a href="#luxury_features" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Luxury Features</a>
+    <a href="#safety_features" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Safety Features</a>
+    <a href="#performance_analysis" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Performance Analysis</a>
+    <a href="#recommendations" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Recommendations</a>
+  </div>
+</div>
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <h4 class="w3-bar-item"><b>Menu</b></h4>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#executive_summary">Executive Summary</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#market_analysis">Market Analysis</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#features_overview">Features Overview</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#luxury_features">Luxury Features</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#safety_features">Safety Features</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#performance_analysis">Performance Analysis</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#recommendations">Recommendations</a>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
+
+  <div class="w3-row w3-padding-64" id="executive_summary">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Executive Summary</h1>
+      <p>The Mahindra XUV 3XO is a compact SUV that has recently undergone a facelift, bringing it up to date with modern design and technology. It offers a blend of style, comfort, and advanced safety features. The XUV 3XO aims to compete with other compact SUVs in the market by offering a compelling value proposition. Key highlights include its enhanced safety features, luxurious interior options, and powerful engine choices. The vehicle is designed to appeal to both urban and rural consumers looking for a versatile and reliable SUV.</p>
+      <p>This section provides a high-level overview of the Mahindra XUV 3XO, highlighting its key strengths and market positioning. It summarizes the main aspects of the car, including its design, features, safety, and target audience. The executive summary aims to provide a concise and informative snapshot of the vehicle's capabilities and overall value.</p>
+      <ul>
+        <li>Refreshed exterior design with a modern and stylish appearance.</li>
+        <li>Enhanced safety features, including a 5-star Bharat NCAP rating.</li>
+        <li>Luxurious interior options with premium materials and comfort features.</li>
+        <li>Powerful engine choices providing a blend of performance and fuel efficiency.</li>
+        <li>Advanced technology and connectivity features for an engaging driving experience.</li>
+      </ul>
+      <div class="chart-container">
+        <canvas id="marketShareChart"></canvas>
+      </div>
+      <div class="table-container">
+        <table class="w3-table w3-striped w3-bordered">
+          <thead>
+            <tr>
+              <th>Specification</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Engine</td>
+              <td>1.2L Turbo Petrol/1.5L Diesel</td>
+            </tr>
+            <tr>
+              <td>Power</td>
+              <td>129 bhp</td>
+            </tr>
+            <tr>
+              <td>Safety Rating</td>
+              <td>5-Star Bharat NCAP</td>
+            </tr>
+            <tr>
+              <td>Boot Space</td>
+              <td>364 Litres</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <div class="w3-row" id="market_analysis">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Market Analysis</h1>
+      <p>The compact SUV segment is highly competitive, with several key players vying for market share. The Mahindra XUV 3XO aims to carve out a niche by offering a compelling combination of features, safety, and value. The market is driven by increasing demand for SUVs, particularly in urban areas, and growing awareness of safety features among consumers. Key competitors include the Tata Nexon, Hyundai Venue, Maruti Brezza, and Kia Sonet. The XUV 3XO seeks to differentiate itself through its refreshed design, enhanced safety ratings, and luxurious interior options. The market trends also indicate a growing preference for automatic transmissions and connected car features, which the XUV 3XO offers.</p>
+      <p>This section analyzes the market landscape in which the Mahindra XUV 3XO operates. It identifies key competitors, market drivers, trends, and opportunities. The analysis aims to provide context for the vehicle's positioning and potential for success in the market. It also highlights the competitive advantages that the XUV 3XO offers compared to its rivals.</p>
+      <ul>
+        <li>Highly competitive compact SUV segment.</li>
+        <li>Increasing demand for SUVs in urban areas.</li>
+        <li>Growing consumer awareness of safety features.</li>
+        <li>Preference for automatic transmissions and connected car features.</li>
+        <li>Key competitors: Tata Nexon, Hyundai Venue, Maruti Brezza, Kia Sonet.</li>
+      </ul>
+      <div class="chart-container">
+        <canvas id="salesTrendChart"></canvas>
+      </div>
+      <div class="table-container">
+        <table class="w3-table w3-striped w3-bordered">
+          <thead>
+            <tr>
+              <th>Competitor</th>
+              <th>Safety Rating</th>
+              <th>Starting Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mahindra XUV 3XO</td>
+              <td>5-Star</td>
+              <td>Rs. 7.99 Lakh</td>
+            </tr>
+            <tr>
+              <td>Tata Nexon</td>
+              <td>5-Star</td>
+              <td>Rs. 7.50 Lakh</td>
+            </tr>
+            <tr>
+              <td>Hyundai Venue</td>
+              <td>4-Star</td>
+              <td>Rs. 7.00 Lakh</td>
+            </tr>
+            <tr>
+              <td>Maruti Brezza</td>
+              <td>4-Star</td>
+              <td>Rs. 8.00 Lakh</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <div class="w3-row w3-padding-64" id="features_overview">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Features Overview</h1>
+      <p>The Mahindra XUV 3XO comes packed with a host of features designed to enhance the driving experience. It includes a 10.25-inch touchscreen infotainment system, wireless smartphone connectivity, Harman Kardon 7-speaker audio system, and AdrenoX Connect technology. The car also features a panoramic sunroof, dual-zone climate control, and a cooled glovebox. Additional features include cruise control, rear AC vents, and adjustable headrests. The XUV 3XO offers a blend of convenience, comfort, and connectivity to cater to the needs of modern drivers.</p>
+      <p>This section provides a comprehensive overview of the key features available in the Mahindra XUV 3XO. It covers infotainment, comfort, convenience, and connectivity features, highlighting the technologies and amenities that make the driving experience more enjoyable and convenient. The section aims to showcase the vehicle's features to potential buyers.</p>
+      <ul>
+        <li>10.25-inch touchscreen infotainment system.</li>
+        <li>Wireless smartphone connectivity.</li>
+        <li>Harman Kardon 7-speaker audio system.</li>
+        <li>Panoramic sunroof.</li>
+        <li>Dual-zone climate control.</li>
+        <li>Cooled glovebox.</li>
+      </ul>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <div class="w3-row" id="luxury_features">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Luxury Features</h1>
+      <p>The Mahindra XUV 3XO offers a range of luxury features designed to provide a premium driving experience. The interior is adorned with soft-touch materials, leatherette seats, and a leather-wrapped steering wheel. The vehicle also features ambient lighting, a premium dashboard design, and chrome accents. The spacious cabin provides ample legroom and headroom for all passengers. These luxury features aim to elevate the overall driving experience and provide a sense of sophistication and comfort.</p>
+      <p>This section focuses on the luxury features of the Mahindra XUV 3XO, highlighting the premium materials, design elements, and comfort features that contribute to a luxurious driving experience. It emphasizes the aesthetic and tactile aspects of the interior, aiming to showcase the vehicle's attention to detail and commitment to providing a high-end experience.</p>
+      <ul>
+        <li>Soft-touch materials.</li>
+        <li>Leatherette seats.</li>
+        <li>Leather-wrapped steering wheel.</li>
+        <li>Ambient lighting.</li>
+        <li>Premium dashboard design.</li>
+        <li>Chrome accents.</li>
+      </ul>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <div class="w3-row w3-padding-64" id="safety_features">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Safety Features</h1>
+      <p>Safety is a top priority in the Mahindra XUV 3XO, with a comprehensive suite of features designed to protect occupants. The car has achieved a 5-star safety rating in Bharat NCAP crash tests. It includes six airbags, Electronic Stability Control (ESC), Anti-lock Braking System (ABS), and ISOFIX child seat mounts. The XUV 3XO also features Level 2 Advanced Driver Assistance Systems (ADAS), including adaptive cruise control, lane-keep assist, and auto emergency braking (AEB). These safety features aim to provide a secure and confident driving experience.</p>
+      <p>This section provides an in-depth look at the safety features of the Mahindra XUV 3XO, highlighting both active and passive safety systems. It emphasizes the vehicle's commitment to protecting occupants in the event of a collision and preventing accidents through advanced driver assistance technologies. The section aims to instill confidence in potential buyers regarding the vehicle's safety capabilities.</p>
+      <ul>
+        <li>5-star safety rating in Bharat NCAP crash tests.</li>
+        <li>Six airbags.</li>
+        <li>Electronic Stability Control (ESC).</li>
+        <li>Anti-lock Braking System (ABS).</li>
+        <li>ISOFIX child seat mounts.</li>
+        <li>Level 2 Advanced Driver Assistance Systems (ADAS).</li>
+      </ul>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <div class="w3-row" id="performance_analysis">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Performance Analysis</h1>
+      <p>The Mahindra XUV 3XO offers a choice of powerful and efficient engines. The 1.2L turbo petrol engine delivers 129 bhp, providing a blend of performance and fuel efficiency. The car also features multiple driving modes, allowing drivers to customize the driving experience to their preferences. The XUV 3XO offers smooth handling, responsive steering, and a comfortable ride. These performance characteristics aim to provide an engaging and enjoyable driving experience.</p>
+      <p>This section analyzes the performance characteristics of the Mahindra XUV 3XO, focusing on engine options, driving modes, handling, and ride quality. It aims to provide potential buyers with an understanding of the vehicle's capabilities on the road and its overall driving dynamics.</p>
+      <ul>
+        <li>1.2L turbo petrol engine with 129 bhp.</li>
+        <li>Multiple driving modes.</li>
+        <li>Smooth handling.</li>
+        <li>Responsive steering.</li>
+        <li>Comfortable ride.</li>
+      </ul>
+      <div class="chart-container">
+        <canvas id="enginePowerChart"></canvas>
+      </div>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <div class="w3-row w3-padding-64" id="recommendations">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Strategic Recommendations</h1>
+      <p>To enhance the market position of the Mahindra XUV 3XO, several strategic recommendations can be considered. Focus on highlighting the 5-star safety rating in marketing campaigns, emphasizing the luxurious interior and comfort features, and promoting the advanced technology and connectivity options. Expand the availability of automatic transmissions and connected car features across all variants. Offer competitive pricing and attractive financing options to appeal to budget-conscious consumers. Continuously innovate and introduce new features to stay ahead of the competition.</p>
+      <p>This section provides strategic recommendations for Mahindra to improve the market position and success of the XUV 3XO. It focuses on marketing strategies, feature enhancements, pricing considerations, and innovation opportunities. The aim is to provide actionable insights that can help Mahindra maximize the vehicle's potential in the market.</p>
+      <ul>
+        <li>Highlight 5-star safety rating in marketing campaigns.</li>
+        <li>Emphasize luxurious interior and comfort features.</li>
+        <li>Promote advanced technology and connectivity options.</li>
+        <li>Expand availability of automatic transmissions.</li>
+        <li>Offer competitive pricing and attractive financing.</li>
+        <li>Continuously innovate and introduce new features.</li>
+      </ul>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a class="w3-button w3-black" href="#">1</a>
+      <a class="w3-button w3-hover-black" href="#">2</a>
+      <a class="w3-button w3-hover-black" href="#">3</a>
+      <a class="w3-button w3-hover-black" href="#">4</a>
+      <a class="w3-button w3-hover-black" href="#">5</a>
+      <a class="w3-button w3-hover-black" href="#">»</a>
+    </div>
+  </div>
+
+  <footer id="myFooter">
+    <div class="w3-container w3-theme-l2 w3-padding-32">
+      <h4>Footer</h4>
+    </div>
+
+    <div class="w3-container w3-theme-l1">
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+  </footer>
+
+<!-- END MAIN -->
+</div>
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+
+// Chart implementations
+const marketShareChart = new Chart(document.getElementById('marketShareChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Mahindra XUV 3XO', 'Tata Nexon', 'Hyundai Venue', 'Maruti Brezza'],
+        datasets: [{
+            label: 'Market Share',
+            data: [15, 25, 20, 40],
+            backgroundColor: ['#007bff', '#28a745', '#dc3545', '#ffc107']
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Market Share of Compact SUVs'
+            }
+        }
+    }
+});
+
+const salesTrendChart = new Chart(document.getElementById('salesTrendChart'), {
+    type: 'line',
+    data: {
+        labels: ['2022', '2023', '2024', '2025'],
+        datasets: [{
+            label: 'Sales (Units)',
+            data: [120000, 135000, 150000, 165000],
+            borderColor: '#007bff',
+            backgroundColor: 'rgba(0,123,255,0.1)'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Sales Trend of Compact SUVs'
+            }
+        }
+    }
+});
+
+const enginePowerChart = new Chart(document.getElementById('enginePowerChart'), {
+    type: 'bar',
+    data: {
+        labels: ['1.2L Turbo Petrol'],
+        datasets: [{
+            label: 'Power (bhp)',
+            data: [129],
+            backgroundColor: '#007bff'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Engine Power Output'
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
